@@ -1,13 +1,8 @@
 // ==========================================================================
-// Global Imports
+// Page Imports
 // ==========================================================================
 
-@import 'base/index';
-@import 'pages/index';
-
-
-.profile,
-.view-events,
-.create-event {
-  display: none;
-}
+@import 'login';
+@import 'profile';
+@import 'view-events';
+@import 'create-event';

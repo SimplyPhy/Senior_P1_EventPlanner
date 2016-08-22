@@ -1,2 +1,9 @@
+.login {
+  color: blue; }
+
+.profile,
+.view-events,
+.create-event {
+  display: none; }
 
 /*# sourceMappingURL=app.css.map */

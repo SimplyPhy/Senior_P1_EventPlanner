@@ -1,13 +1,6 @@
 // ==========================================================================
-// Global Imports
+// Base Imports
 // ==========================================================================
 
-@import 'base/index';
-@import 'pages/index';
-
-
-.profile,
-.view-events,
-.create-event {
-  display: none;
-}
+@import 'variables';
+@import 'mixins';
