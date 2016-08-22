@@ -3,29 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <title>Event Planner</title>
+  <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
 
-<div id="happy" class="happy">
-  <p>I'll be <span class="happier">happy</span> if this works! :)</p>
-
-  <div class="happyDiv">
-    <div class="other"></div>
-    <div class="other"></div>
-    <div class="other"></div>
-  </div>
-
+<div class="login">
+  <h1>My Event Planner</h1>
+  <form>
+    <label for="name">
+      <span>What's your name? </span>
+      <input type="text" name="name" id="name">
+    </label>
+    <label for="email">
+      <span>What's your email? </span>
+      <input type="text" name="email" id="email">
+    </label>
+    <label>
+      <span>Make a password: </span>
+      <input type="password" name="password" id="password">
+    </label>
+    <ul id="password_requirements">
+      <li>Must include between 6 and 30 characters</li>
+      <li>Must include at least one capital and one lowercase letter</li>
+      <li>Must include at least one number</li>
+    </ul>
+  </form>
+  <button type="button" id="goto_profile_button">Create Profile</button>
+  <button type="button" id="login_button">Continue</button>
 </div>
 
-<div class="footer">
+<div class="profile">
+  <h1>My Profile</h1>
+  <form>
+    <label for="birthday">
+      <span>What's your birthday? </span>
+      <input type="date" name="birthday" id="birthday">
+    </label>
+    <label for="phone_number">
+      <span>What's your phone number? </span>
+      <input type="tel" name="phone_number" id="phone_number">
+    </label>
+    <label for="employer">
+      <span>Where do you work? </span>
+      <input type="text" name="employer" id="employer">
+    </label>
+    <label for="position">
+      <span>What's your position? </span>
+      <input type="text" name="position" id="position">
+    </label>
+  </form>
+</div>
 
-  <div class="footerDiv">
-    <div class="other"></div>
-    <div class="other"></div>
-    <div class="other"></div>
+<div class="view-events">
+  <h1>My Events</h1>
+  <div id="events_container">
+    <div class="event"></div> <!-- These are placeholder events...to be deleted -->
+    <div class="event"></div>
+    <div class="event"></div>
   </div>
+  <button id="add_event_button">+</button>
+</div>
 
+<div class="create-event">
+  <h2>My New Event</h2>
+  <form>
+    <label for="event_name">
+      <span>What's your event? </span>
+      <input type="text" name="event_name" id="event_name">
+    </label>
+    <label for="event_type">
+      <span>What kind of event is it? </span>
+      <input type="text" name="event_type" id="event_type">
+    </label>
+    <label for="host">
+      <span>Who's the host? </span>
+      <input type="text" name="host" id="host">
+    </label>
+    <label for="start_time">
+      <span>What time does it start? </span>
+      <input type="datetime-local" name="start_time" id="start_time">
+    </label>
+    <label for="end_time">
+      <span>What time does it end? </span>
+      <input type="datetime-local" name="end_time" id="end-time">
+    </label>
+    <label for="guests">
+      <span>Who's invited? </span>
+      <input type="text" name="guests" id="guests">
+    </label>
+    <label for="location">
+      <span>Where's it happening? </span>
+      <input type="search" name="location" id="location">
+    </label>
+    <label for="guest_message">
+      <span>Want to send your guests a message? </span>
+      <input type="text" name="guest_message" id="guest_message">
+    </label>
+  </form>
 </div>
 
 <script src="dist/js/jquery.min.js"></script>

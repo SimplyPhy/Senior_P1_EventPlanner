@@ -1,26 +1,9 @@
-.happy,
-.footer {
-  display: flex; }
+.login {
+  color: blue; }
 
-.happy p {
-  color: #276325; }
-  .happy p .happier {
-    color: #4F1A1C; }
-
-.happy .happyDiv {
-  flex-direction: column;
-  align-items: center; }
-  .happy .happyDiv .other {
-    width: 30px;
-    background: #163F2E; }
-
-.footer {
-  margin-top: auto; }
-  .footer .footerDiv {
-    flex-direction: column;
-    justify-content: space-between; }
-    .footer .footerDiv .other {
-      background: #2F0E2F;
-      width: 40px; }
+.profile,
+.view-events,
+.create-event {
+  display: none; }
 
 /*# sourceMappingURL=app.css.map */
