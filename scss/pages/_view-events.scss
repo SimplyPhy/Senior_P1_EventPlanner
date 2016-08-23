@@ -1,0 +1,11 @@
+.view-events {
+  position: relative;
+  justify-content: center;
+
+  .event {
+    height: 30px; // these are placeholders for now
+    width: 290px;
+    border: 1px solid black;
+    margin: 5px;
+  }
+}

@@ -69,9 +69,49 @@
       <div class="event"></div>
     </div>
     <button id="add_event_button">+</button>
+
+    <div class="create-event">
+      <h2>My New Event</h2>
+      <form>
+        <label for="event_name">
+          <span>What's your event? </span>
+          <input type="text" name="event_name" id="event_name">
+        </label>
+        <label for="event_type">
+          <span>What kind of event is it? </span>
+          <input type="text" name="event_type" id="event_type">
+        </label>
+        <label for="host">
+          <span>Who's the host? </span>
+          <input type="text" name="host" id="host">
+        </label>
+        <label for="start_time">
+          <span>What time does it start? </span>
+          <input type="datetime-local" name="start_time" id="start_time">
+        </label>
+        <label for="end_time">
+          <span>What time does it end? </span>
+          <input type="datetime-local" name="end_time" id="end-time">
+        </label>
+        <label for="guests">
+          <span>Who's invited? </span>
+          <input type="text" name="guests" id="guests">
+        </label>
+        <label for="location">
+          <span>Where's it happening? </span>
+          <input type="search" name="location" id="location">
+        </label>
+        <label for="guest_message">
+          <span>Want to send your guests a message? </span>
+          <input type="text" name="guest_message" id="guest_message">
+        </label>
+        <button type="button" id="create_event_button">Create Event</button>
+      </form>
+    </div>
+
   </div>
 
-  <div class="create-event">
+<!--   <div class="create-event">
     <h2>My New Event</h2>
     <form>
       <label for="event_name">
@@ -108,7 +148,7 @@
       </label>
       <button type="button" id="create_event_button">Create Event</button>
     </form>
-  </div>
+  </div> -->
 
   <script src="dist/js/jquery.min.js"></script>
   <script src="js/main.js"></script>
