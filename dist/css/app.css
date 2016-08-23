@@ -1,9 +1,50 @@
 .login {
-  color: blue; }
+  flex-direction: column;
+  display: none; }
+  .login h1 {
+    color: orange;
+    /*align-items: center;*/ }
+  .login form {
+    flex-direction: column; }
+  .login .login-buttons {
+    align-items: left; }
+  .login button {
+    width: 10em; }
 
+html {
+  overflow-x: hidden; }
+
+.login,
 .profile,
 .view-events,
 .create-event {
+  display: flex;
+  align-items: center; }
+  .login form,
+  .profile form,
+  .view-events form,
+  .create-event form {
+    display: flex; }
+  .login ul,
+  .profile ul,
+  .view-events ul,
+  .create-event ul {
+    display: flex;
+    flex-direction: column; }
+  .login label,
+  .profile label,
+  .view-events label,
+  .create-event label {
+    display: flex;
+    flex-direction: column; }
+  .login:not(.login),
+  .profile:not(.login),
+  .view-events:not(.login),
+  .create-event:not(.login) {
+    /*margin-left: 150vw;*/
+    z-index: -1; }
+
+.login {
   display: none; }
 
 /*# sourceMappingURL=app.css.map */

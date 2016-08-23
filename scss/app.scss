@@ -5,9 +5,53 @@
 @import 'base/index';
 @import 'pages/index';
 
+html {
+    overflow-x: hidden;
+    height: 100vh;
+}
 
+body {
+  display: flex;
+  height: 100%;
+}
+
+.login,
 .profile,
 .view-events,
 .create-event {
-  display: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    height: 100%;
+
+    form {
+        display: flex;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+h1 {
+    color: orange;
+}
+
+form {
+    flex-direction: column;
+}
+
+button {
+    width: 10em;
+}
+
+.login-buttons {
+    margin-right: auto;
 }
