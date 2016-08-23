@@ -1,25 +1,32 @@
-.login {
-  flex-direction: column;
-  display: none; }
-  .login h1 {
-    color: orange;
-    /*align-items: center;*/ }
-  .login form {
-    flex-direction: column; }
-  .login .login-buttons {
-    align-items: left; }
-  .login button {
-    width: 10em; }
+.view-events {
+  position: relative;
+  justify-content: center; }
+  .view-events .event {
+    height: 30px;
+    width: 290px;
+    border: 1px solid black;
+    margin: 5px; }
+
+.create-event button {
+  margin-left: auto; }
 
 html {
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  height: 100vh; }
+
+body {
+  display: flex;
+  height: 100%; }
 
 .login,
 .profile,
 .view-events,
 .create-event {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  min-height: 100vh; }
   .login form,
   .profile form,
   .view-events form,
@@ -37,14 +44,17 @@ html {
   .create-event label {
     display: flex;
     flex-direction: column; }
-  .login:not(.login),
-  .profile:not(.login),
-  .view-events:not(.login),
-  .create-event:not(.login) {
-    /*margin-left: 150vw;*/
-    z-index: -1; }
 
-.login {
-  display: none; }
+h1 {
+  color: orange; }
+
+form {
+  flex-direction: column; }
+
+button {
+  width: 10em; }
+
+.login-buttons {
+  margin-right: auto; }
 
 /*# sourceMappingURL=app.css.map */
