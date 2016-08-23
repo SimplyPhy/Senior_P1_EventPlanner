@@ -1,14 +1,25 @@
 .view-events {
-  position: relative;
-  justify-content: center; }
+  /*height: 100vh;*/
+  /*justify-content: center;*/ }
   .view-events .event {
     height: 30px;
     width: 290px;
     border: 1px solid black;
-    margin: 5px; }
+    margin: 5px 0 5px 0; }
+  .view-events button {
+    padding-right: 5px;
+    margin-left: auto; }
 
-.create-event button {
-  margin-left: auto; }
+.create-event {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: yellow;
+  opacity: 0.5; }
+  .create-event button {
+    margin-left: auto; }
 
 html {
   overflow-x: hidden;
