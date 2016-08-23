@@ -33,7 +33,7 @@ gulp.task('compileSass', function() {
 });
 
 gulp.task('watchFiles', function() {
-  gulp.watch('scss/*', ['compileSass']);
+  gulp.watch('scss/**/*', ['compileSass']);
   gulp.watch('js/*', ['concatScripts']);
 });
 
