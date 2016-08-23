@@ -5,14 +5,18 @@
 @import 'base/index';
 @import 'pages/index';
 
+/*$body-height: html*/
+
 html {
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100%;
 }
 
 body {
   display: flex;
-  height: 100%;
+  height: 80%;
+  width: 60%;
+  margin: 10% auto 0 auto;
 }
 
 .login,
@@ -23,7 +27,12 @@ body {
     align-items: center;
     flex-direction: column;
     margin: auto;
-    min-height: 100vh;
+    min-height: 100%;
+
+    @media screen and (max-width: 600px) {
+      background: lightblue;
+    }
+
 
     form {
         display: flex;
@@ -42,10 +51,13 @@ body {
 
 h1 {
     color: orange;
+    align-self: center;
 }
 
 form {
     flex-direction: column;
+    /*padding: 10%;
+    border: 1px solid black;*/ // maybe use this for desktop
 }
 
 button {

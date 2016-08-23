@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Event Planner</title>
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/app.css" />
@@ -9,8 +10,8 @@
 <body>
 
   <div class="login">
-    <h1>My Event Planner</h1>
     <form>
+      <h1>My Event Planner</h1>
       <label for="name">
         <span>What's your name? </span>
         <input type="text" name="name" id="name">
@@ -36,8 +37,8 @@
   </div>
 
   <div class="profile">
-    <h1>My Profile</h1>
     <form>
+      <h1>My Profile</h1>
       <label for="birthday">
         <span>What's your birthday? </span>
         <input type="date" name="birthday" id="birthday">
@@ -62,18 +63,20 @@
   </div>
 
   <div class="view-events">
-    <h1>My Events</h1>
-    <div id="events_container">
-      <div class="event"></div> <!-- These are placeholder events...to be deleted -->
-      <div class="event"></div>
-      <div class="event"></div>
-    </div>
-    <button id="add_event_button">+</button>
+    <form>
+      <h1>My Events</h1>
+      <div id="events_container">
+        <div class="event"></div> <!-- These are placeholder events...to be deleted -->
+        <div class="event"></div>
+        <div class="event"></div>
+      </div>
+      <button type="button" id="add_event_button">+</button>
+    </form>
   </div>
 
   <div class="create-event">
-    <h2>My New Event</h2>
     <form>
+      <h2>My New Event</h2>
       <label for="event_name">
         <span>What's your event? </span>
         <input type="text" name="event_name" id="event_name">

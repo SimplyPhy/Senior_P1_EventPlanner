@@ -1,10 +1,15 @@
 .create-event {
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
-    background: yellow;
     opacity: 0.5;
+    background: yellow;
 
     button {
         margin-left: auto;
+    }
+
+    form {
+        display: flex;
+        margin-top: 15%;
     }
 }
