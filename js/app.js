@@ -42,7 +42,8 @@ var $goto_profile_button = $('#goto_profile_button'),
     $login_button = $('#login_button'),
     $save_profile_button = $('#save_profile_button'),
     $continue_profile_button = $('#continue_profile_button'),
-    $add_event_button = $('#add_event_button');
+    $add_event_button = $('#add_event_button'),
+    $create_event_button = $('#create_event_button');
 
 
 $goto_profile_button.click(function() {
@@ -69,6 +70,10 @@ $add_event_button.click(function() {
   // $view_events needs to be disabled here
   $create_event.show();
   // need to find a way to get .create-event div above .show-events div
+});
+
+$create_event_button.click(function() {
+  $create_event.hide();
 });
 
 
