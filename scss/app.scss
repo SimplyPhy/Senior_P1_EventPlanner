@@ -10,6 +10,8 @@
 html {
     overflow-x: hidden;
     min-height: 100%;
+    font-family: 'Varela Round', sans-serif;
+    color: hsl(146, 23%, 35%);
 }
 
 body {
@@ -17,6 +19,11 @@ body {
   height: 80%;
   width: 60%;
   margin: 10% auto 0 auto;
+  background: hsl(147, 47%, 67%);
+
+  @media screen and (max-width: 600px) {
+      background: hsl(147, 47%, 67%);
+  }
 }
 
 .login,
@@ -28,11 +35,6 @@ body {
     flex-direction: column;
     margin: auto;
     min-height: 100%;
-
-    @media screen and (max-width: 600px) {
-      background: lightblue;
-    }
-
 
     form {
         display: flex;
@@ -49,15 +51,26 @@ body {
     }
 }
 
-h1 {
-    color: orange;
+h1,
+h2 {
+    color: hsl(150, 15%, 40%);
     align-self: center;
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 2rem;
 }
 
 form {
     flex-direction: column;
     /*padding: 10%;
     border: 1px solid black;*/ // maybe use this for desktop
+}
+
+label {
+  padding: 0.7rem 0 0 0;
+}
+
+li {
+  padding: 0.7rem 0 0 0;
 }
 
 button {
