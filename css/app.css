@@ -1,6 +1,8 @@
 .view-events {
   /*height: 100vh;*/
   /*justify-content: center;*/ }
+  .view-events form {
+    width: 100%; }
   .view-events .event {
     height: 30px;
     width: 90%;
@@ -36,7 +38,6 @@
 /*$body-height: html*/
 html {
   overflow-x: hidden;
-  /*overflow-y: scroll;*/
   min-height: 100%;
   font-family: 'Varela Round', sans-serif;
   color: #456e57; }
@@ -51,6 +52,12 @@ body {
   @media screen and (max-width: 699px) and (orientation: landscape) {
     body {
       margin-top: 1%; } }
+  @media screen and (max-width: 399px) and (orientation: portrait) {
+    body {
+      width: 80%; } }
+  @media screen and (min-width: 400px) and (max-width: 800px) and (orientation: portrait) {
+    body {
+      width: 80%; } }
 
 .login,
 .profile,
@@ -60,7 +67,9 @@ body {
   align-items: center;
   flex-direction: column;
   padding-bottom: 1.5rem;
-  min-height: 100%; }
+  min-height: 100%;
+  width: 100%;
+  /*overflow-y: scroll;*/ }
   .login form,
   .profile form,
   .view-events form,
@@ -85,10 +94,10 @@ h2 {
   align-self: center;
   font-family: 'Oleo Script Swash Caps', cursive;
   font-size: 2rem; }
-  @media screen and (max-width: 410px) and (orientation: portrait) {
+  @media screen and (max-width: 399px) and (orientation: portrait) {
     h1,
     h2 {
-      font-size: 1.5rem; } }
+      font-size: 2rem; } }
 
 form {
   flex-direction: column;
@@ -107,13 +116,15 @@ li {
 button {
   width: 40%;
   margin-top: 1rem;
-  background: white; }
-  @media screen and (max-width: 410px) and (orientation: portrait) {
+  background: white;
+  padding: .5rem .2rem;
+  border-radius: .5rem; }
+  @media screen and (max-width: 399px) and (orientation: portrait) {
     button {
       font-size: .8rem; }
       button.goto-profile-button {
         width: 50%; } }
-  @media screen and (min-width: 400px) and (max-width: 599px) and (orientation: portrait) {
+  @media screen and (min-width: 400px) and (max-width: 800px) and (orientation: portrait) {
     button {
       /*font-size: .8rem;*/ }
       button.goto-profile-button {

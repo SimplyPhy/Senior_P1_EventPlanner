@@ -9,7 +9,6 @@
 
 html {
     overflow-x: hidden;
-    /*overflow-y: scroll;*/
     min-height: 100%;
     font-family: 'Varela Round', sans-serif;
     color: hsl(146, 23%, 35%);
@@ -27,6 +26,14 @@ body {
       margin-top: 1%;
   }
 
+  @media #{$small-port} {
+      width: 80%;
+  }
+
+  @media #{$medium-port} {
+      width: 80%;
+  }
+
 }
 
 .login,
@@ -38,6 +45,8 @@ body {
     flex-direction: column;
     padding-bottom: 1.5rem;
     min-height: 100%;
+    width: 100%;
+    /*overflow-y: scroll;*/
 
     form {
         display: flex;
@@ -62,7 +71,7 @@ h2 {
     font-size: 2rem;
 
     @media #{$small-port} {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
 }
 
@@ -88,6 +97,8 @@ button {
     width: 40%;
     margin-top: 1rem;
     background: white;
+    padding: .5rem .2rem;
+    border-radius: .5rem;
 
     @media #{$small-port} {
         font-size: .8rem;
