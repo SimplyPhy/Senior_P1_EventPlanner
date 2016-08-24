@@ -9,6 +9,7 @@
 
 html {
     overflow-x: hidden;
+    /*overflow-y: scroll;*/
     min-height: 100%;
     font-family: 'Varela Round', sans-serif;
     color: hsl(146, 23%, 35%);
@@ -16,14 +17,16 @@ html {
 
 body {
   display: flex;
+  justify-content: space-around;
   height: 80%;
   width: 60%;
   margin: 10% auto 0 auto;
   background: hsl(147, 47%, 67%);
 
-  @media screen and (max-width: 600px) {
-      background: hsl(147, 47%, 67%);
+  @media #{$small-land} {
+      margin-top: 1%;
   }
+
 }
 
 .login,
@@ -33,7 +36,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: auto;
+    padding-bottom: 1.5rem;
     min-height: 100%;
 
     form {
@@ -57,6 +60,10 @@ h2 {
     align-self: center;
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
+
+    @media #{$small-port} {
+      font-size: 1.5rem;
+    }
 }
 
 form {
@@ -69,14 +76,37 @@ label {
   padding: 0.7rem 0 0 0;
 }
 
+input {
+  margin-top: 0.2rem;
+}
+
 li {
   padding: 0.7rem 0 0 0;
 }
 
 button {
-    width: 10em;
+    width: 40%;
+    margin-top: 1rem;
+    background: white;
+
+    @media #{$small-port} {
+        font-size: .8rem;
+
+        &.goto-profile-button {
+          width: 50%
+        }
+    }
+
+    @media #{$medium-port} {
+        /*font-size: .8rem;*/
+
+        &.goto-profile-button {
+          width: 50%
+        }
+    }
 }
 
 .login-buttons {
-    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
 }

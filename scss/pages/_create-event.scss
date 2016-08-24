@@ -1,7 +1,11 @@
 .create-event {
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0; left: 0; /*bottom: 0;*/ right: 0;
     background: hsl(147, 47%, 42%); //when clicked, create-event should temp change the background of view events
+
+    h2 {
+        color: hsl(147, 47%, 67%);
+    }
 
     button {
         margin-left: auto;
@@ -10,5 +14,10 @@
     form {
         display: flex;
         margin-top: 10%;
+        justify-content: space-between;
+
+        @media #{$small-land} {
+            margin-top: 1%;
+        }
     }
 }

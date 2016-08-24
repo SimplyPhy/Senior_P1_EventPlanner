@@ -12,37 +12,45 @@
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    background: white; }
+    /*background: white;*/ }
 
 .create-event {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  /*bottom: 0;*/
   right: 0;
   background: #399d66; }
+  .create-event h2 {
+    color: #83d2a7; }
   .create-event button {
     margin-left: auto; }
   .create-event form {
     display: flex;
-    margin-top: 10%; }
+    margin-top: 10%;
+    justify-content: space-between; }
+    @media screen and (max-width: 699px) and (orientation: landscape) {
+      .create-event form {
+        margin-top: 1%; } }
 
 /*$body-height: html*/
 html {
   overflow-x: hidden;
+  /*overflow-y: scroll;*/
   min-height: 100%;
   font-family: 'Varela Round', sans-serif;
   color: #456e57; }
 
 body {
   display: flex;
+  justify-content: space-around;
   height: 80%;
   width: 60%;
   margin: 10% auto 0 auto;
   background: #83d2a7; }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 699px) and (orientation: landscape) {
     body {
-      background: #83d2a7; } }
+      margin-top: 1%; } }
 
 .login,
 .profile,
@@ -51,7 +59,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: auto;
+  padding-bottom: 1.5rem;
   min-height: 100%; }
   .login form,
   .profile form,
@@ -77,6 +85,10 @@ h2 {
   align-self: center;
   font-family: 'Oleo Script Swash Caps', cursive;
   font-size: 2rem; }
+  @media screen and (max-width: 410px) and (orientation: portrait) {
+    h1,
+    h2 {
+      font-size: 1.5rem; } }
 
 form {
   flex-direction: column;
@@ -86,13 +98,29 @@ form {
 label {
   padding: 0.7rem 0 0 0; }
 
+input {
+  margin-top: 0.2rem; }
+
 li {
   padding: 0.7rem 0 0 0; }
 
 button {
-  width: 10em; }
+  width: 40%;
+  margin-top: 1rem;
+  background: white; }
+  @media screen and (max-width: 410px) and (orientation: portrait) {
+    button {
+      font-size: .8rem; }
+      button.goto-profile-button {
+        width: 50%; } }
+  @media screen and (min-width: 400px) and (max-width: 599px) and (orientation: portrait) {
+    button {
+      /*font-size: .8rem;*/ }
+      button.goto-profile-button {
+        width: 50%; } }
 
 .login-buttons {
-  margin-right: auto; }
+  display: flex;
+  justify-content: space-between; }
 
 /*# sourceMappingURL=app.css.map */
