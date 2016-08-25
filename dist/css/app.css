@@ -63,7 +63,9 @@ html {
   overflow-x: hidden;
   min-height: 100%;
   font-family: 'Varela Round', sans-serif;
-  color: #456e57; }
+  color: #456e57;
+  background-image: url("/img/body-background.jpg");
+  background-repeat: repeat; }
 
 body {
   display: flex;
@@ -77,10 +79,17 @@ body {
       margin-top: 1%; } }
   @media screen and (max-width: 399px) and (orientation: portrait) {
     body {
-      width: 80%; } }
+      width: 80%;
+      margin-top: 5%; } }
   @media screen and (min-width: 400px) and (max-width: 800px) and (orientation: portrait) {
     body {
       width: 80%; } }
+  @media screen and (min-width: 1050px) and (orientation: landscape) {
+    body {
+      border: 1px solid rgba(131, 210, 167, 0.2);
+      padding: 3.5rem 0 2.5rem 0;
+      border-radius: 2rem 5rem;
+      box-shadow: inset 0px 0px 39px -10px rgba(0, 0, 0, 0.75), 0px 0px 15px 0px rgba(0, 0, 0, 0.5); } }
 
 .login,
 .profile,
@@ -113,10 +122,15 @@ body {
 
 h1,
 h2 {
-  color: #577566;
+  color: rgba(87, 117, 102, 0.8);
   align-self: center;
   font-family: 'Oleo Script Swash Caps', cursive;
-  font-size: 2rem; }
+  font-size: 2rem;
+  text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
+  border-radius: 2rem;
+  box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
+  padding: 1rem;
+  margin-bottom: 1rem; }
   @media screen and (max-width: 399px) and (orientation: portrait) {
     h1,
     h2 {
@@ -142,9 +156,9 @@ button {
   background: white;
   padding: .5rem .2rem;
   border-radius: .5rem;
-  box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
-  background: linear-gradient(170deg, white 30%, #e5f6ec 70%);
-  text-shadow: -0.5px -1px 0px rgba(190, 202, 196, 0.8); }
+  box-shadow: 0px 0px 4px rgba(50, 50, 50, 0.75);
+  background: linear-gradient(170deg, white 30%, #f0faf4 60%);
+  color: #4c6759; }
   @media screen and (max-width: 399px) and (orientation: portrait) {
     button {
       font-size: .8rem; }
