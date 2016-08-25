@@ -28,10 +28,19 @@ body {
 
   @media #{$small-port} {
       width: 80%;
+      margin-top: 5%;
   }
 
   @media #{$medium-port} {
       width: 80%;
+  }
+
+  @media #{$large-land} {
+      border: 1px solid hsla(147, 47%, 67%, 0.2);
+      padding: 3rem 0 1.5rem 0;
+      border-radius: 2rem 5rem;
+      box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
+      0px 0px 15px 0px rgba(0,0,0,0.5);
   }
 
 }
@@ -69,6 +78,7 @@ h2 {
     align-self: center;
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
+    margin-bottom: 1rem;
 
     @media #{$small-port} {
       font-size: 2rem;
@@ -99,9 +109,9 @@ button {
     background: white;
     padding: .5rem .2rem;
     border-radius: .5rem;
-    box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
-    background: linear-gradient(170deg, rgb(255, 255, 255) 30%, hsl(147, 47%, 93%) 70%);
-    text-shadow: -0.5px -1px 0px hsla(147, 10%, 77%, 0.8); // needs to be adjusted
+    box-shadow: 0px 0px 4px rgba(50, 50, 50, 0.75);
+    background: linear-gradient(170deg, rgb(255, 255, 255) 30%, hsl(147, 47%, 96%) 60%);
+    color: hsl(150, 15%, 35%);
 
     @media #{$small-port} {
         font-size: .8rem;
