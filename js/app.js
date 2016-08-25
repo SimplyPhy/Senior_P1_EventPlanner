@@ -66,9 +66,10 @@ $continue_profile_button.click(function() {
   $view_events.show();
 });
 
-$add_event_button.click(function() {
+$add_event_button.click(function(evt) {
   // $view_events needs to be disabled here
   $create_event.show();
+  evt.preventDefault();
   // need to find a way to get .create-event div above .show-events div
 });
 

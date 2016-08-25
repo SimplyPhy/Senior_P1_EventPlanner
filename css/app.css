@@ -1,20 +1,43 @@
+.profile form {
+  width: 100%; }
+
 .view-events {
   /*height: 100vh;*/
   /*justify-content: center;*/ }
   .view-events form {
-    width: 100%; }
+    width: 100%;
+    display: flex;
+    align-items: center; }
   .view-events .event {
     height: 30px;
     width: 90%;
     border: 1px solid black;
-    margin: 5px 0 5px 0; }
-  .view-events button {
-    /*padding-right: 5px;*/
+    margin: 5px auto 5px auto; }
+
+.events-container {
+  width: 100%; }
+
+.add-event-button {
+  /*background-image: url("img/add-event-button.png");*/
+  /*margin-right: 10%;*/
+  padding: 0;
+  /*width: 0;*/
+  margin-left: auto;
+  margin-right: 5%;
+  /*    margin-right: 20px;
     margin-left: auto;
+    padding: 0;
+    margin-top: 0.5rem;
+    font-size: 5rem;
+
+    // create circle
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    /*background: white;*/ }
+
+    @media screen and (max-width: 399px) and (orientation: portrait) {
+        font-size: 2rem;
+    };*/ }
 
 .create-event {
   position: absolute;
@@ -118,7 +141,10 @@ button {
   margin-top: 1rem;
   background: white;
   padding: .5rem .2rem;
-  border-radius: .5rem; }
+  border-radius: .5rem;
+  box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+  background: linear-gradient(170deg, white 30%, #e5f6ec 70%);
+  text-shadow: -0.5px -1px 0px rgba(190, 202, 196, 0.8); }
   @media screen and (max-width: 399px) and (orientation: portrait) {
     button {
       font-size: .8rem; }

@@ -3,23 +3,45 @@
     /*justify-content: center;*/
     form {
         width: 100%;
+        display: flex;
+        align-items: center;
     }
 
     .event {
         height: 30px; // these are placeholders for now
         width: 90%;
         border: 1px solid black;
-        margin: 5px 0 5px 0;
+        margin: 5px auto 5px auto;
     }
+}
 
-    button {
-        /*padding-right: 5px;*/
-        margin-left: auto;
+.events-container {
+    width: 100%;
+}
 
-        // create circle
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        /*background: white;*/
-    }
+.add-event-button {
+
+    /*background-image: url("img/add-event-button.png");*/
+
+    /*margin-right: 10%;*/
+    padding: 0;
+    /*width: 0;*/
+    margin-left: auto;
+    margin-right: 5%;
+
+
+/*    margin-right: 20px;
+    margin-left: auto;
+    padding: 0;
+    margin-top: 0.5rem;
+    font-size: 5rem;
+
+    // create circle
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    @media #{$small-port} {
+        font-size: 2rem;
+    };*/
 }
