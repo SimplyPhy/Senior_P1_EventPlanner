@@ -12,6 +12,9 @@ html {
     min-height: 100%;
     font-family: 'Varela Round', sans-serif;
     color: hsl(146, 23%, 35%);
+    background-image: url('/img/body-background.jpg');
+    background-repeat: repeat;
+
 }
 
 body {
@@ -37,7 +40,7 @@ body {
 
   @media #{$large-land} {
       border: 1px solid hsla(147, 47%, 67%, 0.2);
-      padding: 3rem 0 1.5rem 0;
+      padding: 3.5rem 0 2.5rem 0;
       border-radius: 2rem 5rem;
       box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
       0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -74,16 +77,27 @@ body {
 
 h1,
 h2 {
-    color: hsl(150, 15%, 40%);
+    color: hsla(150, 15%, 40%, 0.8);
     align-self: center;
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
+    text-shadow: -.2px -.2px 0.1px hsla(147, 50%, 30%, 0.9), .2px .2px 1px hsla(100, 50%, 90%, 0.8),
+                  0 0 1px hsla(147, 50%, 90%, 0.8);
+
+    border-radius: 2rem;
+    box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
+    inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.8),
+    0px 0px 10px 5px hsla(147, 47%, 74%, 0.8);
+
+    padding: 1rem;
+
     margin-bottom: 1rem;
 
     @media #{$small-port} {
       font-size: 2rem;
     }
 }
+
 
 form {
     flex-direction: column;
