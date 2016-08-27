@@ -77,6 +77,36 @@ $create_event_button.click(function() {
   $create_event.hide();
 });
 
+// ==========================================================================
+// Form Validation
+// ==========================================================================
+
+// email
+var reqNum = new RegExp('[0-9]'),
+    reqLow = new RegExp('[a-z]'),
+    reqUpp = new RegExp('[A-Z]');
+
+var $password             = $('#password'),
+    $validation_length    = $('#validation_length'),
+    $validation_case      = $('#validation_case'),
+    $validation_uppercase = $('#validation_uppercase'),
+    $validation_lowercase = $('#validation_lowercase'),
+    $validation_number    = $('#validation_number');
+
+$password.on('focus', function(evt) {
+  $password.css('background', 'hsl(120, 96%, 90%)');
+});
+
+$password.on('blur', function(evt) {
+  $password.css('background', 'hsl(359, 96%, 90%)');
+});
+
+$password.on('input', function(evt) {
+
+});
+
+
+
 
 // call on page load
 hidePages();

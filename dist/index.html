@@ -15,7 +15,7 @@
       <h1>My Event Planner</h1>
       <label for="name">
         <span>What's your name? </span>
-        <input type="text" name="name" id="name">
+        <input type="name" name="name" id="name">
       </label>
       <label for="email">
         <span>What's your email? </span>
@@ -26,9 +26,12 @@
         <input type="password" name="password" id="password">
       </label>
       <ul id="password_requirements">
-        <li>Must include between 6 and 30 characters</li>
-        <li>Must include at least one capital and one lowercase letter</li>
-        <li>Must include at least one number</li>
+        <li id="validation_length">Must include between 6 and 30 characters</li>
+        <li id="validation_case">
+          Must include at least <span id="validation_uppercase">one capital</span> and
+          <span id="validation_lowercase">one lowercase letter</span>
+        </li>
+        <li id="validation_number">Must include at least one number</li>
       </ul>
       <div class="login-buttons">
         <button type="button" id="goto_profile_button" class="goto-profile-button">Create Profile</button>
@@ -114,7 +117,8 @@
     </form>
   </div>
 
-  <script src="dist/js/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
   <!-- <script src="dist/js/app.min.js"></script> -->
 </body>

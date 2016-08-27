@@ -150,7 +150,10 @@ label {
   padding: 0.7rem 0 0 0; }
 
 input {
-  margin-top: 0.2rem; }
+  margin-top: 0.2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem; }
 
 li {
   padding: 0.7rem 0 0 0; }
