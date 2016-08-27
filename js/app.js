@@ -81,23 +81,67 @@ $create_event_button.click(function() {
 // Form Validation
 // ==========================================================================
 
-// email
-var reqNum = new RegExp('[0-9]'),
-    reqLow = new RegExp('[a-z]'),
-    reqUpp = new RegExp('[A-Z]');
+/* Variable Assignments
+=====================================*/
 
-var $password             = $('#password'),
-    $validation_length    = $('#validation_length'),
-    $validation_case      = $('#validation_case'),
-    $validation_uppercase = $('#validation_uppercase'),
-    $validation_lowercase = $('#validation_lowercase'),
-    $validation_number    = $('#validation_number');
+// Bools
+var first_focus = true;
+
+// RegEx
+var reqNum    = new RegExp('[0-9]'),
+    reqLow    = new RegExp('[a-z]'),
+    reqUpp    = new RegExp('[A-Z]'),
+    reqEmail  = new RegExp('^\S+@\S+[\.][0-9a-z]+$');
+
+// Password Requirements
+var $password               = $('#password'),
+    $validation_length      = $('#validation_length'),
+    $validation_case        = $('#validation_case'),
+    $validation_uppercase   = $('#validation_uppercase'),
+    $validation_lowercase   = $('#validation_lowercase'),
+    $validation_number      = $('#validation_number'),
+    $password_requirements  = $('#password_requirements'),
+    $incomplete_span,
+    $complete_span;
+
+// HTML injection
+var $incomplete_symbol =
+      "<span id='incomplete_symbol' class='incomplete-symbol' style='color:hsl(0, 0%, 0%)'>" +
+      "&#10044   </span>",
+    $complete_symbol =
+      "<span id='complete_symbol' class='complete-symbol' style='color:hsl(180, 96%, 70%)'>" +
+      "&#10048   </span>";
+
+/* Defaults
+=====================================*/
+
+$validation_length.prepend($incomplete_symbol);
+$validation_case.prepend($incomplete_symbol);
+$validation_number.prepend($incomplete_symbol);
+$incomplete_span = $('.incomplete-symbol');
+
+$validation_length.prepend($complete_symbol);
+$validation_case.prepend($complete_symbol);
+$validation_number.prepend($complete_symbol);
+$complete_span = $('.complete-symbol');
+$complete_span.hide();
+
+/* Interactions
+=====================================*/
 
 $password.on('focus', function(evt) {
-  $password.css('background', 'hsl(120, 96%, 90%)');
+  if(first_focus) {
+    $incomplete_span.attr('style', 'color:hsl(359, 96%, 70%)');
+    first_focus = false;
+  }
+  $complete_span.hide();
+  $incomplete_span.show();
+  $password.css('background', 'hsl(180, 96%, 90%)');
 });
 
 $password.on('blur', function(evt) {
+  $incomplete_span.hide();
+  $complete_span.show();
   $password.css('background', 'hsl(359, 96%, 90%)');
 });
 

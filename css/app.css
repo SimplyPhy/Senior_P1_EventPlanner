@@ -1,43 +1,24 @@
 .profile form {
   width: 100%; }
 
-.view-events {
-  /*height: 100vh;*/
-  /*justify-content: center;*/ }
-  .view-events form {
-    width: 100%;
-    display: flex;
-    align-items: center; }
-  .view-events .event {
-    height: 30px;
-    width: 90%;
-    border: 1px solid black;
-    margin: 5px auto 5px auto; }
+.view-events form {
+  width: 100%;
+  display: flex;
+  align-items: center; }
+
+.view-events .event {
+  height: 30px;
+  width: 90%;
+  border: 1px solid black;
+  margin: 5px auto 5px auto; }
 
 .events-container {
   width: 100%; }
 
 .add-event-button {
-  /*background-image: url("img/add-event-button.png");*/
-  /*margin-right: 10%;*/
   padding: 0;
-  /*width: 0;*/
   margin-left: auto;
-  margin-right: 5%;
-  /*    margin-right: 20px;
-    margin-left: auto;
-    padding: 0;
-    margin-top: 0.5rem;
-    font-size: 5rem;
-
-    // create circle
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-
-    @media screen and (max-width: 399px) and (orientation: portrait) {
-        font-size: 2rem;
-    };*/ }
+  margin-right: 5%; }
 
 .create-event {
   position: absolute;
@@ -60,6 +41,7 @@
 
 /*$body-height: html*/
 html {
+  display: flex;
   overflow-x: hidden;
   min-height: 100%;
   font-family: 'Varela Round', sans-serif;
@@ -74,7 +56,7 @@ body {
   justify-content: space-around;
   height: 80%;
   width: 60%;
-  margin: 10% auto 0 auto;
+  margin: auto;
   background: #83d2a7; }
   @media screen and (max-width: 699px) and (orientation: landscape) {
     body {
@@ -120,7 +102,8 @@ body {
   .view-events label,
   .create-event label {
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    margin-top: 0.5rem; }
 
 h1,
 h2 {
@@ -162,8 +145,8 @@ button {
   width: 40%;
   margin-top: 1rem;
   background: white;
-  padding: .5rem .2rem;
-  border-radius: .5rem;
+  padding: 0.8rem 0.2rem;
+  border-radius: 0.5rem;
   box-shadow: 0px 0px 4px rgba(50, 50, 50, 0.75);
   background: linear-gradient(170deg, white 30%, #f0faf4 60%);
   color: #4c6759; }
