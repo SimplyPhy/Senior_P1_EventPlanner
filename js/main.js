@@ -199,7 +199,7 @@ $password.on('blur', function(evt) {
 
 $password.on('input', function(evt) {
   if (!state_length) {
-    if ($password.val().length > 6 && $password.val().length < 30) {
+    if ($password.val().length >= 6 && $password.val().length <= 30) {
       state_length = true;
       completeValidationPassword('length');
     }
