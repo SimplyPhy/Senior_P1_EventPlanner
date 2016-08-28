@@ -269,10 +269,11 @@ $password.on('input', function(evt) {
     }
   }
 
-  if (!state_password)
+  if (!state_password) {
     if (state_length && state_case && state_number) {
       state_password = true;
       $password.css('background', 'hsl(180, 96%, 90%)');
+    }
   } else {
     if (!state_length || !state_case || !state_number) {
       state_password = false;
