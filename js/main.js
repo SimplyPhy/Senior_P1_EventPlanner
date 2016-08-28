@@ -99,27 +99,84 @@ var $password               = $('#password'),
     $incomplete_span,
     $complete_span;
 
+// Password Requirements State
+var state_length = false,
+    state_case = false,
+    state_upperCase = false,
+    state_lowerCase = false,
+    state_number = false,
+    state_password = false;
+
 // HTML injection
-var $incomplete_symbol =
-      "<span id='incomplete_symbol' class='incomplete-symbol' style='color:hsl(0, 0%, 0%)'>" +
-      "&#10044   </span>",
-    $complete_symbol =
-      "<span id='complete_symbol' class='complete-symbol' style='color:hsl(180, 96%, 70%)'>" +
-      "&#10048   </span>";
+function $incomplete_symbol(portion) {
+  return "<span id='incomplete_symbol_" + portion + "' class='incomplete-symbol' style='color:hsl(0, 0%, 0%)'>" +
+  "&#10044   </span>";
+};
+
+function $complete_symbol(portion) {
+  return "<span id='complete_symbol_" + portion + "' class='complete-symbol' style='color:hsl(180, 96%, 70%)'>" +
+  "&#10048   </span>";
+};
 
 /* Defaults
 =====================================*/
 
-$validation_length.prepend($incomplete_symbol);
-$validation_case.prepend($incomplete_symbol);
-$validation_number.prepend($incomplete_symbol);
-$incomplete_span = $('.incomplete-symbol');
+// Establish incomplete symbols and class selection
+function incompleteValidationPassword (portion) {
+  if (!portion) {
+    $validation_length.prepend($incomplete_symbol('length'));
+    $validation_case.prepend($incomplete_symbol('case'));
+    $validation_number.prepend($incomplete_symbol('number'));
+    $incomplete_span = $('.incomplete-symbol');
+  } else {
 
-$validation_length.prepend($complete_symbol);
-$validation_case.prepend($complete_symbol);
-$validation_number.prepend($complete_symbol);
-$complete_span = $('.complete-symbol');
-$complete_span.hide();
+    // Set individual params for incomplete symbol showing
+    if (portion === 'length') {
+      $('#complete_symbol_length').hide();
+      $('#incomplete_symbol_length').show();
+      state_length = false;
+    } else if (portion === 'case') {
+      $('#complete_symbol_case').hide();
+      $('#incomplete_symbol_case').show();
+      state_case = false;
+    } else if (portion === 'number') {
+      $('#complete_symbol_number').hide();
+      $('#incomplete_symbol_number').show();
+      state_number = false;
+    }
+  }
+};
+
+// Establish complete symbols and class selection
+function completeValidationPassword (portion) {
+  if (!portion) {
+    $validation_length.prepend($complete_symbol('length'));
+    $validation_case.prepend($complete_symbol('case'));
+    $validation_number.prepend($complete_symbol('number'));
+    $complete_span = $('.complete-symbol');
+    $complete_span.hide();
+  } else{
+
+    // Set individual params for complete symbol showing
+    if (portion === 'length') {
+      $('#incomplete_symbol_length').hide();
+      $('#complete_symbol_length').show();
+      state_length = true;
+    } else if (portion === 'case') {
+      $('#incomplete_symbol_case').hide();
+      $('#complete_symbol_case').show();
+      state_case = true;
+    } else if (portion === 'number') {
+      $('#incomplete_symbol_number').hide();
+      $('#complete_symbol_number').show();
+      state_number = true;
+    }
+  }
+};
+
+// Instantiate validation settings
+incompleteValidationPassword();
+completeValidationPassword();
 
 /* Interactions
 =====================================*/
@@ -127,20 +184,101 @@ $complete_span.hide();
 $password.on('focus', function(evt) {
   if(first_focus) {
     $incomplete_span.attr('style', 'color:hsl(359, 96%, 70%)');
+    $password.css('background', 'hsl(359, 96%, 90%)');
+    $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
+    $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
     first_focus = false;
+
   }
-  $complete_span.hide();
-  $incomplete_span.show();
-  $password.css('background', 'hsl(180, 96%, 90%)');
+  // if i notify when something is wrong on blur, then deactivate that here
 });
 
 $password.on('blur', function(evt) {
-  $incomplete_span.hide();
-  $complete_span.show();
-  $password.css('background', 'hsl(359, 96%, 90%)');
+  // maybe notify if something is wrong
 });
 
 $password.on('input', function(evt) {
+  if (!state_length) {
+    if ($password.val().length > 6 && $password.val().length < 30) {
+      state_length = true;
+      completeValidationPassword('length');
+    }
+  } else {
+    if ($password.val().length < 6 || $password.val().length > 30) {
+      state_length = false;
+      incompleteValidationPassword('length');
+    }
+  }
+
+  if (!state_case) {
+
+    if (!state_lowerCase) {
+      if (reqLow.test($password.val())) {
+        state_lowerCase = true;
+        $validation_lowercase.css('color', 'hsl(146, 23%, 35%)');
+      }
+    } else {
+      if (!reqLow.test($password.val())) {
+        state_lowerCase = false;
+        $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
+      }
+    }
+
+    if (!state_upperCase) {
+      if (reqUpp.test($password.val())) {
+        state_upperCase = true;
+        $validation_uppercase.css('color', 'hsl(146, 23%, 35%)');
+      }
+    } else {
+      if (!reqUpp.test($password.val())) {
+        state_upperCase = false;
+        $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
+      }
+    }
+
+    if (state_upperCase && state_lowerCase) {
+      state_case = true;
+      completeValidationPassword('case');
+    }
+
+  } else {
+
+    if (!reqLow.test($password.val())) {
+        state_lowerCase = false;
+        $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
+    }
+    if (!reqUpp.test($password.val())) {
+        state_upperCase = false;
+        $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
+    }
+    if (!state_upperCase || !state_lowerCase) {
+      state_case = false;
+      incompleteValidationPassword('case');
+    }
+  }
+
+  if (!state_number) {
+    if (reqNum.test($password.val())) {
+      state_number = true;
+      completeValidationPassword('number');
+    }
+  } else {
+    if (!reqNum.test($password.val())) {
+      state_number = false;
+      incompleteValidationPassword('number');
+    }
+  }
+
+  if (!state_password)
+    if (state_length && state_case && state_number) {
+      state_password = true;
+      $password.css('background', 'hsl(180, 96%, 90%)');
+  } else {
+    if (!state_length || !state_case || !state_number) {
+      state_password = false;
+      $password.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
 
 });
 
