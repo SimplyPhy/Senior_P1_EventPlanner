@@ -217,7 +217,7 @@ $name.on('input change', function() {
 
 $email.on('focus', function() {
   // Length value is checked first incase auto-fill has been used
-  if ($name.val().length === 0) {
+  if ($email.val().length === 0) {
     if (first_focus_email) {
       $email.css('background', 'hsl(359, 96%, 90%)');
       first_focus_email = false;

@@ -65,6 +65,8 @@ body {
 
     form {
         display: flex;
+        flex-direction: column;
+        width: 70%;             // this will need changes via media-queries
     }
 
     ul {
@@ -76,6 +78,7 @@ body {
         display: flex;
         flex-direction: column;
         margin-top: 0.5rem;
+        padding: 0.7rem 0 0 0;
     }
 }
 
@@ -103,17 +106,6 @@ h2 {
     @media #{$small-port} {
       font-size: 2rem;
     }
-}
-
-
-form {
-    flex-direction: column;
-    /*padding: 10%;
-    border: 1px solid black;*/ // maybe use this for desktop
-}
-
-label {
-  padding: 0.7rem 0 0 0;
 }
 
 input {
