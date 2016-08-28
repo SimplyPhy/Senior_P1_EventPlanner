@@ -158,3 +158,16 @@ button {
     display: flex;
     justify-content: space-between;
 }
+
+// Chrome autofill fix
+@-webkit-keyframes autofill {
+    to {
+        color: hsl(146, 23%, 35%);
+        background: hsl(180, 96%, 90%);
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}

@@ -165,4 +165,13 @@ button {
   display: flex;
   justify-content: space-between; }
 
+@-webkit-keyframes autofill {
+  to {
+    color: #456e57;
+    background: #cdfefe; } }
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both; }
+
 /*# sourceMappingURL=app.css.map */

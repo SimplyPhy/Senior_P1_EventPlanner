@@ -79,18 +79,24 @@ $create_event_button.click(function() {
 /* Variable Assignments
 =====================================*/
 
+// Input Fields
+var $name     = $('#name'),
+    $email    = $('#email'),
+    $password = $('#password');
+
 // Bools
-var first_focus = true;
+var first_focus_name = true,
+    first_focus_email = true,
+    first_focus_pass = true;
 
 // RegEx
 var reqNum    = new RegExp('[0-9]'),
     reqLow    = new RegExp('[a-z]'),
     reqUpp    = new RegExp('[A-Z]'),
-    reqEmail  = new RegExp('^\S+@\S+[\.][0-9a-z]+$');
+    reqEmail  = new RegExp('^\\S+@\\S+[\\.][0-9a-z]+$');
 
 // Password Requirements
-var $password               = $('#password'),
-    $validation_length      = $('#validation_length'),
+var $validation_length      = $('#validation_length'),
     $validation_case        = $('#validation_case'),
     $validation_uppercase   = $('#validation_uppercase'),
     $validation_lowercase   = $('#validation_lowercase'),
@@ -99,13 +105,15 @@ var $password               = $('#password'),
     $incomplete_span,
     $complete_span;
 
-// Password Requirements State
-var state_length = false,
-    state_case = false,
+// Requirements State
+var state_name      = false,
+    state_email     = false,
+    state_length    = false,
+    state_case      = false,
     state_upperCase = false,
     state_lowerCase = false,
-    state_number = false,
-    state_password = false;
+    state_number    = false,
+    state_password  = false;
 
 // HTML injection
 function $incomplete_symbol(portion) {
@@ -181,13 +189,65 @@ completeValidationPassword();
 /* Interactions
 =====================================*/
 
+$name.on('focus', function() {
+  // Length value is checked first incase auto-fill has been used
+  if ($name.val().length === 0) {
+    if (first_focus_name) {
+      $name.css('background', 'hsl(359, 96%, 90%)');
+      first_focus_name = false;
+    }
+  } else if (first_focus_name === true) {
+    first_focus_name = false;
+  }
+});
+
+$name.on('input change', function() {
+  if (!state_name) {
+    if ($name.val().length > 0) {
+      $name.css('background', 'hsl(180, 96%, 90%)');
+      state_name = true;
+    }
+  } else {
+    if (!$name.val()) {
+      $name.css('background', 'hsl(359, 96%, 90%)');
+      state_name = false;
+    }
+  }
+});
+
+$email.on('focus', function() {
+  // Length value is checked first incase auto-fill has been used
+  if ($name.val().length === 0) {
+    if (first_focus_email) {
+      $email.css('background', 'hsl(359, 96%, 90%)');
+      first_focus_email = false;
+    }
+  } else if (first_focus_email === true) {
+    first_focus_email = false;
+  }
+});
+
+$email.on('input', function() {
+  if (!state_email) {
+    if (reqEmail.test($email.val())) {
+      $email.css('background', 'hsl(180, 96%, 90%)');
+      state_email = true;
+    }
+  } else {
+    if (!reqEmail.test($email.val())) {
+      $email.css('background', 'hsl(359, 96%, 90%)');
+      state_email = false;
+    }
+  }
+});
+
 $password.on('focus', function(evt) {
-  if(first_focus) {
+  if (first_focus_pass) {
     $incomplete_span.attr('style', 'color:hsl(359, 96%, 70%)');
     $password.css('background', 'hsl(359, 96%, 90%)');
     $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
     $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
-    first_focus = false;
+    first_focus_pass = false;
 
   }
   // if i notify when something is wrong on blur, then deactivate that here
@@ -284,7 +344,20 @@ $password.on('input', function(evt) {
 });
 
 
-
+// Jquery addon
+$.fn.allchange = function (callback) {
+    var me = this;
+    var last = "";
+    var infunc = function () {
+        var text = $(me).val();
+        if (text != last) {
+            last = text;
+            callback();
+        }
+        setTimeout(infunc, 100);
+    }
+    setTimeout(infunc, 100);
+};
 
 // call on page load
 hidePages();
