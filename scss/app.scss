@@ -14,7 +14,23 @@ html {
     font-family: 'Varela Round', sans-serif;
     color: hsl(146, 23%, 35%);
 
+
     @media #{$large-land} {
+      background-image: url('../img/body-background.jpg');
+      background-repeat: repeat;
+    }
+
+    @media #{$large-port} {
+      background-image: url('../img/body-background.jpg');
+      background-repeat: repeat;
+    }
+
+    @media #{$medium-port} {
+      background-image: url('../img/body-background.jpg');
+      background-repeat: repeat;
+    }
+
+    @media #{$medium-land} {
       background-image: url('../img/body-background.jpg');
       background-repeat: repeat;
     }
@@ -37,8 +53,29 @@ body {
       margin-top: 5%;
   }
 
+  @media #{$small-land} {
+      width: 80%;
+      margin-top: 5%;
+  }
+
   @media #{$medium-port} {
       width: 80%;
+
+      border: 1px solid hsla(147, 47%, 67%, 0.2);
+      padding: 3.5rem 0 2.5rem 0;
+      border-radius: 2rem 5rem;
+      box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
+      0px 0px 15px 0px rgba(0,0,0,0.5);
+  }
+
+  @media #{$medium-land} {
+      width: 80%;
+
+      border: 1px solid hsla(147, 47%, 67%, 0.2);
+      padding: 3.5rem 0 2.5rem 0;
+      border-radius: 2rem 5rem;
+      box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
+      0px 0px 15px 0px rgba(0,0,0,0.5);
   }
 
   @media #{$large-land} {
@@ -47,6 +84,16 @@ body {
       border-radius: 2rem 5rem;
       box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
       0px 0px 15px 0px rgba(0,0,0,0.5);
+  }
+
+  @media #{$large-port} {
+      border: 1px solid hsla(147, 47%, 67%, 0.2);
+      padding: 3.5rem 0 2.5rem 0;
+      border-radius: 2rem 5rem;
+      box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
+      0px 0px 15px 0px rgba(0,0,0,0.5);
+
+      width: 75%;
   }
 
 }
@@ -66,7 +113,15 @@ body {
     form {
         display: flex;
         flex-direction: column;
-        width: 70%;             // this will need changes via media-queries
+        width: 70%;
+
+        @media #{$small-port} {
+          width: 100%;
+        }
+
+        @media #{$medium-port} {
+          width: 75%;
+        }
     }
 
     ul {
@@ -79,6 +134,11 @@ body {
         flex-direction: column;
         margin-top: 0.5rem;
         padding: 0.7rem 0 0 0;
+
+        @media screen and (max-height: 499px) and (orientation: portrait) {
+          margin-top: 0.3rem;
+          padding-top: 0.5rem;
+        }
     }
 }
 
@@ -101,11 +161,19 @@ h2 {
       0px 0px 10px 5px hsla(147, 47%, 74%, 0.8);
 
       padding: 1rem;
-    }
+    };
 
     @media #{$small-port} {
       font-size: 2rem;
-    }
+    };
+
+    @media screen and (min-width: 370px) and (max-width: 399px) and (orientation: portrait) {
+      font-size: 2.4rem;
+    };
+
+    @media screen and (max-height: 499px) and (orientation: portrait) {
+      margin-bottom: 0.2rem;
+    };
 }
 
 input {

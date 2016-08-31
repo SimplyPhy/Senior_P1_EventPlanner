@@ -8,10 +8,12 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create();
 
 gulp.task('concatScripts', function() {
-  return gulp.src([
-      'js/jquery.min.js',
-      'js/main.js'
-    ])
+  return gulp.src(
+    'js/**/*.js'
+    // [
+    //   'js/jquery.min.js',
+    //   'js/main.js' ]
+      )
     .pipe(maps.init())
     .pipe(concat('app.js'))
     .pipe(maps.write('./'))
