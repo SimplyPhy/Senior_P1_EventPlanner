@@ -1,21 +1,45 @@
+@media screen and (max-height: 499px) and (orientation: portrait) {
+  .view-events h1 {
+    margin-bottom: 0.5rem; } }
+
 .view-events form {
   width: 100%;
   display: flex;
   align-items: center; }
 
 .view-events .event {
-  height: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /*flex-flow: row wrap;*/
+  /* This is the same as direction+wrap */
   width: 90%;
-  border: 1px solid black;
-  margin: 5px auto 5px auto; }
+  background: #69c994;
+  border-radius: 1.5rem;
+  box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
+  padding: 0.5rem 1rem 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  /*@media screen and (max-width: 399px) and (orientation: portrait) {*/
+  /*}*/ }
+  .view-events .event div {
+    flex: 1 100%;
+    text-align: center; }
+  .view-events .event .event-name {
+    font-size: 1.2rem;
+    font-weight: 900;
+    padding-bottom: 0.5rem; }
+  .view-events .event .event-host,
+  .view-events .event .event-guests-container {
+    flex: 1 auto;
+    order: 1; }
 
 .events-container {
   width: 100%; }
 
 .add-event-button {
   padding: 0;
-  margin-left: auto;
-  margin-right: 5%; }
+  margin: 1rem 5% 0 auto; }
 
 .create-event {
   position: absolute;
@@ -160,6 +184,7 @@ body {
 
 h1,
 h2 {
+  font-weight: 300;
   color: rgba(87, 117, 102, 0.8);
   align-self: center;
   font-family: 'Oleo Script Swash Caps', cursive;

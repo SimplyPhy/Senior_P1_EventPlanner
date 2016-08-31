@@ -10,9 +10,9 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 // Pages
 // ==========================================================================
 
-var $login = $('.login'),
-    $profile = $('.profile'),
-    $view_events = $('.view-events'),
+var $login        = $('.login'),
+    $profile      = $('.profile'),
+    $view_events  = $('.view-events'),
     $create_event = $('.create-event');
 
 var $pages = [
@@ -38,12 +38,12 @@ function showPages () {
 // Buttons and Navigation
 // ==========================================================================
 
-var $goto_profile_button = $('#goto_profile_button'),
-    $login_button = $('#login_button'),
-    $save_profile_button = $('#save_profile_button'),
-    $continue_profile_button = $('#continue_profile_button'),
-    $add_event_button = $('#add_event_button'),
-    $create_event_button = $('#create_event_button');
+var $goto_profile_button      = $('#goto_profile_button'),
+    $login_button             = $('#login_button'),
+    $save_profile_button      = $('#save_profile_button'),
+    $continue_profile_button  = $('#continue_profile_button'),
+    $add_event_button         = $('#add_event_button'),
+    $create_event_button      = $('#create_event_button');
 
 
 $goto_profile_button.click(function() {
@@ -78,6 +78,65 @@ $create_event_button.click(function() {
 });
 
 // ==========================================================================
+// New Event
+// ==========================================================================
+
+// Event Inputs
+var $event_name     = $('#event_name'),
+    $event_type     = $('#event_type'),
+    $event_host     = $('#host'),
+    $event_start    = $('#start_time'),     // This will come form jquery calendar
+    $event_end      = $('#end_time'),       // This will come form jquery calendar
+    $event_guests   = $('#guests'),         // This value will become more dynamic
+    $event_location = $('#location'),       // This will come from Google API
+    $event_message  = $('#guest_message');
+
+// New Event Variables
+var $events_container = $('#events_container'),
+    eventId = 0,
+    eventData = [],
+    guests = [],      // This value will need to be established by before eventContainerContent is run
+    eventDiv,
+    currentEventDiv;
+
+function eventContainerContent() {
+  eventData.push([$event_name.val(),
+                  $event_type.val(),
+                  $event_host.val(),
+                  $event_start.val(),
+                  $event_end.val(),
+                  $event_message.val(),
+                  $event_guests.val(),
+                  $event_location.val()
+  ]);
+
+  eventDiv =  "<div class='event' id='eventNum"+eventId+"'>" +
+                "<div class='event-name'>"+$event_name.val()+"</div>" +
+                "<div class='event-type' style='display: none;'>"+$event_type.val()+"</div>" +
+                "<div class='event-host' style='display: none;'>"+$event_host.val()+"</div>" +
+                "<div class='event-time'>" +
+                  "<div class='event-start'>"+$event_start.val()+"</div>" +
+                  "<div class='event-end' style='display: none;'>"+$event_end.val()+"</div>" +
+                "</div>" +
+                "<div class='event-message' style='display: none;'>"+$event_message.val()+"</div>" +
+                "<div class='event-guests-container' style='display: none;'>" +
+                  "<div class='event-guests-names'>"+$event_guests.val()+"</div>" +
+                  "<div class='event-guests-count'>"+guests.length+" Guests</div>" +
+                "</div>" +
+                "<div class='event-location' style='display: none;'>"+$event_location.val()+"</div>" +
+              "</div>";
+  eventId++;
+  return eventDiv;
+}
+
+$create_event_button.click(function() {
+  currentEventDiv = eventContainerContent();
+  $events_container.append(currentEventDiv);
+
+});
+
+
+// ==========================================================================
 // Form Validation
 // ==========================================================================
 
@@ -90,9 +149,9 @@ var $name     = $('#name'),
     $password = $('#password');
 
 // Bools
-var first_focus_name = true,
+var first_focus_name  = true,
     first_focus_email = true,
-    first_focus_pass = true;
+    first_focus_pass  = true;
 
 // RegEx
 var reqNum    = new RegExp('[0-9]'),
@@ -349,22 +408,13 @@ $password.on('input', function(evt) {
 });
 
 
-// Jquery addon
-$.fn.allchange = function (callback) {
-    var me = this;
-    var last = "";
-    var infunc = function () {
-        var text = $(me).val();
-        if (text != last) {
-            last = text;
-            callback();
-        }
-        setTimeout(infunc, 100);
-    }
-    setTimeout(infunc, 100);
-};
-
 // call on page load
 hidePages();
-$login.show();
+$view_events.show();
+// $login.show();
+
+
+
+
+
 //# sourceMappingURL=app.js.map

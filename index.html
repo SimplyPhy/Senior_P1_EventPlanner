@@ -14,15 +14,15 @@
     <form>
       <h1>My Event Planner</h1>
       <label for="name">
-        <span>What's your name? </span>
+        <span>What's your name?* </span>
         <input type="name" name="name" id="name" autocomplete="on">
       </label>
       <label for="email">
-        <span>What's your email? </span>
+        <span>What's your email?* </span>
         <input type="text" name="email" id="email" autocomplete="on">
       </label>
       <label>
-        <span>Make a password: </span>
+        <span>Make a password:* </span>
         <input type="password" name="password" id="password">
       </label>
       <ul id="password_requirements">
@@ -70,9 +70,25 @@
     <form>
       <h1>My Events</h1>
       <div id="events_container" class="events-container">
-        <div class="event"></div> <!-- These are placeholder events...to be deleted -->
-        <div class="event"></div>
-        <div class="event"></div>
+
+        <!-- placeholder div -->
+        <div class="event" id="eventNum">
+          <div class="event-name">Example Name</div>
+          <div class="event-type" style="display: none;">Example Event Type</div>
+          <div class="event-host">Host: Lily</div>
+          <div class="event-time" style="display: none;">
+            <div class="event-start" style="display: none;">Example Event Start</div>
+            <div class="event-end" style="display: none;">Example Event End</div>
+          </div>
+          <div class="event-message" style="display: none;">This is an example event guest message!</div>
+          <div class="event-guests-container">
+            <div class="event-guests-names" style="display: none;">Guest1, Guest2, Guest3</div>
+            <div class="event-guests-count">3 Guests</div>
+          </div>
+          <div class="event-location" style="display: none;">Example Location</div>
+        </div>
+        <!-- end placeholder div -->
+
       </div>
       <input type="image" id="add_event_button" class="add-event-button" src="img/add-event-button.png">
     </form>
@@ -80,37 +96,37 @@
 
   <div class="create-event">
     <form>
-      <h2>My New Event</h2>
+      <h2>My New Event*</h2>
       <label for="event_name">
-        <span>What's your event? </span>
+        <span>What's your event?* </span>
         <input type="text" name="event_name" id="event_name">
       </label>
       <label for="event_type">
-        <span>What kind of event is it? </span>
+        <span>What kind of event is it?* </span>
         <input type="text" name="event_type" id="event_type">
       </label>
       <label for="host">
-        <span>Who's the host? </span>
+        <span>Who's the host?* </span>
         <input type="text" name="host" id="host">
       </label>
       <label for="start_time">
-        <span>What time does it start? </span>
+        <span>What time does it start?* </span>
         <input type="datetime-local" name="start_time" id="start_time">
       </label>
       <label for="end_time">
-        <span>What time does it end? </span>
-        <input type="datetime-local" name="end_time" id="end-time">
+        <span>What time does it end?* </span>
+        <input type="datetime-local" name="end_time" id="end_time">
       </label>
       <label for="guests">
-        <span>Who's invited? </span>
+        <span>Who's invited?* </span>
         <input type="text" name="guests" id="guests">
       </label>
       <label for="location">
-        <span>Where's it happening? </span>
+        <span>Where's it happening?* </span>
         <input type="text" name="location" id="location">
       </label>
       <label for="guest_message">
-        <span>Want to send your guests a message? </span>
+        <span>Want to send your guests a message? (optional) </span>
         <input type="text" name="guest_message" id="guest_message">
       </label>
       <button type="button" id="create_event_button">Create Event</button>

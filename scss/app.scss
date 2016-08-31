@@ -9,10 +9,10 @@
 
 html {
   display: flex;
-    overflow-x: hidden;
-    min-height: 100%;
-    font-family: 'Varela Round', sans-serif;
-    color: hsl(146, 23%, 35%);
+  overflow-x: hidden;
+  min-height: 100%;
+  font-family: 'Varela Round', sans-serif;
+  color: hsl(146, 23%, 35%);
 
 
     @media #{$large-land} {
@@ -144,6 +144,7 @@ body {
 
 h1,
 h2 {
+  font-weight: 300;
     color: hsla(150, 15%, 40%, 0.8);
     align-self: center;
     font-family: 'Oleo Script Swash Caps', cursive;

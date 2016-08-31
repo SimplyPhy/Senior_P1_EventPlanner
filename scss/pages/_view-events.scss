@@ -1,5 +1,11 @@
 .view-events {
 
+    @media screen and (max-height: 499px) and (orientation: portrait) {
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+    }
+
 
     form {
         width: 100%;
@@ -8,10 +14,42 @@
     }
 
     .event {
-        height: 30px; // these are placeholders for now
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        /*flex-flow: row wrap;*/  /* This is the same as direction+wrap */
+
+        div {
+            flex: 1 100%;
+            text-align: center;
+        }
+
         width: 90%;
-        border: 1px solid black;
-        margin: 5px auto 5px auto;
+        background: hsl(147, 47%, 60%);
+
+        border-radius: 1.5rem;
+        box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
+        inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.8),
+        0px 0px 10px 5px hsla(147, 47%, 74%, 0.8);
+
+        padding: 0.5rem 1rem 0.8rem 1rem;
+        margin-bottom: 0.5rem;
+
+        .event-name {
+            font-size: 1.2rem;
+            font-weight: 900;
+
+            padding-bottom: 0.5rem
+        }
+
+        /*@media #{$small-port} {*/
+            .event-host,
+            .event-guests-container {
+                flex: 1 auto;
+                order:1;
+            }
+        /*}*/
     }
 }
 
@@ -21,6 +59,5 @@
 
 .add-event-button {
     padding: 0;
-    margin-left: auto;
-    margin-right: 5%;
+    margin: 1rem 5% 0 auto;
 }
