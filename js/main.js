@@ -40,10 +40,12 @@ var $goto_profile_button      = $('#goto_profile_button'),
     $add_event_button         = $('#add_event_button'),
     $create_event_button      = $('#create_event_button');
 
+var firstInput;
 
 $goto_profile_button.click(function() {
   $login.hide();
   $profile.show();
+  setAutofocus();
 });
 
 $login_button.click(function() {
@@ -64,16 +66,26 @@ $continue_profile_button.click(function() {
 $add_event_button.click(function(evt) {
   // $view_events needs to be disabled here
   $create_event.show();
+  setAutofocus();
   evt.preventDefault();
-  // need to find a way to get .create-event div above .show-events div
 });
 
 $create_event_button.click(function() {
   $create_event.hide();
 });
 
+function setAutofocus() {
+  if ($create_event.is(':visible')) {
+    firstInput = $create_event.find(':input').filter(':visible:first');
+  } else {
+    firstInput = $('form').find(':input').filter(':visible:first');
+  }
+
+  firstInput.focus();
+}
+
 // ==========================================================================
-// New Event
+// Create New Event
 // ==========================================================================
 
 // Event Inputs
@@ -402,12 +414,12 @@ $password.on('input', function(evt) {
 
 });
 
-
 // call on page load
 hidePages();
-$view_events.show();
-// $login.show();
-
+// $view_events.show();
+$login.show();
+// $create_event.show();
+setAutofocus();
 
 
 
