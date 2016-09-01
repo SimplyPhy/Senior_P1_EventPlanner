@@ -1,5 +1,8 @@
 .view-events {
 
+    min-height: 100%;
+    width: 100%;
+
     @media screen and (max-height: 499px) and (orientation: portrait) {
         h1 {
             margin-bottom: 0.5rem;
@@ -18,6 +21,8 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
+        background: hsl(147, 47%, 60%);
+        width: 90%;
         /*flex-flow: row wrap;*/  /* This is the same as direction+wrap */
 
         div {
@@ -25,8 +30,6 @@
             text-align: center;
         }
 
-        width: 90%;
-        background: hsl(147, 47%, 60%);
 
         border-radius: 1.5rem;
         box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),

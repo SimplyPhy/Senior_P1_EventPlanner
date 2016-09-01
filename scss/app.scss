@@ -106,12 +106,10 @@ body {
     align-items: center;
     flex-direction: column;
     padding-bottom: 1.5rem;
-    min-height: 100%;
-    width: 100%;
     /*overflow-y: scroll;*/
 
     form {
-        display: flex;
+        /*display: flex;*/
         flex-direction: column;
         width: 70%;
 
@@ -142,8 +140,7 @@ body {
     }
 }
 
-h1,
-h2 {
+h1 {
   font-weight: 300;
     color: hsla(150, 15%, 40%, 0.8);
     align-self: center;
