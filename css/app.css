@@ -28,7 +28,7 @@
     /*flex-flow: row wrap;*/
     /* This is the same as direction+wrap */
     border-radius: 1.5rem;
-    box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
+    box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);
     padding: 0.5rem 1rem 0.8rem 1rem;
     margin-bottom: 0.5rem;
     /*@media screen and (max-width: 399px) and (orientation: portrait) {*/
@@ -55,7 +55,7 @@
 .create-event {
   position: absolute;
   top: 0;
-  left: 30%;
+  left: calc(30% - 1rem);
   right: 0;
   background: #399d66;
   width: 40%;
@@ -186,7 +186,7 @@ body {
   .profile form,
   .view-events form,
   .create-event form {
-    /*display: flex;*/
+    text-align: center;
     flex-direction: column;
     width: 70%; }
     @media screen and (max-width: 399px) and (orientation: portrait) {
@@ -206,7 +206,8 @@ body {
   .view-events ul,
   .create-event ul {
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    text-align: left; }
   .login label,
   .profile label,
   .view-events label,
@@ -214,7 +215,8 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 0.5rem;
-    padding: 0.7rem 0 0 0; }
+    padding: 0.7rem 0 0 0;
+    text-align: left; }
     @media screen and (max-height: 499px) and (orientation: portrait) {
       .login label,
       .profile label,
@@ -224,6 +226,7 @@ body {
         padding-top: 0.5rem; } }
 
 h1 {
+  display: inline-flex;
   font-weight: 300;
   color: rgba(87, 117, 102, 0.8);
   align-self: center;
@@ -234,7 +237,7 @@ h1 {
   @media screen and (min-width: 1050px) and (orientation: landscape) {
     h1 {
       border-radius: 2rem;
-      box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
+      box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);
       padding: 1rem; } }
   @media screen and (max-width: 399px) and (orientation: portrait) {
     h1 {

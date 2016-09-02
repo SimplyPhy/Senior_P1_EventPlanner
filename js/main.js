@@ -414,6 +414,7 @@ $password.on('input', function(evt) {
 
 });
 
+
 // call on page load
 hidePages();
 // $view_events.show();

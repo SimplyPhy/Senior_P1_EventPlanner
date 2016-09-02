@@ -109,7 +109,7 @@ body {
     /*overflow-y: scroll;*/
 
     form {
-        /*display: flex;*/
+        text-align: center;
         flex-direction: column;
         width: 70%;
 
@@ -125,6 +125,7 @@ body {
     ul {
         display: flex;
         flex-direction: column;
+        text-align: left;
     }
 
     label {
@@ -132,6 +133,7 @@ body {
         flex-direction: column;
         margin-top: 0.5rem;
         padding: 0.7rem 0 0 0;
+        text-align: left;
 
         @media screen and (max-height: 499px) and (orientation: portrait) {
           margin-top: 0.3rem;
@@ -141,7 +143,8 @@ body {
 }
 
 h1 {
-  font-weight: 300;
+    display: inline-flex;
+    font-weight: 300;
     color: hsla(150, 15%, 40%, 0.8);
     align-self: center;
     font-family: 'Oleo Script Swash Caps', cursive;
@@ -155,8 +158,8 @@ h1 {
     @media #{$large-land} {
       border-radius: 2rem;
       box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
-      inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.8),
-      0px 0px 10px 5px hsla(147, 47%, 74%, 0.8);
+      inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.6),
+      0px 0px 10px 5px hsla(147, 47%, 74%, 0.6);
 
       padding: 1rem;
     };

@@ -1,6 +1,6 @@
 .create-event {
     position: absolute;
-    top: 0; left: 30%; right: 0;
+    top: 0; left: calc(30% - 1rem); right: 0;
     background: hsl(147, 47%, 42%);
     width: 40%;
     height: calc(80vh - 3.3rem);
