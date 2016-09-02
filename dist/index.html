@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Event Planner</title>
   <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="jquery_ui/jquery-ui.min.css">
   <link rel="stylesheet" href="css/app.css" />
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700|Varela+Round" rel="stylesheet" />
 </head>
@@ -114,10 +115,41 @@
         <span>When does your event start?* </span>
         <input type="text" name="start_time" id="start_time">
       </label>
-      <label for="end_time">
-        <span>When does it end?* </span>
-        <input type="text" name="end_time" id="end_time">
-      </label>
+      <div id="start_selection" class="time-selection">
+        <select name="start_hour_select" id="start_hour_select" class="hour-select">
+          <option value="0">12:</option><option value="1">1:</option><option value="2">2:</option>
+          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+        </select>
+        <select name="start_minute_select" id="start_minute_select" class="minute-select">
+          <option value="0">00</option><option value="15">15</option>
+          <option value="30">30</option><option value="45">45</option>
+        </select>
+        <select name="start_ampm_select" id="start_ampm_select" class="ampm-select">
+          <option value="am">am</option><option value="pm">pm</option>
+        </select>
+      </div>
+
+        <label for="end_time">
+          <span>When does it end?* </span>
+          <input type="text" name="end_time" id="end_time">
+        </label>
+      <div id="end_selection" class="time-selection">
+        <select name="end_hour_select" id="end_hour_select" class="hour-select">
+          <option value="0">12:</option><option value="1">1:</option><option value="2">2:</option>
+          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+        </select>
+        <select name="end_minute_select" id="end_minute_select" class="minute-select">
+          <option value="0">00</option><option value="15">15</option>
+          <option value="30">30</option><option value="45">45</option>
+        </select>
+        <select name="end_ampm_select" id="end_ampm_select" class="ampm-select">
+          <option value="am">am</option><option value="pm">pm</option>
+        </select>
+      </div>
 
       <label for="guests">
         <span>Who's invited?* </span>
@@ -136,7 +168,7 @@
   </div>
 
   <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
+  <script src="jquery_ui/jquery-ui.min.js"></script>
   <script src="js/main.js"></script>
   <!-- <script src="dist/js/app.min.js"></script> -->
 </body>

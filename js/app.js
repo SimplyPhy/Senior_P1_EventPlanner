@@ -100,18 +100,39 @@ function setAutofocus() {
 }
 
 // ==========================================================================
-// Create New Event
+// Create New Event Page
 // ==========================================================================
 
 // Event Inputs
 var $event_name     = $('#event_name'),
     $event_type     = $('#event_type'),
     $event_host     = $('#host'),
-    $event_start    = $('#start_time'),     // This will come form jquery calendar
-    $event_end      = $('#end_time'),       // This will come form jquery calendar
+    $event_start    = $('#start_time'),
+    $event_start_hour = $('#start_hour_select'),
+    $event_hour_select = $('.hour-select'),
+    $event_start_minute = $('#start_minute_select'),
+    $event_start_ampm = $('#start_ampm_select'),
+    $event_end      = $('#end_time'),
+    $event_end_hour = $('#end_hour_select'),
+    $event_end_minute = $('#end_minute_select'),
+    $event_end_ampm = $('#end_ampm_select'),
     $event_guests   = $('#guests'),         // This value will become more dynamic
     $event_location = $('#location'),       // This will come from Google API
     $event_message  = $('#guest_message');
+
+$event_start.datepicker();
+$event_start_hour.selectmenu();
+$event_start_minute.selectmenu();
+$event_start_ampm.selectmenu();
+$event_end.datepicker();
+$event_end_hour.selectmenu();
+$event_end_minute.selectmenu();
+$event_end_ampm.selectmenu();
+
+$event_hour_select
+  .selectmenu('menuWidget')
+  .addClass('overflow');
+
 
 // New Event Variables
 var $events_container = $('#events_container'),
@@ -156,8 +177,6 @@ $create_event_button.click(function() {
   $events_container.append(currentEventDiv);
 
 });
-
-$event_start.datepicker();
 
 
 // ==========================================================================

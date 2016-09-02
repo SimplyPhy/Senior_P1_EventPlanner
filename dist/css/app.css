@@ -67,14 +67,14 @@
   padding: 0.5rem 1rem 0.8rem 1rem; }
   .create-event h2 {
     color: rgba(87, 117, 102, 0.8);
+    /*color: hsl(147, 47%, 67%);*/
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
-    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
-    /*color: hsl(147, 47%, 67%);*/
     background: #83d2a7;
     width: 57%;
     margin: auto;
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8); }
     @media screen and (min-width: 1050px) and (orientation: landscape) {
       .create-event h2 {
         border-radius: 2rem;
@@ -102,6 +102,14 @@
     @media screen and (max-width: 699px) and (orientation: landscape) {
       .create-event form {
         margin-top: 1%; } }
+
+.overflow {
+  height: 8.5rem; }
+
+.time-selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
 
 /*$body-height: html*/
 html {
