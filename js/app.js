@@ -157,6 +157,8 @@ $create_event_button.click(function() {
 
 });
 
+$event_start.datepicker();
+
 
 // ==========================================================================
 // Form Validation

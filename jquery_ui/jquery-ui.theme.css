@@ -8,7 +8,7 @@
  *
  * http://api.jqueryui.com/category/theming/
  *
- * To view and modify this theme, visit http://jqueryui.com/themeroller/?scope=&folderName=south-street&cornerRadiusShadow=10px&offsetLeftShadow=-12px&offsetTopShadow=-12px&thicknessShadow=12px&opacityShadow=20&bgImgOpacityShadow=95&bgTextureShadow=highlight_hard&bgColorShadow=cccccc&opacityOverlay=90&bgImgOpacityOverlay=15&bgTextureOverlay=inset_soft&bgColorOverlay=2b2922&iconColorError=cd0a0a&fcError=cd5c0a&borderColorError=e3a345&bgImgOpacityError=95&bgTextureError=highlight_soft&bgColorError=ffedad&iconColorHighlight=8DC262&fcHighlight=363636&borderColorHighlight=e8e1b5&bgImgOpacityHighlight=55&bgTextureHighlight=glass&bgColorHighlight=fcf0ba&iconColorActive=8DC262&fcActive=459e00&borderColorActive=d4ccb0&bgImgOpacityActive=100&bgTextureActive=highlight_hard&bgColorActive=fafaf4&iconColorHover=ffffff&fcHover=ffffff&borderColorHover=327E04&bgImgOpacityHover=25&bgTextureHover=highlight_soft&bgColorHover=67b021&iconColorDefault=eeeeee&fcDefault=ffffff&borderColorDefault=327E04&bgImgOpacityDefault=15&bgTextureDefault=highlight_hard&bgColorDefault=459e00&iconColorContent=808080&fcContent=312e25&borderColorContent=dfd9c3&bgImgOpacityContent=100&bgTextureContent=highlight_hard&bgColorContent=f5f3e5&iconColorHeader=847e71&fcHeader=433f38&borderColorHeader=d4ccb0&bgImgOpacityHeader=100&bgTextureHeader=gloss_wave&bgColorHeader=ece8da&cornerRadius=6px&fsDefault=1.1em&fwDefault=bold&ffDefault=segoe%20ui%2CArial%2Csans-serif
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?scope=&folderName=south-street&bgImgOpacityHeader=100&bgImgOpacityContent=100&bgImgOpacityDefault=15&bgImgOpacityHover=25&bgImgOpacityActive=100&bgImgOpacityHighlight=55&bgImgOpacityError=95&cornerRadiusShadow=10px&offsetLeftShadow=-6px&offsetTopShadow=-6px&thicknessShadow=12px&opacityShadow=10&bgImgOpacityShadow=50&bgTextureShadow=highlight_hard&bgColorShadow=%23205638&opacityOverlay=90&bgImgOpacityOverlay=15&bgTextureOverlay=inset_soft&bgColorOverlay=%232b2922&iconColorError=%23cd0a0a&fcError=%23774142&borderColorError=%23e3a345&bgTextureError=diagonal_maze&bgColorError=%23FD9B9D&iconColorHighlight=%23399D66&fcHighlight=%23246140&borderColorHighlight=%23246140&bgTextureHighlight=diagonal_maze&bgColorHighlight=%2383D2A7&iconColorActive=%235cc28a&fcActive=%23399D66&borderColorActive=%23205638&bgTextureActive=spotlight&bgColorActive=%23c8ead8&iconColorHover=%23ffffff&fcHover=%23ffffff&borderColorHover=%23327E04&bgTextureHover=flat&bgColorHover=%2383D2A7&iconColorDefault=%23eeeeee&fcDefault=%23ffffff&borderColorDefault=%23327E04&bgTextureDefault=highlight_hard&bgColorDefault=%23399D66&iconColorContent=%23bdbdbd&fcContent=%23312e25&borderColorContent=%23399D66&bgTextureContent=flat&bgColorContent=%2383D2A7&iconColorHeader=%23b9e4cd&fcHeader=%23433f38&borderColorHeader=%23205638&bgTextureHeader=flat&bgColorHeader=%23399D66&cornerRadius=6px&fwDefault=bold&fsDefault=1.1em&ffDefault=segoe%20ui%2CArial%2Csans-serif
  */
 
 
@@ -32,16 +32,16 @@
 	border: 1px solid #327E04;
 }
 .ui-widget-content {
-	border: 1px solid #dfd9c3;
-	background: #f5f3e5 url("images/ui-bg_highlight-hard_100_f5f3e5_1x100.png") 50% top repeat-x;
+	border: 1px solid #399D66;
+	background: #83D2A7;
 	color: #312e25;
 }
 .ui-widget-content a {
 	color: #312e25;
 }
 .ui-widget-header {
-	border: 1px solid #d4ccb0;
-	background: #ece8da url("images/ui-bg_gloss-wave_100_ece8da_500x100.png") 50% 50% repeat-x;
+	border: 1px solid #205638;
+	background: #399D66;
 	color: #433f38;
 	font-weight: bold;
 }
@@ -61,7 +61,7 @@ works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
 	border: 1px solid #327E04;
-	background: #459e00 url("images/ui-bg_highlight-hard_15_459e00_1x100.png") 50% 50% repeat-x;
+	background: #399D66 url("images/ui-bg_highlight-hard_15_399D66_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
 	color: #ffffff;
 }
@@ -84,7 +84,7 @@ a:visited.ui-button,
 .ui-button:hover,
 .ui-button:focus {
 	border: 1px solid #327E04;
-	background: #67b021 url("images/ui-bg_highlight-soft_25_67b021_1x100.png") 50% 50% repeat-x;
+	background: #83D2A7;
 	font-weight: bold;
 	color: #ffffff;
 }
@@ -111,20 +111,20 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	border: 1px solid #d4ccb0;
-	background: #fafaf4 url("images/ui-bg_highlight-hard_100_fafaf4_1x100.png") 50% 50% repeat-x;
+	border: 1px solid #205638;
+	background: #c8ead8 url("images/ui-bg_spotlight_100_c8ead8_600x600.png") 50% 50% repeat-x;
 	font-weight: bold;
-	color: #459e00;
+	color: #399D66;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
-	border: #d4ccb0;
-	background-color: #459e00;
+	border: #205638;
+	background-color: #399D66;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #459e00;
+	color: #399D66;
 	text-decoration: none;
 }
 
@@ -133,35 +133,35 @@ a.ui-button:active,
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	border: 1px solid #e8e1b5;
-	background: #fcf0ba url("images/ui-bg_glass_55_fcf0ba_1x400.png") 50% 50% repeat-x;
-	color: #363636;
+	border: 1px solid #246140;
+	background: #83D2A7 url("images/ui-bg_diagonal-maze_55_83D2A7_10x10.png") 50% 50% repeat;
+	color: #246140;
 }
 .ui-state-checked {
-	border: 1px solid #e8e1b5;
-	background: #fcf0ba;
+	border: 1px solid #246140;
+	background: #83D2A7;
 }
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-	color: #363636;
+	color: #246140;
 }
 .ui-state-error,
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #e3a345;
-	background: #ffedad url("images/ui-bg_highlight-soft_95_ffedad_1x100.png") 50% top repeat-x;
-	color: #cd5c0a;
+	background: #FD9B9D url("images/ui-bg_diagonal-maze_95_FD9B9D_10x10.png") 50% 50% repeat;
+	color: #774142;
 }
 .ui-state-error a,
 .ui-widget-content .ui-state-error a,
 .ui-widget-header .ui-state-error a {
-	color: #cd5c0a;
+	color: #774142;
 }
 .ui-state-error-text,
 .ui-widget-content .ui-state-error-text,
 .ui-widget-header .ui-state-error-text {
-	color: #cd5c0a;
+	color: #774142;
 }
 .ui-priority-primary,
 .ui-widget-content .ui-priority-primary,
@@ -196,10 +196,10 @@ a.ui-button:active,
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-	background-image: url("images/ui-icons_808080_256x240.png");
+	background-image: url("images/ui-icons_bdbdbd_256x240.png");
 }
 .ui-widget-header .ui-icon {
-	background-image: url("images/ui-icons_847e71_256x240.png");
+	background-image: url("images/ui-icons_b9e4cd_256x240.png");
 }
 .ui-button .ui-icon {
 	background-image: url("images/ui-icons_eeeeee_256x240.png");
@@ -213,11 +213,11 @@ a.ui-button:active,
 }
 .ui-state-active .ui-icon,
 .ui-button:active .ui-icon {
-	background-image: url("images/ui-icons_8DC262_256x240.png");
+	background-image: url("images/ui-icons_5cc28a_256x240.png");
 }
 .ui-state-highlight .ui-icon,
 .ui-button .ui-state-highlight.ui-icon {
-	background-image: url("images/ui-icons_8DC262_256x240.png");
+	background-image: url("images/ui-icons_399D66_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
@@ -439,6 +439,6 @@ a.ui-button:active,
 	filter: Alpha(Opacity=90); /* support: IE8 */
 }
 .ui-widget-shadow {
-	-webkit-box-shadow: -12px -12px 12px #cccccc;
-	box-shadow: -12px -12px 12px #cccccc;
+	-webkit-box-shadow: -6px -6px 12px #205638;
+	box-shadow: -6px -6px 12px #205638;
 }
