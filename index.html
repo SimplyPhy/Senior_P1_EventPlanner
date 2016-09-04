@@ -45,8 +45,8 @@
     <form>
       <h1>My Profile</h1>
       <label for="birthday">
-        <span>What's your birthday? </span>
-        <input type="date" name="birthday" id="birthday">
+        <span>When's your birthday? </span>
+        <input type="text" name="birthday" id="birthday">
       </label>
       <label for="phone_number">
         <span>What's your phone number? </span>
@@ -96,75 +96,80 @@
   </div>
 
   <div class="create-event">
-    <form>
-      <h2>My New Event</h2>
-      <label for="event_name">
-        <span>What's your event's name?* </span>
-        <input type="text" name="event_name" id="event_name">
-      </label>
-      <label for="event_type">
-        <span>What kind of event is it?* </span>
-        <input type="text" name="event_type" id="event_type">
-      </label>
-      <label for="host">
-        <span>Who's the host?* </span>
-        <input type="text" name="host" id="host">
-      </label>
-
-      <label for="start_time">
-        <span>When does your event start?* </span>
-        <input type="text" name="start_time" id="start_time">
-      </label>
-      <div id="start_selection" class="time-selection">
-        <select name="start_hour_select" id="start_hour_select" class="hour-select">
-          <option value="0">12:</option><option value="1">1:</option><option value="2">2:</option>
-          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
-          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
-          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
-        </select>
-        <select name="start_minute_select" id="start_minute_select" class="minute-select">
-          <option value="0">00</option><option value="15">15</option>
-          <option value="30">30</option><option value="45">45</option>
-        </select>
-        <select name="start_ampm_select" id="start_ampm_select" class="ampm-select">
-          <option value="am">am</option><option value="pm">pm</option>
-        </select>
-      </div>
-
-        <label for="end_time">
-          <span>When does it end?* </span>
-          <input type="text" name="end_time" id="end_time">
+    <!-- <div id="form_scroll_div" class="form-scroll-div"> -->
+      <form id="create_event_form">
+        <h2>My New Event</h2>
+        <label for="event_name">
+          <span>What's your event's name?* </span>
+          <input type="text" name="event_name" id="event_name">
         </label>
-      <div id="end_selection" class="time-selection">
-        <select name="end_hour_select" id="end_hour_select" class="hour-select">
-          <option value="0">12:</option><option value="1">1:</option><option value="2">2:</option>
-          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
-          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
-          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
-        </select>
-        <select name="end_minute_select" id="end_minute_select" class="minute-select">
-          <option value="0">00</option><option value="15">15</option>
-          <option value="30">30</option><option value="45">45</option>
-        </select>
-        <select name="end_ampm_select" id="end_ampm_select" class="ampm-select">
-          <option value="am">am</option><option value="pm">pm</option>
-        </select>
-      </div>
-
-      <label for="guests">
-        <span>Who's invited?* </span>
-        <input type="time" name="guests" id="guests">
-      </label>
-      <label for="location">
-        <span>Where's it happening?* </span>
-        <input type="text" name="location" id="location">
-      </label>
-      <label for="guest_message">
-        <span>Want to send your guests a message? (optional) </span>
-        <input type="text" name="guest_message" id="guest_message">
-      </label>
-      <button type="button" id="create_event_button">Create Event</button>
-    </form>
+        <label for="event_type">
+          <span>What kind of event is it?* </span>
+          <input type="text" name="event_type" id="event_type">
+        </label>
+        <label for="host">
+          <span>Who's the host?* </span>
+          <input type="text" name="host" id="host">
+        </label>
+        <label for="start_time">
+          <span>When does your event start?* </span>
+          <input type="text" name="start_time" id="start_time">
+        </label>
+        <div id="start_selection" class="time-selection">
+          <select name="start_hour_select" id="start_hour_select" class="hour-select">
+            <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
+            <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+            <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+            <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+          </select>
+          <select name="start_minute_select" id="start_minute_select" class="minute-select">
+            <option value="0" selected="selected">00</option><option value="15">15</option>
+            <option value="30">30</option><option value="45">45</option>
+          </select>
+          <select name="start_ampm_select" id="start_ampm_select" class="ampm-select">
+            <option value="am" selected="selected">am</option><option value="pm">pm</option>
+          </select>
+        </div>
+          <label for="end_time">
+            <span>When does it end?* </span>
+            <input type="text" name="end_time" id="end_time">
+          </label>
+        <div id="end_selection" class="time-selection">
+          <select name="end_hour_select" id="end_hour_select" class="hour-select">
+            <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
+            <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+            <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+            <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+          </select>
+          <select name="end_minute_select" id="end_minute_select" class="minute-select">
+            <option value="0" selected="selected">00</option><option value="15">15</option>
+            <option value="30">30</option><option value="45">45</option>
+          </select>
+          <select name="end_ampm_select" id="end_ampm_select" class="ampm-select">
+            <option value="am" selected="selected">am</option><option value="pm">pm</option>
+          </select>
+        </div>
+        <label for="guest-input">
+          <span>Who's invited?* </span>
+          <div id="guests_inputs_div" class="guests-inputs-div">
+            <input type="text" name="guests" id="guest_input" class="guest-input">
+            <button type="button" id="guests_button" class="guests-button">Add Guest</button>
+          </div>
+        </label>
+        <div id="guests_container" class="guests-container">
+        </div>
+        <label for="location">
+          <span>Where's it happening?* </span>
+          <input type="text" name="location" id="location">
+        </label>
+        <label for="guest_message">
+          <span>Want to send your guests a message? (optional) </span>
+          <!-- <input type="textarea" name="guest_message" id="guest_message" class="guest-message"> -->
+        </label>
+        <textarea id="guest_message" class="guest-message" form="create_event_form"></textarea>
+        <button type="button" id="create_event_button" class="create-event-button">Create Event</button>
+      </form>
+    <!-- </div> -->
   </div>
 
   <script src="js/jquery.min.js"></script>

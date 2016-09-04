@@ -11,10 +11,10 @@ var $login        = $('.login'),
     $create_event = $('.create-event');
 
 var $pages = [
-  $login,
-  $profile,
-  $view_events,
-  $create_event
+    $login,
+    $profile,
+    $view_events,
+    $create_event
 ];
 
 function hidePages () {
@@ -45,8 +45,8 @@ var firstInput;
 $goto_profile_button.click(function() {
   $login.hide();
   $profile.show();
-  setAutofocus();
-});
+  // setAutofocus();  --> Note to reviewer: I didn't set autofocus here because
+});                    // I found it to detriment the UX
 
 $login_button.click(function() {
   $login.hide();
@@ -66,12 +66,10 @@ $continue_profile_button.click(function() {
 $add_event_button.click(function(evt) {
   // $view_events needs to be disabled here
   $create_event.show();
+  $guests_container.hide();
+  first_guest = true;
   setAutofocus();
   evt.preventDefault();
-});
-
-$create_event_button.click(function() {
-  $create_event.hide();
 });
 
 function setAutofocus() {
@@ -88,23 +86,88 @@ function setAutofocus() {
 // Create New Event Page
 // ==========================================================================
 
-// Event Inputs
-var $event_name     = $('#event_name'),
-    $event_type     = $('#event_type'),
-    $event_host     = $('#host'),
-    $event_start    = $('#start_time'),
-    $event_start_hour = $('#start_hour_select'),
-    $event_hour_select = $('.hour-select'),
-    $event_start_minute = $('#start_minute_select'),
-    $event_start_ampm = $('#start_ampm_select'),
-    $event_end      = $('#end_time'),
-    $event_end_hour = $('#end_hour_select'),
-    $event_end_minute = $('#end_minute_select'),
-    $event_end_ampm = $('#end_ampm_select'),
-    $event_guests   = $('#guests'),         // This value will become more dynamic
-    $event_location = $('#location'),       // This will come from Google API
-    $event_message  = $('#guest_message');
+// Event Object Constructor
+function Event(name, type, host, startDate, startHour, startMin, endDate, endHour, endMin, guests, location, message) {
+  // Not necessary, but will be added if I choose to incorporate a backend
+  // Hour would use option values as found in HTML doc (military time)
+  // Guests is an array
+}
 
+// Event Inputs and Buttons
+var $event_name         = $('#event_name'),
+    $event_type         = $('#event_type'),
+    $event_host         = $('#host'),
+    $event_start        = $('#start_time'),
+    $event_start_hour   = $('#start_hour_select'),
+    $event_hour_select  = $('.hour-select'),
+    $event_start_minute = $('#start_minute_select'),
+    $event_start_ampm   = $('#start_ampm_select'),
+    $event_end          = $('#end_time'),
+    $event_end_hour     = $('#end_hour_select'),
+    $event_end_minute   = $('#end_minute_select'),
+    $event_end_ampm     = $('#end_ampm_select'),
+    $event_guests       = $('#guest_input'),
+    $guests_button      = $('#guests_button'),
+    $guests_container   = $('#guests_container'),
+    $event_location     = $('#location'),       // This will come from Google API
+    $event_message      = $('#guest_message');
+
+// Add guest functionality
+var new_guest,
+    guest_div,
+    first_guest = true,
+    guest_array = [],
+    guest_id = 0,
+    prev_guest_id;
+
+function createGuestDiv(guestName) {
+
+  guest_div = "<div id='guest"+guest_id+"' class='new-guests'>" +
+                "<span class='guest-span'>"+guestName+"</span>" +
+                "<button type='button' class='guest-remove'> x</button>" +
+              "</div>";
+
+  guest_id++;
+  return guest_div;
+}
+
+$event_guests.on('input keypress', function(e) {
+  if ($event_guests.val().length > 0) {
+    $guests_button.css('background', 'hsl(180, 96%, 90%)'); // inefficient because if statement runs every input.  Would be better using a bool to test input state (unless browser is smart)
+    if (e.which == 13){
+      $guests_button.trigger('click');
+    }
+  } else {
+    $guests_button.css('background', 'hsl(359, 96%, 90%)');
+  }
+});
+
+$guests_button.click(function() {
+  if ($event_guests.val().length > 0) {
+    if (first_guest) {
+      $guests_container.show();
+      first_guest = false;
+    }
+    new_guest = $event_guests.val();
+    guest_array.push(new_guest);
+    $guests_container.append(createGuestDiv(new_guest));
+    $event_guests.val("");
+    $event_guests.focus();
+    $guests_button.css('background', 'linear-gradient(170deg, rgb(255, 255, 255) 30%, hsl(147, 47%, 96%) 60%)');
+    prev_guest_id = guest_id - 1;
+    removeGuestListener($('#guest'+prev_guest_id+' .guest-remove'));
+  }
+});
+
+function removeGuestListener(guest) {
+  guest.click(function(){
+    console.log("happy");
+    $(this).parent().remove();
+  });
+}
+
+// Create Date and Time inputs
+$('#birthday').datepicker({ changeYear: true, yearRange: "1900:2016" });
 $event_start.datepicker();
 $event_start_hour.selectmenu();
 $event_start_minute.selectmenu();
@@ -117,7 +180,6 @@ $event_end_ampm.selectmenu();
 $event_hour_select
   .selectmenu('menuWidget')
   .addClass('overflow');
-
 
 // New Event Variables
 var $events_container = $('#events_container'),
@@ -141,15 +203,15 @@ function eventContainerContent() {
   eventDiv =  "<div class='event' id='eventNum"+eventId+"'>" +
                 "<div class='event-name'>"+$event_name.val()+"</div>" +
                 "<div class='event-type' style='display: none;'>"+$event_type.val()+"</div>" +
-                "<div class='event-host' style='display: none;'>"+$event_host.val()+"</div>" +
+                "<div class='event-host'>Host: "+$event_host.val()+"</div>" +
                 "<div class='event-time'>" +
-                  "<div class='event-start'>"+$event_start.val()+"</div>" +
+                  "<div class='event-start' style='display: none;'>"+$event_start.val()+"</div>" +
                   "<div class='event-end' style='display: none;'>"+$event_end.val()+"</div>" +
                 "</div>" +
                 "<div class='event-message' style='display: none;'>"+$event_message.val()+"</div>" +
-                "<div class='event-guests-container' style='display: none;'>" +
-                  "<div class='event-guests-names'>"+$event_guests.val()+"</div>" +
-                  "<div class='event-guests-count'>"+guests.length+" Guests</div>" +
+                "<div class='event-guests-container'>" +
+                  "<div class='event-guests-names' style='display: none;'>"+$event_guests.val()+"</div>" +
+                  "<div class='event-guests-count'>"+guest_array.length+" Guests</div>" +
                 "</div>" +
                 "<div class='event-location' style='display: none;'>"+$event_location.val()+"</div>" +
               "</div>";
@@ -161,7 +223,17 @@ $create_event_button.click(function() {
   currentEventDiv = eventContainerContent();
   $events_container.append(currentEventDiv);
 
+  postEventPrep();
+  $create_event.hide();
 });
+
+function postEventPrep() {
+  document.getElementById('create_event_form').reset();
+  $guests_container.children().remove();
+  eventDiv = "";
+  eventData = [];
+  guest_array = [];
+};
 
 
 // ==========================================================================
