@@ -134,6 +134,7 @@
     margin-top: 5%;
     justify-content: space-around;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     height: 120vh;
     padding-right: 17%;
     padding-left: 17%; }
