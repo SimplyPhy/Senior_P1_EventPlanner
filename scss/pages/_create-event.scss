@@ -100,7 +100,7 @@
         margin-top: 5%;
         justify-content: space-around;
         overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch; // epic quickfix for scroll lag on iOS
         height: 120vh;
         padding-right: 17%;
         padding-left: 17%;

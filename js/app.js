@@ -215,20 +215,16 @@ function eventContainerContent() {
                   $event_location.val()
   ]);
 
-  eventDiv =  "<div class='event' id='eventNum"+eventId+"'>" +
-                "<div class='event-name'>"+$event_name.val()+"</div>" +
-                "<div class='event-type' style='display: none;'>"+$event_type.val()+"</div>" +
-                "<div class='event-host'>Host: "+$event_host.val()+"</div>" +
-                "<div class='event-time'>" +
-                  "<div class='event-start' style='display: none;'>"+$event_start.val()+"</div>" +
-                  "<div class='event-end' style='display: none;'>"+$event_end.val()+"</div>" +
-                "</div>" +
-                "<div class='event-message' style='display: none;'>"+$event_message.val()+"</div>" +
-                "<div class='event-guests-container'>" +
-                  "<div class='event-guests-names' style='display: none;'>"+$event_guests.val()+"</div>" +
-                  "<div class='event-guests-count'>"+guest_array.length+" Guests</div>" +
-                "</div>" +
-                "<div class='event-location' style='display: none;'>"+$event_location.val()+"</div>" +
+  eventDiv =  "<div class='event' id='eventNum"                                           +eventId              +"'>" +
+                "<div class='event-name event-visible'>"                                  +$event_name.val()    +"</div>" +
+                "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()    +"</div>" +
+                "<div class='event-host event-visible'>Host: "                            +$event_host.val()    +"</div>" +
+                "<div class='event-start event-visible'>"                                 +$event_start.val()   +"</div>" +
+                "<div class='event-end event-visible'>"                                   +$event_end.val()     +"</div>" +
+                "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()+"</div>" +
+                "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val() +"</div>" +
+                "<div class='event-guests-count event-invisible' style='display: none;>"  +guest_array.length   +" Guests</div>" +
+                "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()  +"</div>" +
               "</div>";
   eventId++;
   return eventDiv;
@@ -520,6 +516,19 @@ $password.on('input', function(evt) {
     }
   }
 
+});
+
+// ==========================================================================
+// Places Search
+// ==========================================================================
+
+var location_input = document.getElementById('location');
+
+var location_searchBox = new google.maps.places.Autocomplete(location_input);
+
+
+$('.event').click(function() {                          // This is to be deleted for production.  Also,
+  $(this).children('.event-invisible').slideToggle();   // maybe add a height animation to .event_container
 });
 
 

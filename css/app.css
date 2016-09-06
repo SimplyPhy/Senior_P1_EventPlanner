@@ -26,16 +26,13 @@
     flex-wrap: wrap;
     justify-content: space-around;
     background: #69c994;
-    width: 90%;
+    width: calc(100%-2rem);
     border-radius: 1.5rem;
     box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);
     padding: 0.5rem 1rem 0.8rem 1rem;
     margin-bottom: 0.5rem;
     /*flex-flow: row wrap;*/
-    /* This is the same as direction+wrap */
-    /*div {
-            flex: 1 100%;
-        }*/ }
+    /* This is the same as direction+wrap */ }
     .view-events .event .event-name {
       font-size: 1.2rem;
       font-weight: 900;
@@ -45,7 +42,7 @@
       flex-basis: 40%;
       text-align: left;
       padding-left: 8%; }
-    .view-events .event .event-guests-container {
+    .view-events .event .event-guests-count {
       flex-basis: 40%;
       text-align: right;
       padding-right: 12%; }
@@ -55,7 +52,7 @@
 
 .add-event-button {
   padding: 0;
-  margin: 1rem 5% 0 auto; }
+  margin: 1rem 0 0 auto; }
 
 .create-event {
   position: absolute;
