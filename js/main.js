@@ -161,18 +161,23 @@ $guests_button.click(function() {
 
 function removeGuestListener(guest) {
   guest.click(function(){
-    console.log("happy");
     $(this).parent().remove();
   });
 }
 
 // Create Date and Time inputs
 $('#birthday').datepicker({ changeYear: true, yearRange: "1900:2016" });
-$event_start.datepicker();
+
+$event_start.datepicker({
+  dateFormat: 'M d, yy'
+});
 $event_start_hour.selectmenu();
 $event_start_minute.selectmenu();
 $event_start_ampm.selectmenu();
-$event_end.datepicker();
+
+$event_end.datepicker({
+  dateFormat: 'M d, yy'
+});
 $event_end_hour.selectmenu();
 $event_end_minute.selectmenu();
 $event_end_ampm.selectmenu();
@@ -186,6 +191,8 @@ var $events_container = $('#events_container'),
     eventId = 0,
     eventData = [],
     guests = [],      // This value will need to be established by before eventContainerContent is run
+    multiday = false,
+    multiDash = "",
     eventDiv,
     currentEventDiv;
 
@@ -200,22 +207,29 @@ function eventContainerContent() {
                   $event_location.val()
   ]);
 
-  eventDiv =  "<div class='event' id='eventNum"                                           +eventId              +"'>" +
-                "<div class='event-name event-visible'>"                                  +$event_name.val()    +"</div>" +
-                "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()    +"</div>" +
-                "<div class='event-host event-visible'>Host: "                            +$event_host.val()    +"</div>" +
-                "<div class='event-start event-visible'>"                                 +$event_start.val()   +"</div>" +
-                "<div class='event-end event-visible'>"                                   +$event_end.val()     +"</div>" +
-                "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()+"</div>" +
-                "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val() +"</div>" +
-                "<div class='event-guests-count event-invisible' style='display: none;>"  +guest_array.length   +" Guests</div>" +
-                "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()  +"</div>" +
+  if ($event_start.val() != $event_end.val()) {
+    multiday = true;
+    multiDash = " -";
+  }
+
+  eventDiv =  "<div class='event' id='eventNum"                                           +eventId                      +"'>" +
+                "<div class='event-name event-visible'>"                                  +$event_name.val()            +"</div>" +
+                "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()            +"</div>" +
+                "<div class='event-host event-visible'>Host: "                            +$event_host.val()            +"</div>" +
+                "<div class='event-start event-visible'>"                                 +$event_start.val()+multiDash +"</div>" +
+                "<div class='event-end event-invisible' style='display: none;'>"          +$event_end.val()             +"</div>" +
+                "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()        +"</div>" +
+                "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val()         +"</div>" +
+                "<div class='event-guests-count event-invisible' style='display: none;'>" +guest_array.length           +" Guests</div>" +
+                "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()          +"</div>" +
               "</div>";
-  eventId++;
+
+  multiDash = "";
   return eventDiv;
 }
 
 $create_event_button.click(function() {
+  eventValidation();
   currentEventDiv = eventContainerContent();
   $events_container.append(currentEventDiv);
 
@@ -223,17 +237,224 @@ $create_event_button.click(function() {
   $create_event.hide();
 });
 
+function eventValidation() {
+  // this is where final validation will occur
+}
+
 function postEventPrep() {
+  if (multiday) {
+    var id = 'eventNum' + eventId;
+    $('#'+id+' .event-end').css('display', 'block');
+    multiday = false;
+  }
+  eventId++;
   document.getElementById('create_event_form').reset();
   $guests_container.children().remove();
   eventDiv = "";
   eventData = [];
   guest_array = [];
+
+  event_name_status     =   false;
+  event_type_status     =   false;
+  event_host_status     =   false;
+  event_start_status    =   false;
+  event_end_status      =   false;
+  event_message_status  =   false;
+  event_guests_status   =   false;
+  event_location_status =   false;
+  event_status          =   false;
+  $event_name.css     ('background', 'hsl(0, 0%, 100%)');
+  $event_type.css     ('background', 'hsl(0, 0%, 100%)');
+  $event_host.css     ('background', 'hsl(0, 0%, 100%)');
+  $event_start.css    ('background', 'hsl(0, 0%, 100%)');
+  $event_end.css      ('background', 'hsl(0, 0%, 100%)');
+  $event_message.css  ('background', 'hsl(0, 0%, 100%)');
+  $event_guests.css   ('background', 'hsl(0, 0%, 100%)');
+  $event_location.css ('background', 'hsl(0, 0%, 100%)');
+  $guests_button.css  ('background', 'hsl(0, 0%, 100%)');
 };
 
+// ==========================================================================
+// Event Validation
+// ==========================================================================
+
+var event_name_status,
+    event_type_status,
+    event_host_status,
+    event_start_status,
+    event_end_status,
+    event_message_status,
+    event_guests_status,
+    event_location_status,
+    event_status,
+    status_array;
+
+var event_name_error        = "Please name your event",
+    event_type_error        = "Please specify the type of your event"+"<br>"+"for example: \"birthday\"",
+    event_host_error        = "Please name the host of your event",
+    event_time_type_error   = "Please select a date from the calendar or"+"<br>"+"use mm/dd/yyyy format",
+    event_time_switch_error = "Oops!  Your event can't end before it begins!",
+    event_guests_error      = "Please add at least one guest to your event"+"<br>"+"even if it's just you",
+    event_location_error    = "Please add a location for your event",
+    event_status_error      = "";
+
+$event_name.on('input change', function() {
+  if (!event_name_status) {
+    if ($event_name.val().length > 0) {
+      event_name_status = true;
+      $event_name.css('background', 'hsl(180, 96%, 90%)');
+    } else {
+      $event_name.css('background', 'hsl(359, 96%, 90%)');
+    }
+  } else {
+    if ($event_name.val().length == 0) {
+      event_name_status = false;
+      $event_name.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
+});
+
+$event_type.on('input change', function() {
+  if (!event_type_status) {
+    if ($event_type.val().length > 0) {
+      event_type_status = true;
+      $event_type.css('background', 'hsl(180, 96%, 90%)');
+    } else {
+      $event_type.css('background', 'hsl(359, 96%, 90%)');
+    }
+  } else {
+    if ($event_type.val().length == 0) {
+      event_type_status = false;
+      $event_type.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
+});
+
+$event_host.on('input change', function() {
+  if (!event_host_status) {
+    if ($event_host.val().length > 0) {
+      event_host_status = true;
+      $event_host.css('background', 'hsl(180, 96%, 90%)');
+    } else {
+      $event_host.css('background', 'hsl(359, 96%, 90%)');
+    }
+  } else {
+    if ($event_host.val().length == 0) {
+      event_host_status = false;
+      $event_host.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
+});
+
+// Date start validation.  Regex fix resolves Date.prototype's inability to parse 'nth' date
+// inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
+$event_start.on('change', function() {
+  var validDate = "",
+      nthFix = /\d+(?=(st|nd|rd|th))/,
+      nthTest = nthFix.exec($event_start.val()),
+      numVal = "",
+      nthVal = "",
+      correctedDate = "";
+
+  if (nthTest) {
+    numVal = nthTest[0]; // returns numeric value in 'nth' sequence
+    nthVal = nthTest[1]; // returns '(st|nd|rd|th)' value in 'nth' sequence
+    var correctedDate = $event_start.val().replace(nthTest[1], ""); // removes (st|nd|rd|th) from 'nth' sequence
+    $event_start.val(correctedDate);
+  }
+
+  if ($event_start.val())
+  $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val()))) // normalizes any accepted date format to 'M d, yy'
+  try {
+    validDate = $.datepicker.parseDate('M d, yy', $event_start.val());
+    console.log("calendar date selection looks good!");
+    if (!event_start_status) {
+      event_start_status = true;
+      $event_start.css('background', 'hsl(180, 96%, 90%)');
+    }
+  } catch (err1) {
+    console.log("error with date input");
+  };
+});
+
+// Date end validation.  Regex fix resolves Date.prototype's inability to parse 'nth' date
+// inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
+$event_end.on('change', function() {
+  var validDate = "",
+      nthFix = /\d+(?=(st|nd|rd|th))/,
+      nthTest = nthFix.exec($event_end.val()),
+      numVal = "",
+      nthVal = "",
+      correctedDate = "";
+
+  if (nthTest) {
+    numVal = nthTest[0]; // returns numeric value in 'nth' sequence
+    nthVal = nthTest[1]; // returns '(st|nd|rd|th)' value in 'nth' sequence
+    var correctedDate = $event_end.val().replace(nthTest[1], ""); // removes (st|nd|rd|th) from 'nth' sequence
+    $event_end.val(correctedDate);
+  }
+
+  if ($event_end.val())
+  $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val()))) // normalizes any accepted date format to 'M d, yy'
+  try {
+    validDate = $.datepicker.parseDate('M d, yy', $event_end.val());
+    console.log("calendar date selection looks good!");
+    if (!event_end_status) {
+      event_end_status = true;
+      $event_end.css('background', 'hsl(180, 96%, 90%)');
+    }
+  } catch (err1) {
+    console.log("error with date input");
+    $event_start.css('background', 'hsl(359, 96%, 90%)');
+  };
+});
+
+$event_guests.on('input change', function() {
+  if (!event_guests_status) {
+    if (guest_array.length > 0) {
+      event_guests_status = true;
+      $event_guests.css('background', 'hsl(180, 96%, 90%)');
+    } else {
+      $event_guests.css('background', 'hsl(359, 96%, 90%)');
+    }
+  } else {
+    if (guest_array.length == 0) {
+      event_guests_status = false;
+      $event_guests.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
+});
+
+$event_location.on('input change', function() {
+  if (!event_location_status) {
+    if ($event_location.val().length > 0) {
+      event_location_status = true;
+      $event_location.css('background', 'hsl(180, 96%, 90%)');
+    } else {
+      $event_location.css('background', 'hsl(359, 96%, 90%)');
+    }
+  } else {
+    if ($event_location.val().length == 0) {
+      event_location_status = false;
+      $event_location.css('background', 'hsl(359, 96%, 90%)');
+    }
+  }
+});
+
+// .css('background', 'hsl(180, 96%, 90%)');
+// .css('background', 'hsl(359, 96%, 90%)');
+
+// $event_name.val(),
+// $event_type.val(),
+// $event_host.val(),
+// $event_start.val(),
+// $event_end.val(),
+// $event_message.val(),
+// $event_guests.val(),
+// $event_location.val()
 
 // ==========================================================================
-// Form Validation
+// Login Validation
 // ==========================================================================
 
 /* Variable Assignments
@@ -523,6 +744,4 @@ hidePages();
 $login.show();
 // $create_event.show();
 setAutofocus();
-
-
 
