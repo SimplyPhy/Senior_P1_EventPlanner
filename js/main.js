@@ -5,6 +5,15 @@
 // Pages
 // ==========================================================================
 
+// $.extend($.ui.dialog.prototype.options.position, { collision: 'none' });
+// setTimeout(function() {
+  // $('#test').dialog({
+  //   position: {my: 'right bottom', at: 'center top', of: $('#login_button')},
+  //   draggable: false
+  // });
+// }, 500);
+
+
 var $login        = $('.login'),
     $profile      = $('.profile'),
     $view_events  = $('.view-events'),
@@ -131,17 +140,6 @@ function createGuestDiv(guestName) {
   return guest_div;
 }
 
-$event_guests.on('input keypress', function(e) {
-  if ($event_guests.val().length > 0) {
-    $guests_button.css('background', 'hsl(180, 96%, 90%)'); // inefficient because if statement runs every input.  Would be better using a bool to test input state (unless browser is smart)
-    if (e.which == 13){
-      $guests_button.trigger('click');
-    }
-  } else {
-    $guests_button.css('background', 'hsl(359, 96%, 90%)');
-  }
-});
-
 $guests_button.click(function() {
   if ($event_guests.val().length > 0) {
     if (first_guest) {
@@ -151,7 +149,7 @@ $guests_button.click(function() {
     new_guest = $event_guests.val();
     guest_array.push(new_guest);
     $guests_container.append(createGuestDiv(new_guest));
-    $event_guests.val("");
+    $event_guests.val('');
     $event_guests.focus();
     $guests_button.css('background', 'linear-gradient(170deg, rgb(255, 255, 255) 30%, hsl(147, 47%, 96%) 60%)');
     prev_guest_id = guest_id - 1;
@@ -239,6 +237,7 @@ $create_event_button.click(function() {
 
 function eventValidation() {
   // this is where final validation will occur
+  // check guest_array length for guest validation
 }
 
 function postEventPrep() {
@@ -284,8 +283,8 @@ var event_name_status,
     event_start_status,
     event_end_status,
     event_message_status,
-    event_guests_status,
-    event_location_status,
+    event_guests_status,   // This value is used to check current input status, not guestlist status.
+    event_location_status, // Use guest_array.length to affirm guestlist status.
     event_status,
     status_array;
 
@@ -349,6 +348,14 @@ $event_host.on('input change', function() {
 // Date start validation.  Regex fix resolves Date.prototype's inability to parse 'nth' date
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_start.on('change', function() {
+  if ($event_start.val().length == 0) {
+      console.log("error: no date input");
+      $event_start.css('background', 'hsl(359, 96%, 90%)');
+      $event_start.val("");
+      event_start_status = false;
+      return;
+  }
+
   var validDate = "",
       nthFix = /\d+(?=(st|nd|rd|th))/,
       nthTest = nthFix.exec($event_start.val()),
@@ -363,23 +370,34 @@ $event_start.on('change', function() {
     $event_start.val(correctedDate);
   }
 
-  if ($event_start.val())
-  $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val()))) // normalizes any accepted date format to 'M d, yy'
-  try {
-    validDate = $.datepicker.parseDate('M d, yy', $event_start.val());
-    console.log("calendar date selection looks good!");
-    if (!event_start_status) {
-      event_start_status = true;
-      $event_start.css('background', 'hsl(180, 96%, 90%)');
-    }
-  } catch (err1) {
-    console.log("error with date input");
-  };
+  if ($event_start.val()) {
+    $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val()))) // normalizes any accepted date format to 'M d, yy'
+    try {
+      validDate = $.datepicker.parseDate('M d, yy', $event_start.val());
+      if (!event_start_status) {
+        event_start_status = true;
+        $event_start.css('background', 'hsl(180, 96%, 90%)');
+      }
+    } catch (err1) {
+      console.log("error: invalid date input");
+      $event_start.css('background', 'hsl(359, 96%, 90%)');
+      $event_start.val("");
+      event_start_status = false;
+    };
+  }
 });
 
 // Date end validation.  Regex fix resolves Date.prototype's inability to parse 'nth' date
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_end.on('change', function() {
+  if ($event_end.val().length == 0) {
+      console.log("error: no date input");
+      $event_end.css('background', 'hsl(359, 96%, 90%)');
+      $event_end.val("");
+      event_end_status = false;
+      return;
+  }
+
   var validDate = "",
       nthFix = /\d+(?=(st|nd|rd|th))/,
       nthTest = nthFix.exec($event_end.val()),
@@ -394,34 +412,60 @@ $event_end.on('change', function() {
     $event_end.val(correctedDate);
   }
 
-  if ($event_end.val())
-  $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val()))) // normalizes any accepted date format to 'M d, yy'
-  try {
-    validDate = $.datepicker.parseDate('M d, yy', $event_end.val());
-    console.log("calendar date selection looks good!");
-    if (!event_end_status) {
-      event_end_status = true;
-      $event_end.css('background', 'hsl(180, 96%, 90%)');
-    }
-  } catch (err1) {
-    console.log("error with date input");
-    $event_start.css('background', 'hsl(359, 96%, 90%)');
-  };
+  if ($event_end.val()) {
+    $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val()))) // normalizes any accepted date format to 'M d, yy'
+    try {
+      validDate = $.datepicker.parseDate('M d, yy', $event_end.val());
+      if (!event_end_status) {
+        event_end_status = true;
+        $event_end.css('background', 'hsl(180, 96%, 90%)');
+      }
+    } catch (err1) {
+      console.log("error with date input");
+      $event_end.css('background', 'hsl(359, 96%, 90%)');
+      $event_end.val("");
+      event_end_status = false;
+    };
+  }
 });
 
+// Given the diversity of names/nicknames/aliases, the only requirement for guests are a single character
+// Reminder: event_guests_status is not used for guestlist validation; it's only used for current input before submission
 $event_guests.on('input change', function() {
-  if (!event_guests_status) {
-    if (guest_array.length > 0) {
+  if ($event_guests.val().length > 0) {
+    if (!event_guests_status) {
       event_guests_status = true;
       $event_guests.css('background', 'hsl(180, 96%, 90%)');
+      $guests_button.css('background', 'hsl(180, 96%, 90%)');
+    }
+  } else {
+    event_guests_status = false;
+    $event_guests.css('background', 'hsl(0, 0%, 100%)');
+    $guests_button.css('background', 'hsl(0, 0%, 100%)');
+  }
+});
+
+// Necessary to reset style detection after submit
+$event_guests.on('focus', function() {
+  event_guests_status = false;
+});
+
+// On blur, wait 125ms, then check if the input field is empty.  If not, make input field pink.
+$event_guests.on('blur', function() {
+  setTimeout(function() {
+    if($event_guests.val().length == 0) {
+      $event_guests.css('background', 'hsl(0, 0%, 100%)');
     } else {
       $event_guests.css('background', 'hsl(359, 96%, 90%)');
     }
-  } else {
-    if (guest_array.length == 0) {
-      event_guests_status = false;
-      $event_guests.css('background', 'hsl(359, 96%, 90%)');
-    }
+  }, 125);
+});
+
+// Duplicates button click functionality by user clicking 'enter' key
+$event_guests.on('keypress', function(e) {
+  if (e.which == 13){
+    $guests_button.trigger('click');
+    $event_guests.css('background', 'hsl(0, 0%, 100%)');
   }
 });
 
@@ -744,4 +788,32 @@ hidePages();
 $login.show();
 // $create_event.show();
 setAutofocus();
+
+// jquery error msg styling function
+// Source by giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
+// *parameter functionality added by me
+(function($) {
+    $.fn.errorStyle = function(errorMsg) {
+        var StyledError = "<div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\">";
+            StyledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+            StyledError += "</span><strong>Alert:</strong>";
+            StyledError += " " + errorMsg;
+            StyledError += "</p></div>";
+      this.replaceWith(StyledError );
+    }
+})(jQuery);
+
+$('#test').errorStyle("this is a test");
+
+
+/* I might use this instead of errorStyle(), but probably not :P */
+// <div class="ui-state-error ui-corner-all">
+//   <p>
+//     <span class="ui-icon ui-icon-alert"></span>
+//     <strong>Oh No! </strong>
+//      Something went wrong :(
+//   </p>
+// </div>
+
+
 

@@ -412,4 +412,24 @@ input:-webkit-autofill {
   -webkit-animation-name: autofill;
   -webkit-animation-fill-mode: both; }
 
+.ui-state-error {
+  border: 1px solid #456e57;
+  opacity: 0.9;
+  /*width: ;*/ }
+
+/*.ui-dialog-titlebar-close {
+  display: none;
+}
+
+.ui-dialog-titlebar {
+  display: flex;
+  height: 3rem;
+  text-align: center;
+  align-items: center;
+}
+
+.ui-dialog {
+  height: 4rem !important;
+}*/
+
 /*# sourceMappingURL=app.css.map */
