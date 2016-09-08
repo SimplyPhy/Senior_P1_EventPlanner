@@ -492,10 +492,14 @@ function compareTime(time1, time2) {
       equal     = new Date(time1) <= new Date(time2), // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
       allGood   = new Date(time1) < new Date(time2),  // whereas the values are converts to numbers, then compared, when using <=
       startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
-      startMin  = $('#start_minute_select-button .ui-selectmenu-text').text().replace(':', ''),
+      startHour = parseInt(startHour),
+      startMin  = $('#start_minute_select-button .ui-selectmenu-text').text(),
+      startMin = parseInt(startMin),
       startAMPM = $('#start_ampm_select-button .ui-selectmenu-text').text(),
       endHour   = $('#end_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
-      endMin    = $('#end_minute_select-button .ui-selectmenu-text').text().replace(':', ''),
+      endHour = parseInt(endHour),
+      endMin    = $('#end_minute_select-button .ui-selectmenu-text').text(),
+      endMin = parseInt(endMin),
       endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
   console.log(  "time1: " + date1 + "\n" +
@@ -511,6 +515,12 @@ function compareTime(time1, time2) {
                 "endAMPM: " + endAMPM + "\n" +
                 "startHour - endHour: " + (startHour-endHour) + "\n" +
                 "startMin - endMin: " + (startMin-endMin) + "\n" +
+                "startHour === 12: " + (startHour === 12) + "\n" +
+                "startHour - endHour > 0: " + ((startHour-endHour) > 0) + "\n" +
+                "startAMPM === \"pm\": " + (startAMPM === "pm") + "\n" +
+                "endAMPM === \"am\": " + (endAMPM === "am") + "\n" +
+                "typeof(startHour): " + typeof(startHour) + "\n" +
+                "typeof(startMin): " + typeof(startMin) + "\n" +
                 "\n \n"
   );
 
@@ -524,8 +534,18 @@ function compareTime(time1, time2) {
   }
   if (equal === true) {
     console.log("equal === true"+ "\n \n");
-    if ((startHour-endHour) < 0 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
+    if ((startHour-endHour) < 0 && startHour !== 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
       console.log("hour issue"+ "\n \n");
+      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+      return false;
+    }
+    if ((startHour-endHour) < 0 && startHour !== 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
+      console.log("hour issue"+ "\n \n");
+      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+      return false;
+    }
+    if ((startHour-endHour) > 0 && startHour === 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
+      console.log("hour issue 2"+ "\n \n");
       $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
       return false;
     }
