@@ -20,13 +20,14 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 // Pages
 // ==========================================================================
 
-// $.extend($.ui.dialog.prototype.options.position, { collision: 'none' });
-// setTimeout(function() {
-  // $('#test').dialog({
-  //   position: {my: 'right bottom', at: 'center top', of: $('#login_button')},
-  //   draggable: false
-  // });
-// }, 500);
+// 1. removeGuestListener function needs work.  See notes
+// 2. There's a bug with the create_event div's size, especially on small mobile.
+//    It makes it so you can scroll through your events while you have the create_event
+//    window open.
+// 3. I need to enforce the validation on login.
+// 4. I need to style the events
+// 5. There's a bug with event open/close lag on my iPad pro, maybe all iOS
+
 
 
 var $login        = $('.login'),
@@ -133,7 +134,7 @@ var $event_name         = $('#event_name'),
     $event_guests       = $('#guest_input'),
     $guests_button      = $('#guests_button'),
     $guests_container   = $('#guests_container'),
-    $event_location     = $('#location'),       // This will come from Google API
+    $event_location     = $('#location'),
     $event_message      = $('#guest_message');
 
 // Add guest functionality
@@ -172,6 +173,7 @@ $guests_button.click(function() {
   }
 });
 
+// I need to search the array for the value of the parent, find it's index, and slice/remove it
 function removeGuestListener(guest) {
   guest.click(function(){
     $(this).parent().remove();
@@ -203,7 +205,7 @@ $event_hour_select
 var $events_container = $('#events_container'),
     eventId = 0,
     eventData = [],
-    guests = [],      // This value will need to be established by before eventContainerContent is run
+    guests = [],
     multiday = false,
     multiDash = "",
     eventDiv,
@@ -242,17 +244,61 @@ function eventContainerContent() {
 }
 
 $create_event_button.click(function() {
+  clearAlerts();
   eventValidation();
-  currentEventDiv = eventContainerContent();
-  $events_container.append(currentEventDiv);
-
-  postEventPrep();
-  $create_event.hide();
 });
 
-function eventValidation() {
   // this is where final validation will occur
   // check guest_array length for guest validation
+  // also check that dates are progressive
+function eventValidation() {
+  if (event_name_status === false) {
+    $event_name.alertMsg("Please name your event.");
+  }
+  if (event_type_status === false) {
+    $event_type.alertMsg("Please categorize your event.<br> Ex. birthday, wedding, etc.");
+  }
+  if (event_host_status === false) {
+    $event_host.alertMsg("Please type the host's name above.<br> No host?  Just type \"none\".");
+  }
+  if (event_start_status === false) {
+    $event_start.alertMsg("Please type or select the date that your event begins.");
+  }
+  if (event_end_status === false) {
+    $event_end.alertMsg("Please type or select the date that your event ends.");
+  }
+  if (event_message_status === false) {
+    // this is an optional field
+  }
+  if (guest_array.length === 0) {
+    $('#guests_inputs_div').alertMsg("Please add a guest to your event.<br>No guests?  Just add \"none\".");
+  }
+  if (event_location_status === false) {
+    $event_location.alertMsg("Please type in your event's location.");
+  }
+  if (compareTime($event_start.val(), $event_end.val()) === false) {
+    event_time_status = false; // alert messages are activated in compareTime()
+  } else if (compareTime($event_start.val(), $event_end.val()) === true) {
+    event_time_status = true;
+  }
+
+  console.log("event_name_status: " + event_name_status + "\n" +
+              "event_type_status: " + event_type_status + "\n" +
+              "event_host_status: " + event_host_status + "\n" +
+              "event_start_status: " + event_start_status + "\n" +
+              "event_end_status: " + event_end_status + "\n" +
+              "event_time_status: " + event_time_status + "\n" +
+              "guest_array.length: "  + guest_array.length + "\n" +
+              "event_location_status: " + event_location_status + "\n"
+  );
+
+
+  if (event_name_status && event_type_status && event_host_status && event_start_status && event_end_status && event_time_status && guest_array.length > 0 && event_location_status) {
+    currentEventDiv = eventContainerContent();
+    $events_container.append(currentEventDiv);
+    postEventPrep();
+    $create_event.hide();
+  }
 }
 
 function postEventPrep() {
@@ -267,12 +313,16 @@ function postEventPrep() {
   eventDiv = "";
   eventData = [];
   guest_array = [];
+  firstHourInput = true;
 
+  // Not very DRY, but it does the job.  A less DRY way would be if I used OOP for events,
+  // and looped through all instances.  :sad-face:
   event_name_status     =   false;
   event_type_status     =   false;
   event_host_status     =   false;
   event_start_status    =   false;
   event_end_status      =   false;
+  event_time_status     =   false;
   event_message_status  =   false;
   event_guests_status   =   false;
   event_location_status =   false;
@@ -288,20 +338,25 @@ function postEventPrep() {
   $guests_button.css  ('background', 'hsl(0, 0%, 100%)');
 };
 
+function clearAlerts() {
+   $('.alert-msg, .success-msg').remove();
+}
+
 // ==========================================================================
 // Event Validation
 // ==========================================================================
 
-var event_name_status,
-    event_type_status,
-    event_host_status,
-    event_start_status,
-    event_end_status,
-    event_message_status,
-    event_guests_status,   // This value is used to check current input status, not guestlist status.
-    event_location_status, // Use guest_array.length to affirm guestlist status.
-    event_status,
-    status_array;
+var event_name_status     = false,
+    event_type_status     = false,
+    event_host_status     = false,
+    event_start_status    = false,
+    event_end_status      = false,
+    event_time_status     = false,
+    event_message_status  = false,
+    event_guests_status   = false,    // This value is used to check current input status, not guestlist status.
+    event_location_status = false,    // Use guest_array.length to affirm guestlist status.
+    event_status          = false,
+    status_array          = false;    // Currently Unused
 
 var event_name_error        = "Please name your event",
     event_type_error        = "Please specify the type of your event"+"<br>"+"for example: \"birthday\"",
@@ -444,6 +499,64 @@ $event_end.on('change', function() {
   }
 });
 
+// Check that start time input is earlier or the same as the end time input
+function compareTime(time1, time2) {
+  var date1     = new Date(time1),
+      date2     = new Date(time2),
+      bool      = new Date(time1) > new Date(time2),
+      equal     = new Date(time1) <= new Date(time2), // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
+      allGood   = new Date(time1) < new Date(time2),  // whereas the values are converts to numbers, then compared, when using <=
+      startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
+      startMin  = $('#start_minute_select-button .ui-selectmenu-text').text().replace(':', ''),
+      startAMPM = $('#start_ampm_select-button .ui-selectmenu-text').text(),
+      endHour   = $('#end_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
+      endMin    = $('#end_minute_select-button .ui-selectmenu-text').text().replace(':', ''),
+      endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
+
+  console.log(  "time1: " + date1 + "\n" +
+                "time2: " + date2 + "\n" +
+                "bool: " + bool + "\n" +
+                "equal: " + equal + "\n" +
+                "allGood: " + allGood + "\n" +
+                "startHour: " + startHour + "\n" +
+                "startMin: " + startMin + "\n" +
+                "startAMPM: " + startAMPM + "\n" +
+                "endHour: " + endHour + "\n" +
+                "endMin: " + endMin + "\n" +
+                "endAMPM: " + endAMPM + "\n" +
+                "startHour - endHour: " + (startHour-endHour) + "\n" +
+                "startMin - endMin: " + (startMin-endMin) + "\n" +
+                "\n \n"
+  );
+
+  if (allGood === true) {
+    return true;
+  }
+  if (bool === true) {
+    console.log("bool === true"+ "\n \n");
+    $event_start.alertMsg("Your event can't end before it begins \n (check your dates) :P");
+    return false;
+  }
+  if (equal === true) {
+    console.log("equal === true"+ "\n \n");
+    if ((startHour-endHour) < 0 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
+      console.log("hour issue"+ "\n \n");
+      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+      return false;
+    }
+    if ((startHour-endHour) === 0) {
+      console.log("startHour-endHour === 0" + "\n \n");
+      if ((startMin-endMin) > 0 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
+        console.log("min issue"+ "\n \n");
+        $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+        return false;
+      }
+    }
+    console.log("true");
+    return true;
+  }
+}
+
 // Given the diversity of names/nicknames/aliases, the only requirement for guests are a single character
 // Reminder: event_guests_status is not used for guestlist validation; it's only used for current input before submission
 $event_guests.on('input change', function() {
@@ -500,18 +613,6 @@ $event_location.on('input change', function() {
   }
 });
 
-// .css('background', 'hsl(180, 96%, 90%)');
-// .css('background', 'hsl(359, 96%, 90%)');
-
-// $event_name.val(),
-// $event_type.val(),
-// $event_host.val(),
-// $event_start.val(),
-// $event_end.val(),
-// $event_message.val(),
-// $event_guests.val(),
-// $event_location.val()
-
 // ==========================================================================
 // Login Validation
 // ==========================================================================
@@ -527,7 +628,8 @@ var $name     = $('#name'),
 // Bools
 var first_focus_name  = true,
     first_focus_email = true,
-    first_focus_pass  = true;
+    first_focus_pass  = true,
+    firstHourInput    = true;
 
 // RegEx
 var reqNum    = new RegExp('[0-9]'),
@@ -796,6 +898,59 @@ $('.event').click(function() {                          // This is to be deleted
   $(this).children('.event-invisible').slideToggle();   // maybe add a height animation to .event_container
 });
 
+// jquery UI alert msg styling function
+// Idea taken from giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
+// *parameter functionality, customMsg, and insertAfter functionality added by me
+(function($) {
+    $.fn.alertMsg = function(customMsg) {
+        if(customMsg === undefined) {
+          customMsg = "Please complete this field";
+        }
+        var styledAlert = "<div class=\"ui-state-error ui-corner-all alert-msg\" style=\"padding: 0 .7em;\">";
+            styledAlert += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+            styledAlert += "</span><strong style='font-weight:900'>Required:</strong>";
+            styledAlert += " " + customMsg;
+            styledAlert += "</p></div>";
+      this.after(styledAlert);
+    };
+})(jQuery);
+
+// jquery UI success msg styling function
+(function($) {
+    $.fn.successMsg = function(customMsg) {
+        if(customMsg === undefined) {
+          customMsg = "Thank you :D";
+        }
+        var styledSuccess = "<div class=\"ui-state-highlight ui-corner-all success-msg\" style=\"padding: 0 .7em;\">";
+            styledSuccess += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+            styledSuccess += "</span><strong style='font-weight:900'>"+customMsg+"</strong>";
+            styledSuccess += "</p></div>";
+      this.after(styledSuccess);
+    };
+})(jQuery);
+
+// these are to be deleted (they were just for testing)
+$('#validation_number').alertMsg("Please name your event");
+$('#validation_number').successMsg();
+
+
+$('#start_hour_select-button').on('blur', function() {
+  if (firstHourInput === true) {
+    firstHourInput = false;
+    var localStartHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
+
+    for(var i = 1; i < 13; i++) {
+      if (i == localStartHour) {
+        if (i < 12) {
+          $('#end_hour_select-button .ui-selectmenu-text').html((i+1)+':');
+        } else {
+          $('#end_hour_select-button .ui-selectmenu-text').html((12)+':');
+        }
+      }
+    }
+  }
+});
+
 
 // call on page load
 hidePages();
@@ -803,68 +958,6 @@ hidePages();
 $login.show();
 // $create_event.show();
 setAutofocus();
-
-// jquery error msg styling function
-// Source by giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
-// *parameter functionality and addErrorHandler() added by me
-(function($) {
-    $.fn.errorStyle = function(errorMsg) {
-        var styledError = "<div class=\"ui-state-error ui-corner-all error-msg\" style=\"padding: 0 .7em;\">";
-            styledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            styledError += "</span><strong style='font-weight:900'>Required:</strong>";
-            styledError += " " + errorMsg;
-            styledError += "</p></div>";
-      this.replaceWith(styledError );
-      addErrorHandler();
-    };
-})(jQuery);
-
-
-(function($) {
-    $.fn.successStyle = function(successMsg) {
-        var styledSuccess = "<div class=\"ui-state-highlight ui-corner-all success-msg\" style=\"padding: 0 .7em;\">";
-            styledSuccess += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            styledSuccess += "</span><strong style='font-weight:900'>Thank you :D</strong>";
-            // styledSuccess += " " + successMsg;
-            styledSuccess += "</p></div>";
-      this.replaceWith(styledSuccess);
-      addErrorHandler();
-    };
-})(jQuery);
-
-// When clicked, the error message slides up and is then deleted
-function addErrorHandler() {
-  $('.error-msg').click(function() {
-    $(this).slideUp(function() {
-      $(this).remove();
-    });
-  });
-}
-
-$('#test').errorStyle("Please name your event :)");
-$('#test2').successStyle("Please name your event");
-
-$('#start_hour_select-button').on('blur', function() {
-  var startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
-  console.log(startHour);
-  console.log("happy");
-  for(var i = 1; i < 13; i++) {
-    if (i == startHour) {
-      if (i < 12) {
-        $('#end_hour_select-button .ui-selectmenu-text').html((i+1)+':');
-      }
-    }
-  }
-});
-
-/* I might use this instead of errorStyle(), but probably not :P */
-// <div class="ui-state-error ui-corner-all">
-//   <p>
-//     <span class="ui-icon ui-icon-alert"></span>
-//     <strong>Oh No! </strong>
-//      Something went wrong :(
-//   </p>
-// </div>
 
 
 
