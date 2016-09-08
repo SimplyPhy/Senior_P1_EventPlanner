@@ -135,7 +135,7 @@ a.ui-button:active,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #246140;
 	background: #83D2A7 url("images/ui-bg_diagonal-maze_55_83D2A7_10x10.png") 50% 50% repeat;
-	color: #246140;
+	color: hsl(180, 96%, 30%);
 }
 .ui-state-checked {
 	border: 1px solid #246140;
@@ -144,7 +144,7 @@ a.ui-button:active,
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-	color: #246140;
+	color: hsl(180, 96%, 30%);
 }
 .ui-state-error,
 .ui-widget-content .ui-state-error,

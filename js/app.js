@@ -809,12 +809,25 @@ setAutofocus();
 // *parameter functionality and addErrorHandler() added by me
 (function($) {
     $.fn.errorStyle = function(errorMsg) {
-        var StyledError = "<div class=\"ui-state-error ui-corner-all error-msg\" style=\"padding: 0 .7em;\">";
-            StyledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            StyledError += "</span><strong style='font-weight:900'>Required:</strong>";
-            StyledError += " " + errorMsg;
-            StyledError += "</p></div>";
-      this.replaceWith(StyledError );
+        var styledError = "<div class=\"ui-state-error ui-corner-all error-msg\" style=\"padding: 0 .7em;\">";
+            styledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+            styledError += "</span><strong style='font-weight:900'>Required:</strong>";
+            styledError += " " + errorMsg;
+            styledError += "</p></div>";
+      this.replaceWith(styledError );
+      addErrorHandler();
+    };
+})(jQuery);
+
+
+(function($) {
+    $.fn.successStyle = function(successMsg) {
+        var styledSuccess = "<div class=\"ui-state-highlight ui-corner-all success-msg\" style=\"padding: 0 .7em;\">";
+            styledSuccess += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+            styledSuccess += "</span><strong style='font-weight:900'>Thank you :D</strong>";
+            // styledSuccess += " " + successMsg;
+            styledSuccess += "</p></div>";
+      this.replaceWith(styledSuccess);
       addErrorHandler();
     };
 })(jQuery);
@@ -828,8 +841,8 @@ function addErrorHandler() {
   });
 }
 
-$('#test').errorStyle("Please name your event");
-$('#test2').errorStyle("Please name your event");
+$('#test').errorStyle("Please name your event :)");
+$('#test2').successStyle("Please name your event");
 
 $('#start_hour_select-button').on('blur', function() {
   var startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
