@@ -791,20 +791,43 @@ setAutofocus();
 
 // jquery error msg styling function
 // Source by giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
-// *parameter functionality added by me
+// *parameter functionality and addErrorHandler() added by me
 (function($) {
     $.fn.errorStyle = function(errorMsg) {
-        var StyledError = "<div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\">";
+        var StyledError = "<div class=\"ui-state-error ui-corner-all error-msg\" style=\"padding: 0 .7em;\">";
             StyledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            StyledError += "</span><strong>Alert:</strong>";
+            StyledError += "</span><strong style='font-weight:900'>Required:</strong>";
             StyledError += " " + errorMsg;
             StyledError += "</p></div>";
       this.replaceWith(StyledError );
-    }
+      addErrorHandler();
+    };
 })(jQuery);
 
-$('#test').errorStyle("this is a test");
+// When clicked, the error message slides up and is then deleted
+function addErrorHandler() {
+  $('.error-msg').click(function() {
+    $(this).slideUp(function() {
+      $(this).remove();
+    });
+  });
+}
 
+$('#test').errorStyle("Please name your event");
+$('#test2').errorStyle("Please name your event");
+
+$('#start_hour_select-button').on('blur', function() {
+  var startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
+  console.log(startHour);
+  console.log("happy");
+  for(var i = 1; i < 13; i++) {
+    if (i == startHour) {
+      if (i < 12) {
+        $('#end_hour_select-button .ui-selectmenu-text').html((i+1)+':');
+      }
+    }
+  }
+});
 
 /* I might use this instead of errorStyle(), but probably not :P */
 // <div class="ui-state-error ui-corner-all">
