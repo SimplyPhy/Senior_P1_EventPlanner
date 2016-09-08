@@ -566,6 +566,11 @@ function compareTime(time1, time2) {
     }
     if ((startHour-endHour) === 0) {
       console.log("startHour-endHour === 0" + "\n \n");
+      if ((startAMPM === "pm" && endAMPM === "am")) {
+        console.log("hour issue 3"+ "\n \n");
+        $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+        return false;
+      }
       if ((startMin-endMin) > 0 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
         console.log("min issue"+ "\n \n");
         $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
