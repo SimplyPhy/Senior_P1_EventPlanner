@@ -67,17 +67,6 @@ var $goto_profile_button      = $('#goto_profile_button'),
 
 var firstInput;
 
-$goto_profile_button.click(function() {
-  $login.hide();
-  $profile.show();
-  // setAutofocus();  --> Note to reviewer: I didn't set autofocus here because
-});                    // I found it to detriment the UX
-
-$login_button.click(function() {
-  $login.hide();
-  $view_events.show();
-});
-
 $save_profile_button.click(function() {
   // add action here for saving profile info, and notifying user
   // also, disable button until user changes profile info
@@ -282,13 +271,13 @@ function eventValidation() {
     event_time_status = true;
   }
 
-  console.log("event_name_status: " + event_name_status + "\n" +
-              "event_type_status: " + event_type_status + "\n" +
-              "event_host_status: " + event_host_status + "\n" +
-              "event_start_status: " + event_start_status + "\n" +
-              "event_end_status: " + event_end_status + "\n" +
-              "event_time_status: " + event_time_status + "\n" +
-              "guest_array.length: "  + guest_array.length + "\n" +
+  console.log("event_name_status: "     + event_name_status + "\n" +
+              "event_type_status: "     + event_type_status + "\n" +
+              "event_host_status: "     + event_host_status + "\n" +
+              "event_start_status: "    + event_start_status + "\n" +
+              "event_end_status: "      + event_end_status + "\n" +
+              "event_time_status: "     + event_time_status + "\n" +
+              "guest_array.length: "    + guest_array.length + "\n" +
               "event_location_status: " + event_location_status + "\n"
   );
 
@@ -296,9 +285,17 @@ function eventValidation() {
   if (event_name_status && event_type_status && event_host_status && event_start_status && event_end_status && event_time_status && guest_array.length > 0 && event_location_status) {
     currentEventDiv = eventContainerContent();
     $events_container.append(currentEventDiv);
+    newEventClickListener(eventId);
+
     postEventPrep();
     $create_event.hide();
   }
+}
+
+function newEventClickListener(currentID) {
+  $('.event#eventNum'+ currentID).click(function() {
+    $(this).children('.event-invisible').slideToggle();
+  });
 }
 
 function postEventPrep() {
@@ -383,6 +380,12 @@ $event_name.on('input change', function() {
   }
 });
 
+$event_name.on('blur', function() {
+  if(event_name_status === true) {
+    alertSuccess($(this));
+  }
+});
+
 $event_type.on('input change', function() {
   if (!event_type_status) {
     if ($event_type.val().length > 0) {
@@ -399,6 +402,12 @@ $event_type.on('input change', function() {
   }
 });
 
+$event_type.on('blur', function() {
+  if(event_type_status === true) {
+    alertSuccess($(this));
+  }
+});
+
 $event_host.on('input change', function() {
   if (!event_host_status) {
     if ($event_host.val().length > 0) {
@@ -412,6 +421,12 @@ $event_host.on('input change', function() {
       event_host_status = false;
       $event_host.css('background', 'hsl(359, 96%, 90%)');
     }
+  }
+});
+
+$event_host.on('blur', function() {
+  if(event_host_status === true) {
+    alertSuccess($(this));
   }
 });
 
@@ -499,85 +514,85 @@ $event_end.on('change', function() {
   }
 });
 
+$('#start_time, #end_time, #start_hour_select-button, #start_minute_select-button, #start_ampm_select-button, #end_hour_select-button, #end_minute_select-button, #end_ampm_select-button').on('blur', function() {
+  setTimeout(function() {
+    if(compareTime($event_start.val(), $event_end.val())) {
+      alertSuccess($event_start);
+      alertSuccess($event_end);
+    }
+  }, 150);
+});
+
 // Check that start time input is earlier or the same as the end time input
 function compareTime(time1, time2) {
   var date1     = new Date(time1),
       date2     = new Date(time2),
-      bool      = new Date(time1) > new Date(time2),
-      equal     = new Date(time1) <= new Date(time2), // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
-      allGood   = new Date(time1) < new Date(time2),  // whereas the values are converts to numbers, then compared, when using <=
+      bool      = date1 > date2,
+      equal     = date1 <= date2, // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
+      allGood   = date1 < date2,  // whereas the values are converts to numbers, then compared, when using <=
       startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
       startHour = parseInt(startHour),
       startMin  = $('#start_minute_select-button .ui-selectmenu-text').text(),
-      startMin = parseInt(startMin),
+      startMin  = parseInt(startMin),
       startAMPM = $('#start_ampm_select-button .ui-selectmenu-text').text(),
       endHour   = $('#end_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
-      endHour = parseInt(endHour),
+      endHour   = parseInt(endHour),
       endMin    = $('#end_minute_select-button .ui-selectmenu-text').text(),
-      endMin = parseInt(endMin),
+      endMin    = parseInt(endMin),
       endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
-  console.log(  "time1: " + date1 + "\n" +
-                "time2: " + date2 + "\n" +
-                "bool: " + bool + "\n" +
-                "equal: " + equal + "\n" +
-                "allGood: " + allGood + "\n" +
-                "startHour: " + startHour + "\n" +
-                "startMin: " + startMin + "\n" +
-                "startAMPM: " + startAMPM + "\n" +
-                "endHour: " + endHour + "\n" +
-                "endMin: " + endMin + "\n" +
-                "endAMPM: " + endAMPM + "\n" +
-                "startHour - endHour: " + (startHour-endHour) + "\n" +
-                "startMin - endMin: " + (startMin-endMin) + "\n" +
-                "startHour === 12: " + (startHour === 12) + "\n" +
+  console.log(  "time1: "                   + date1                     + "\n" +
+                "time2: "                   + date2                     + "\n" +
+                "bool: "                    + bool                      + "\n" +
+                "equal: "                   + equal                     + "\n" +
+                "allGood: "                 + allGood                   + "\n" +
+                "startHour: "               + startHour                 + "\n" +
+                "startMin: "                + startMin                  + "\n" +
+                "startAMPM: "               + startAMPM                 + "\n" +
+                "endHour: "                 + endHour                   + "\n" +
+                "endMin: "                  + endMin                    + "\n" +
+                "endAMPM: "                 + endAMPM                   + "\n" +
+                "startHour - endHour: "     + (startHour-endHour)       + "\n" +
+                "startMin - endMin: "       + (startMin-endMin)         + "\n" +
+                "startHour === 12: "        + (startHour === 12)        + "\n" +
                 "startHour - endHour > 0: " + ((startHour-endHour) > 0) + "\n" +
-                "startAMPM === \"pm\": " + (startAMPM === "pm") + "\n" +
-                "endAMPM === \"am\": " + (endAMPM === "am") + "\n" +
-                "typeof(startHour): " + typeof(startHour) + "\n" +
-                "typeof(startMin): " + typeof(startMin) + "\n" +
+                "startAMPM === \"pm\": "    + (startAMPM === "pm")      + "\n" +
+                "endAMPM === \"am\": "      + (endAMPM === "am")        + "\n" +
+                "typeof(startHour): "       + typeof(startHour)         + "\n" +
+                "typeof(startMin): "        + typeof(startMin)          + "\n" +
                 "\n \n"
   );
 
   if (allGood === true) {
+    // alertSuccess($event_start);
     return true;
   }
+  console.log("!allGood");
   if (bool === true) {
-    console.log("bool === true"+ "\n \n");
-    $event_start.alertMsg("Your event can't end before it begins \n (check your dates) :P");
+    console.log("dates issue"+ "\n");
+    $event_start.alertMsg("Your event can't end before it begins<br>(check your dates) :P");
     return false;
   }
   if (equal === true) {
-    console.log("equal === true"+ "\n \n");
-    if ((startHour-endHour) < 0 && startHour !== 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
-      console.log("hour issue"+ "\n \n");
-      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+    console.log("equal === true"+ "\n");
+    if (startAMPM === "pm" && endAMPM === "am") {
+      console.log("ampm issue"+ "\n");
+      $event_start.alertMsg("Your event can't end before it begins<br>(check your am/pm) :P");
       return false;
     }
-    if ((startHour-endHour) < 0 && startHour !== 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
-      console.log("hour issue"+ "\n \n");
-      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
-      return false;
-    }
-    if ((startHour-endHour) > 0 && startHour === 12 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
-      console.log("hour issue 2"+ "\n \n");
-      $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+    if ((startHour-endHour) > 0 && startHour !== 12) {
+      console.log("hour issue"+ "\n");
+      $event_start.alertMsg("Your event can't end before it begins<br>(check your hours) :P");
       return false;
     }
     if ((startHour-endHour) === 0) {
-      console.log("startHour-endHour === 0" + "\n \n");
-      if ((startAMPM === "pm" && endAMPM === "am")) {
-        console.log("hour issue 3"+ "\n \n");
-        $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
-        return false;
-      }
-      if ((startMin-endMin) > 0 && ((startAMPM === "am" && endAMPM === "am") || (startAMPM === "pm" && endAMPM === "pm") || (startAMPM === "pm" && endAMPM === "am"))) {
-        console.log("min issue"+ "\n \n");
-        $event_start.alertMsg("Your event can't end before it begins \n (check your times) :P");
+      if ((startMin-endMin) > 0 ) {
+        console.log("min issue"+ "\n");
+        $event_start.alertMsg("Your event can't end before it begins<br>(check your mins) :P");
         return false;
       }
     }
-    console.log("true");
+    // alertSuccess($event_start);
     return true;
   }
 }
@@ -611,6 +626,9 @@ $event_guests.on('blur', function() {
     } else {
       $event_guests.css('background', 'hsl(359, 96%, 90%)');
     }
+    if(guest_array.length > 0) {
+      alertSuccess($('#guests_inputs_div'));
+    }
   }, 125);
 });
 
@@ -635,6 +653,12 @@ $event_location.on('input change', function() {
       event_location_status = false;
       $event_location.css('background', 'hsl(359, 96%, 90%)');
     }
+  }
+});
+
+$event_location.on('blur', function() {
+  if(event_location_status === true) {
+    alertSuccess($(this));
   }
 });
 
@@ -756,7 +780,10 @@ completeValidationPassword();
 /* Interactions
 =====================================*/
 
-$name.on('focus', function() {
+$name.on('blur', function() {
+  if(state_name === true) {
+    alertSuccess($(this));
+  }
   // Length value is checked first incase auto-fill has been used
   if ($name.val().length === 0) {
     if (first_focus_name) {
@@ -782,9 +809,12 @@ $name.on('input change', function() {
   }
 });
 
-$email.on('focus', function() {
+$email.on('blur', function() {
+  if(state_email === true) {
+    alertSuccess($(this));
+  }
   // Length value is checked first incase auto-fill has been used
-  if ($email.val().length === 0) {
+  if ($email.val().length === 0 || !reqEmail.test($email.val())) {
     if (first_focus_email) {
       $email.css('background', 'hsl(359, 96%, 90%)');
       first_focus_email = false;
@@ -815,13 +845,14 @@ $password.on('focus', function(evt) {
     $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
     $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
     first_focus_pass = false;
-
   }
   // if i notify when something is wrong on blur, then deactivate that here
 });
 
 $password.on('blur', function(evt) {
-  // maybe notify if something is wrong
+  if(state_password === true) {
+    alertSuccess($(this));
+  }
 });
 
 $password.on('input', function(evt) {
@@ -838,7 +869,6 @@ $password.on('input', function(evt) {
   }
 
   if (!state_case) {
-
     if (!state_lowerCase) {
       if (reqLow.test($password.val())) {
         state_lowerCase = true;
@@ -907,8 +937,45 @@ $password.on('input', function(evt) {
       $password.css('background', 'hsl(359, 96%, 90%)');
     }
   }
-
 });
+
+$('#login_button').click(function() {
+  clearAlerts();
+  if (loginValidation()) {
+    document.getElementById('login_form').reset();
+    $login.hide();
+    $view_events.show();
+  } else {
+
+  }
+});
+
+$('#goto_profile_button').click(function() {
+  clearAlerts();
+  if (loginValidation()) {
+    document.getElementById('login_form').reset();
+    $login.hide();
+    $profile.show();
+    // setAutofocus();  --> Note to reviewer: I didn't set autofocus here because
+  } else {               // I found it to detriment the UX
+
+  }
+});
+
+function loginValidation() {
+  if (state_name === false) {
+    $name.alertMsg("Please type in your name or an alias.");
+  }
+  if (state_email === false) {
+    $email.alertMsg("Please type in your email.<br>No email?  Use \"none@none.com\".");
+  }
+  if (state_password === false) {
+    $password.alertMsg("Please adjust your password so it meets the requirements below.")
+  }
+  if (state_name && state_email && state_password) {
+    return true;
+  }
+}
 
 // ==========================================================================
 // Places Search
@@ -918,45 +985,36 @@ var location_input = document.getElementById('location');
 
 var location_searchBox = new google.maps.places.Autocomplete(location_input);
 
-
-$('.event').click(function() {                          // This is to be deleted for production.  Also,
-  $(this).children('.event-invisible').slideToggle();   // maybe add a height animation to .event_container
-});
-
 // jquery UI alert msg styling function
 // Idea taken from giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
 // *parameter functionality, customMsg, and insertAfter functionality added by me
 (function($) {
-    $.fn.alertMsg = function(customMsg) {
-        if(customMsg === undefined) {
-          customMsg = "Please complete this field";
-        }
-        var styledAlert = "<div class=\"ui-state-error ui-corner-all alert-msg\" style=\"padding: 0 .7em;\">";
-            styledAlert += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            styledAlert += "</span><strong style='font-weight:900'>Required:</strong>";
-            styledAlert += " " + customMsg;
-            styledAlert += "</p></div>";
-      this.after(styledAlert);
-    };
+  $.fn.alertMsg = function(customMsg) {
+    if(customMsg === undefined) {
+      customMsg = "Please complete this field";
+    }
+    var styledAlert = "<div class=\"ui-state-error ui-corner-all alert-msg\" style=\"padding: 0 .7em;\">";
+      styledAlert += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+      styledAlert += "</span><strong style='font-weight:900'>Required:</strong>";
+      styledAlert += " " + customMsg;
+      styledAlert += "</p></div>";
+    this.after(styledAlert);
+  };
 })(jQuery);
 
 // jquery UI success msg styling function
 (function($) {
-    $.fn.successMsg = function(customMsg) {
-        if(customMsg === undefined) {
-          customMsg = "Thank you :D";
-        }
-        var styledSuccess = "<div class=\"ui-state-highlight ui-corner-all success-msg\" style=\"padding: 0 .7em;\">";
-            styledSuccess += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
-            styledSuccess += "</span><strong style='font-weight:900'>"+customMsg+"</strong>";
-            styledSuccess += "</p></div>";
-      this.after(styledSuccess);
-    };
+  $.fn.successMsg = function(customMsg) {
+    if(customMsg === undefined) {
+      customMsg = "Thank you :D";
+    }
+    var styledSuccess = "<div class=\"ui-state-highlight ui-corner-all success-msg\" style=\"padding: 0 .7em;\">";
+      styledSuccess += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;\">";
+      styledSuccess += "</span><strong style='font-weight:900'>"+customMsg+"</strong>";
+      styledSuccess += "</p></div>";
+    this.after(styledSuccess);
+  };
 })(jQuery);
-
-// these are to be deleted (they were just for testing)
-$('#validation_number').alertMsg("Please name your event");
-$('#validation_number').successMsg();
 
 
 $('#start_hour_select-button').on('blur', function() {
@@ -976,11 +1034,27 @@ $('#start_hour_select-button').on('blur', function() {
   }
 });
 
+var $phone_num = $('#phone_number');
+
+$phone_num.mask("(999) 999-9999");
+
+// (Called on blur) If alert message is active, and warnings are fixed, replace alertMsg with successMsg
+function alertSuccess(element) {
+  if (element.next().next().hasClass('success-msg')) {
+    element.siblings('.success-msg').remove();
+  } // still doesn't get rid of the thank yous..
+  if (element.next().hasClass('alert-msg')) {
+    element.siblings('.alert-msg').successMsg();
+    element.siblings('.alert-msg').remove();
+  }
+}
+
+
 
 // call on page load
 hidePages();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 

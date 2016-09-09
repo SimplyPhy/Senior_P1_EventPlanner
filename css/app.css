@@ -417,8 +417,8 @@ input:-webkit-autofill {
   opacity: 0.9;
   /*width: ;*/ }
 
-.ui-icon {
-  margin-bottom: 1.5rem !important; }
+.alert-msg > p .ui-icon {
+  margin-bottom: 1.3rem !important; }
 
 /*.ui-dialog-titlebar-close {
   display: none;
