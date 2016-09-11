@@ -20,12 +20,11 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 // Pages
 // ==========================================================================
 
-// 1. removeGuestListener function needs work.  See notes
-// 2. There's a bug with the create_event div's size, especially on small mobile.
+// 1. There's a bug with the create_event div's size, especially on small mobile.
 //    It makes it so you can scroll through your events while you have the create_event
 //    window open.
-// 3. I need to style the events
-// 4. There's a bug with event open/close lag on my iPad pro, maybe all iOS
+// 2. I need to style the events
+// 3. There's a bug with event open/close lag on my iPad pro, maybe all iOS
 
 
 
@@ -158,7 +157,7 @@ $guests_button.click(function() {
   }
 });
 
-// I need to search the array for the value of the parent, find it's index, and slice/remove it
+// when x button clicked, delete that guest from guest list
 function removeGuestListener(guest) {
   guest.click(function(){
     var thisElem = $(this).parent();
@@ -243,7 +242,7 @@ $create_event_button.click(function() {
 
   // this is where final validation will occur
   // check guest_array length for guest validation
-  // also check that dates are progressive
+  // also check that dates are sequential
 function eventValidation() {
   if (event_name_status === false) {
     $event_name.alertMsg("Please name your event.");
@@ -274,17 +273,6 @@ function eventValidation() {
   } else if (compareTime($event_start.val(), $event_end.val()) === true) {
     event_time_status = true;
   }
-
-  // console.log("event_name_status: "     + event_name_status + "\n" +
-  //             "event_type_status: "     + event_type_status + "\n" +
-  //             "event_host_status: "     + event_host_status + "\n" +
-  //             "event_start_status: "    + event_start_status + "\n" +
-  //             "event_end_status: "      + event_end_status + "\n" +
-  //             "event_time_status: "     + event_time_status + "\n" +
-  //             "guest_array.length: "    + guest_array.length + "\n" +
-  //             "event_location_status: " + event_location_status + "\n"
-  // );
-
 
   if (event_name_status && event_type_status && event_host_status && event_start_status && event_end_status && event_time_status && guest_array.length > 0 && event_location_status) {
     currentEventDiv = eventContainerContent();
@@ -438,7 +426,6 @@ $event_host.on('blur', function() {
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_start.on('change', function() {
   if ($event_start.val().length == 0) {
-      console.log("error: no date input");
       $event_start.css('background', 'hsl(359, 96%, 90%)');
       $event_start.val("");
       event_start_status = false;
@@ -468,7 +455,7 @@ $event_start.on('change', function() {
         $event_start.css('background', 'hsl(180, 96%, 90%)');
       }
     } catch (err1) {
-      console.log("error: invalid date input");
+      console.log("error: invalid start date input");
       $event_start.css('background', 'hsl(359, 96%, 90%)');
       $event_start.val("");
       event_start_status = false;
@@ -480,7 +467,6 @@ $event_start.on('change', function() {
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_end.on('change', function() {
   if ($event_end.val().length == 0) {
-    console.log("error: no date input");
     $event_end.css('background', 'hsl(359, 96%, 90%)');
     $event_end.val("");
     event_end_status = false;
@@ -510,7 +496,7 @@ $event_end.on('change', function() {
         $event_end.css('background', 'hsl(180, 96%, 90%)');
       }
     } catch (err1) {
-      console.log("error with date input");
+      console.log("error: invalid end date input");
       $event_end.css('background', 'hsl(359, 96%, 90%)');
       $event_end.val("");
       event_end_status = false;
@@ -544,30 +530,7 @@ function compareTime(time1, time2) {
       endMin    = parseInt(endMin),
       endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
-  // console.log(  "time1: "                   + date1                     + "\n" +
-  //               "time2: "                   + date2                     + "\n" +
-  //               "bool: "                    + bool                      + "\n" +
-  //               "equal: "                   + equal                     + "\n" +
-  //               "allGood: "                 + allGood                   + "\n" +
-  //               "startHour: "               + startHour                 + "\n" +
-  //               "startMin: "                + startMin                  + "\n" +
-  //               "startAMPM: "               + startAMPM                 + "\n" +
-  //               "endHour: "                 + endHour                   + "\n" +
-  //               "endMin: "                  + endMin                    + "\n" +
-  //               "endAMPM: "                 + endAMPM                   + "\n" +
-  //               "startHour - endHour: "     + (startHour-endHour)       + "\n" +
-  //               "startMin - endMin: "       + (startMin-endMin)         + "\n" +
-  //               "startHour === 12: "        + (startHour === 12)        + "\n" +
-  //               "startHour - endHour > 0: " + ((startHour-endHour) > 0) + "\n" +
-  //               "startAMPM === \"pm\": "    + (startAMPM === "pm")      + "\n" +
-  //               "endAMPM === \"am\": "      + (endAMPM === "am")        + "\n" +
-  //               "typeof(startHour): "       + typeof(startHour)         + "\n" +
-  //               "typeof(startMin): "        + typeof(startMin)          + "\n" +
-  //               "\n \n"
-  // );
-
   if (allGood === true) {
-    // alertSuccess($event_start);
     return true;
   }
   console.log("!allGood");
@@ -599,7 +562,7 @@ function compareTime(time1, time2) {
         return false;
       }
     }
-    // alertSuccess($event_start);
+    // dates are equal, and times are sequential or equal
     return true;
   }
 }
@@ -946,7 +909,7 @@ $password.on('input', function(evt) {
   }
 });
 
-$('#login_button').click(function() {
+$login_button.click(function() {
   clearAlerts();
   if (loginValidation()) {
     document.getElementById('login_form').reset();
@@ -957,7 +920,7 @@ $('#login_button').click(function() {
   }
 });
 
-$('#goto_profile_button').click(function() {
+$goto_profile_button.click(function() {
   clearAlerts();
   if (loginValidation()) {
     document.getElementById('login_form').reset();
@@ -1057,8 +1020,8 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-$view_events.show();
-// $login.show();
+// $view_events.show();
+$login.show();
 // $create_event.show();
 setAutofocus();
 
