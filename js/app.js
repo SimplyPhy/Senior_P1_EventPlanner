@@ -24,9 +24,8 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 // 2. There's a bug with the create_event div's size, especially on small mobile.
 //    It makes it so you can scroll through your events while you have the create_event
 //    window open.
-// 3. I need to enforce the validation on login.
-// 4. I need to style the events
-// 5. There's a bug with event open/close lag on my iPad pro, maybe all iOS
+// 3. I need to style the events
+// 4. There's a bug with event open/close lag on my iPad pro, maybe all iOS
 
 
 
@@ -271,15 +270,15 @@ function eventValidation() {
     event_time_status = true;
   }
 
-  console.log("event_name_status: "     + event_name_status + "\n" +
-              "event_type_status: "     + event_type_status + "\n" +
-              "event_host_status: "     + event_host_status + "\n" +
-              "event_start_status: "    + event_start_status + "\n" +
-              "event_end_status: "      + event_end_status + "\n" +
-              "event_time_status: "     + event_time_status + "\n" +
-              "guest_array.length: "    + guest_array.length + "\n" +
-              "event_location_status: " + event_location_status + "\n"
-  );
+  // console.log("event_name_status: "     + event_name_status + "\n" +
+  //             "event_type_status: "     + event_type_status + "\n" +
+  //             "event_host_status: "     + event_host_status + "\n" +
+  //             "event_start_status: "    + event_start_status + "\n" +
+  //             "event_end_status: "      + event_end_status + "\n" +
+  //             "event_time_status: "     + event_time_status + "\n" +
+  //             "guest_array.length: "    + guest_array.length + "\n" +
+  //             "event_location_status: " + event_location_status + "\n"
+  // );
 
 
   if (event_name_status && event_type_status && event_host_status && event_start_status && event_end_status && event_time_status && guest_array.length > 0 && event_location_status) {
@@ -476,19 +475,19 @@ $event_start.on('change', function() {
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_end.on('change', function() {
   if ($event_end.val().length == 0) {
-      console.log("error: no date input");
-      $event_end.css('background', 'hsl(359, 96%, 90%)');
-      $event_end.val("");
-      event_end_status = false;
-      return;
+    console.log("error: no date input");
+    $event_end.css('background', 'hsl(359, 96%, 90%)');
+    $event_end.val("");
+    event_end_status = false;
+    return;
   }
 
   var validDate = "",
-      nthFix = /\d+(?=(st|nd|rd|th))/,
-      nthTest = nthFix.exec($event_end.val()),
-      numVal = "",
-      nthVal = "",
-      correctedDate = "";
+    nthFix = /\d+(?=(st|nd|rd|th))/,
+    nthTest = nthFix.exec($event_end.val()),
+    numVal = "",
+    nthVal = "",
+    correctedDate = "";
 
   if (nthTest) {
     numVal = nthTest[0]; // returns numeric value in 'nth' sequence
@@ -515,16 +514,15 @@ $event_end.on('change', function() {
 });
 
 $('#start_time, #end_time, #start_hour_select-button, #start_minute_select-button, #start_ampm_select-button, #end_hour_select-button, #end_minute_select-button, #end_ampm_select-button').on('blur', function() {
-  setTimeout(function() {
-    if(compareTime($event_start.val(), $event_end.val())) {
-      alertSuccess($event_start);
-      alertSuccess($event_end);
-    }
-  }, 150);
+  if(compareTime($event_start.val(), $event_end.val())) {
+    alertSuccess($event_start);
+    alertSuccess($event_end);
+  }
 });
 
 // Check that start time input is earlier or the same as the end time input
 function compareTime(time1, time2) {
+  $('#start_time .success-msg').remove();
   var date1     = new Date(time1),
       date2     = new Date(time2),
       bool      = date1 > date2,
@@ -541,27 +539,27 @@ function compareTime(time1, time2) {
       endMin    = parseInt(endMin),
       endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
-  console.log(  "time1: "                   + date1                     + "\n" +
-                "time2: "                   + date2                     + "\n" +
-                "bool: "                    + bool                      + "\n" +
-                "equal: "                   + equal                     + "\n" +
-                "allGood: "                 + allGood                   + "\n" +
-                "startHour: "               + startHour                 + "\n" +
-                "startMin: "                + startMin                  + "\n" +
-                "startAMPM: "               + startAMPM                 + "\n" +
-                "endHour: "                 + endHour                   + "\n" +
-                "endMin: "                  + endMin                    + "\n" +
-                "endAMPM: "                 + endAMPM                   + "\n" +
-                "startHour - endHour: "     + (startHour-endHour)       + "\n" +
-                "startMin - endMin: "       + (startMin-endMin)         + "\n" +
-                "startHour === 12: "        + (startHour === 12)        + "\n" +
-                "startHour - endHour > 0: " + ((startHour-endHour) > 0) + "\n" +
-                "startAMPM === \"pm\": "    + (startAMPM === "pm")      + "\n" +
-                "endAMPM === \"am\": "      + (endAMPM === "am")        + "\n" +
-                "typeof(startHour): "       + typeof(startHour)         + "\n" +
-                "typeof(startMin): "        + typeof(startMin)          + "\n" +
-                "\n \n"
-  );
+  // console.log(  "time1: "                   + date1                     + "\n" +
+  //               "time2: "                   + date2                     + "\n" +
+  //               "bool: "                    + bool                      + "\n" +
+  //               "equal: "                   + equal                     + "\n" +
+  //               "allGood: "                 + allGood                   + "\n" +
+  //               "startHour: "               + startHour                 + "\n" +
+  //               "startMin: "                + startMin                  + "\n" +
+  //               "startAMPM: "               + startAMPM                 + "\n" +
+  //               "endHour: "                 + endHour                   + "\n" +
+  //               "endMin: "                  + endMin                    + "\n" +
+  //               "endAMPM: "                 + endAMPM                   + "\n" +
+  //               "startHour - endHour: "     + (startHour-endHour)       + "\n" +
+  //               "startMin - endMin: "       + (startMin-endMin)         + "\n" +
+  //               "startHour === 12: "        + (startHour === 12)        + "\n" +
+  //               "startHour - endHour > 0: " + ((startHour-endHour) > 0) + "\n" +
+  //               "startAMPM === \"pm\": "    + (startAMPM === "pm")      + "\n" +
+  //               "endAMPM === \"am\": "      + (endAMPM === "am")        + "\n" +
+  //               "typeof(startHour): "       + typeof(startHour)         + "\n" +
+  //               "typeof(startMin): "        + typeof(startMin)          + "\n" +
+  //               "\n \n"
+  // );
 
   if (allGood === true) {
     // alertSuccess($event_start);
@@ -570,6 +568,7 @@ function compareTime(time1, time2) {
   console.log("!allGood");
   if (bool === true) {
     console.log("dates issue"+ "\n");
+    $event_start.siblings('.success-msg').remove();
     $event_start.alertMsg("Your event can't end before it begins<br>(check your dates) :P");
     return false;
   }
@@ -577,17 +576,20 @@ function compareTime(time1, time2) {
     console.log("equal === true"+ "\n");
     if (startAMPM === "pm" && endAMPM === "am") {
       console.log("ampm issue"+ "\n");
+      $event_start.siblings('.success-msg').remove();
       $event_start.alertMsg("Your event can't end before it begins<br>(check your am/pm) :P");
       return false;
     }
     if ((startHour-endHour) > 0 && startHour !== 12) {
       console.log("hour issue"+ "\n");
+      $event_start.siblings('.success-msg').remove();
       $event_start.alertMsg("Your event can't end before it begins<br>(check your hours) :P");
       return false;
     }
     if ((startHour-endHour) === 0) {
       if ((startMin-endMin) > 0 ) {
         console.log("min issue"+ "\n");
+        $event_start.siblings('.success-msg').remove();
         $event_start.alertMsg("Your event can't end before it begins<br>(check your mins) :P");
         return false;
       }
@@ -987,7 +989,7 @@ var location_searchBox = new google.maps.places.Autocomplete(location_input);
 
 // jquery UI alert msg styling function
 // Idea taken from giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
-// *parameter functionality, customMsg, and insertAfter functionality added by me
+// *parameter functionality, customMsg, and `after` functionality added by me
 (function($) {
   $.fn.alertMsg = function(customMsg) {
     if(customMsg === undefined) {
@@ -1035,14 +1037,11 @@ $('#start_hour_select-button').on('blur', function() {
 });
 
 var $phone_num = $('#phone_number');
-
+// .mask is from maskedInput.js
 $phone_num.mask("(999) 999-9999");
 
 // (Called on blur) If alert message is active, and warnings are fixed, replace alertMsg with successMsg
 function alertSuccess(element) {
-  if (element.next().next().hasClass('success-msg')) {
-    element.siblings('.success-msg').remove();
-  } // still doesn't get rid of the thank yous..
   if (element.next().hasClass('alert-msg')) {
     element.siblings('.alert-msg').successMsg();
     element.siblings('.alert-msg').remove();
@@ -1053,8 +1052,8 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 
