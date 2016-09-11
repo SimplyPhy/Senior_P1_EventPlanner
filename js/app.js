@@ -130,8 +130,7 @@ var new_guest,
     guest_div,
     first_guest = true,
     guest_array = [],
-    guest_id = 0,
-    prev_guest_id;
+    guest_id = 0;
 
 function createGuestDiv(guestName) {
 
@@ -139,8 +138,6 @@ function createGuestDiv(guestName) {
                 "<span class='guest-span'>"+guestName+"</span>" +
                 "<button type='button' class='guest-remove'> x</button>" +
               "</div>";
-
-  guest_id++;
   return guest_div;
 }
 
@@ -151,20 +148,28 @@ $guests_button.click(function() {
       first_guest = false;
     }
     new_guest = $event_guests.val();
-    guest_array.push(new_guest);
+    guest_array.push({id: guest_id, name: new_guest});
     $guests_container.append(createGuestDiv(new_guest));
+    removeGuestListener($('#guest'+guest_id+' .guest-remove'));
+    guest_id++;
     $event_guests.val('');
     $event_guests.focus();
     $guests_button.css('background', 'linear-gradient(170deg, rgb(255, 255, 255) 30%, hsl(147, 47%, 96%) 60%)');
-    prev_guest_id = guest_id - 1;
-    removeGuestListener($('#guest'+prev_guest_id+' .guest-remove'));
   }
 });
 
 // I need to search the array for the value of the parent, find it's index, and slice/remove it
 function removeGuestListener(guest) {
   guest.click(function(){
+    var thisElem = $(this).parent();
+    var thisIndex = $('.new-guests').index(thisElem);
     $(this).parent().remove();
+
+    for (var i = 0; i < guest_array.length; i++) {
+      if (i === thisIndex) {
+        guest_array.splice(i, 1);
+      }
+    }
   });
 }
 
