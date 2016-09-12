@@ -230,7 +230,10 @@ function eventContainerContent() {
   var sameYear  = false,
       sameMonth = false,
       sameDay   = false,
-      sameTime  = false;
+      sameTime  = false,
+      sameDate  = true;
+
+  var guestList = "";
 
   if (event_start_year == event_end_year) {
     console.log(event_start_year)
@@ -272,7 +275,10 @@ function eventContainerContent() {
     event_start_display = $.datepicker.formatDate('M d, yy', event_start_display);
     event_end_display   = $.datepicker.formatDate('M d, yy', event_end_display);
   }
-  if (sameTime) {
+  if (event_start_year != event_end_year || event_start_month != event_end_month || event_start_day != event_end_day) {
+    sameDate = false;
+  }
+  if (sameTime && sameDate) {
     console.log("same-time");
     event_start_time = startHour + ":" + startMin + startAMPM;
     event_end_time   = '';
@@ -297,7 +303,7 @@ function eventContainerContent() {
     multiDash = " - ";
   }
 
-  var guestList = "";
+  // create guestList
   for (var i = 0; i < guest_array.length; i++) {
     if (i < guest_array.length - 1) {
       guestList += guest_array[i].name + ", ";
@@ -373,6 +379,11 @@ function eventValidation() {
   }
 }
 
+// click listener for fake (example/placeholder) events
+$('.fake-event').click(function() {
+  $(this).children('.event-invisible').slideToggle();
+});
+
 function newEventClickListener(currentID) {
   $('.event#eventNum'+ currentID).click(function() {
     $(this).children('.event-invisible').slideToggle();
@@ -392,6 +403,7 @@ function postEventPrep() {
   eventData = [];
   guest_array = [];
   firstHourInput = true;
+  durationDash = "";
 
   // Not very DRY, but it does the job.  A less DRY way would be if I used OOP for events,
   // and looped through all instances.  :sad-face:
@@ -405,6 +417,7 @@ function postEventPrep() {
   event_guests_status   =   false;
   event_location_status =   false;
   event_status          =   false;
+  duration              =   false;
   $event_name.css     ('background', 'hsl(0, 0%, 100%)');
   $event_type.css     ('background', 'hsl(0, 0%, 100%)');
   $event_host.css     ('background', 'hsl(0, 0%, 100%)');
