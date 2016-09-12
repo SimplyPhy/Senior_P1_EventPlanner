@@ -237,31 +237,32 @@ function eventContainerContent() {
     endMin = '00';
   }
   if (startHour === endHour && startMin === endMin && startAMPM === endAMPM) {
-    console.log("sameTime");
     sameTime = true;
   }
   if (sameYear && sameMonth && sameDay) {
-    console.log("same123");
+    console.log("same-YMD");
     event_start_display = $.datepicker.formatDate('M d, yy', event_start_display);
     console.log(event_start_display);
     event_end_display   = '';
   } else if (sameYear && sameMonth && !sameDay) {
-    console.log("same12");
+    console.log("same-YM");
     event_start_display = $.datepicker.formatDate('M d', event_start_display);
     event_end_display   = $.datepicker.formatDate('d, yy', event_end_display);
   } else if (sameYear && !sameMonth) {
-    console.log("same1");
+    console.log("same-Y");
     event_start_display = $.datepicker.formatDate('M d', event_start_display);
     event_end_display   = $.datepicker.formatDate('M d, yy', event_end_display);
   } else if (!sameYear) {
-    console.log("same0");
+    console.log("same-None");
     event_start_display = $.datepicker.formatDate('M d, yy', event_start_display);
     event_end_display   = $.datepicker.formatDate('M d, yy', event_end_display);
   }
   if (sameTime) {
+    console.log("same-time");
     event_start_time = startHour + ":" + startMin + startAMPM;
     event_end_time   = '';
   } else {
+    console.log("not-same-time");
     event_start_time = startHour + ":" + startMin + startAMPM;
     event_end_time   = endHour + ":" + endMin + endAMPM;
   }
@@ -270,17 +271,24 @@ function eventContainerContent() {
     durationDash = " - ";
   }
 
-  // event_end_display = ($.datepicker.formatDate('M d, yy', new Date($event_end.val())))
-
-  console.log("event_start: " + event_start_display + "\n" +
-              "event_start_time: " + event_start_time + "\n" +
-              "event_end: " + event_end_display + "\n" +
-              "event_end_time: " + event_end_time + "\n"
+  console.log("event_start: "       +event_start_display     +"\n" +
+              "event_start_time: "  +event_start_time        +"\n" +
+              "event_end: "         +event_end_display       +"\n" +
+              "event_end_time: "    +event_end_time          +"\n"
   );
 
   if ($event_start.val() != $event_end.val()) {
     multiday = true;
     multiDash = " - ";
+  }
+
+  var guestList = "";
+  for (var i = 0; i < guest_array.length; i++) {
+    if (i < guest_array.length - 1) {
+      guestList += guest_array[i].name + ", ";
+    } else {
+      guestList += guest_array[i].name;
+    }
   }
 
   eventDiv =  "<div class='event' id='eventNum"                                         +eventId                                        +"'>" +
@@ -293,9 +301,8 @@ function eventContainerContent() {
               // "<div class='event-end-time event-invisible' style='display: none;'>"     +event_end_time                                 +"</div>" +
               "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()                          +"</div>" +
               "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val()                           +"</div>" +
-
               "<div class='event-guests-count event-invisible' style='display: none;'>" +guest_array.length                             +" Guests</div>" +
-              "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()                            +"</div>" +
+              "<div class='event-guests-names event-invisible' style='display: none;'>" +guestList                                      +"</div>" +
               "</div>";
 
   multiDash = "";
