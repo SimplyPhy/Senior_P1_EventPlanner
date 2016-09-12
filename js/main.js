@@ -185,6 +185,8 @@ var $events_container = $('#events_container'),
     guests = [],
     multiday = false,
     multiDash = "",
+    duration = false,
+    durationDash = "",
     eventDiv,
     currentEventDiv;
 
@@ -199,21 +201,101 @@ function eventContainerContent() {
                   $event_location.val()
   ]);
 
-  if ($event_start.val() != $event_end.val()) {
-    multiday = true;
-    multiDash = " -";
+  var event_start_display = $.datepicker.parseDate('M d, yy', $event_start.val()),
+      event_start_year    = $.datepicker.formatDate('yy', event_start_display),
+      event_start_month   = $.datepicker.formatDate('M', event_start_display),
+      event_start_day     = $.datepicker.formatDate('d', event_start_display),
+      event_start_time    = '12:00am',
+      event_end_display   = $.datepicker.parseDate('M d, yy', $event_end.val()),
+      event_end_year      = $.datepicker.formatDate('yy', event_end_display),
+      event_end_month     = $.datepicker.formatDate('M', event_end_display),
+      event_end_day       = $.datepicker.formatDate('d', event_end_display),
+      event_end_time      = '12:00am';
+
+  var sameYear  = false,
+      sameMonth = false,
+      sameDay   = false,
+      sameTime  = false;
+
+  if (event_start_year == event_end_year) {
+    console.log(event_start_year)
+    console.log(" ^^ sameYear");
+    sameYear = true;
+  }
+  if (event_start_month == event_end_month) {
+    console.log("sameMonth");
+    sameMonth = true;
+  }
+  if (event_start_day == event_end_day) {
+    console.log("sameDay");
+    sameDay = true;
+  }
+  if (startMin == 0) {
+    startMin = '00';
+  }
+  if (endMin == 0) {
+    endMin = '00';
+  }
+  if (startHour === endHour && startMin === endMin && startAMPM === endAMPM) {
+    console.log("sameTime");
+    sameTime = true;
+  }
+  if (sameYear && sameMonth && sameDay) {
+    console.log("same123");
+    event_start_display = $.datepicker.formatDate('M d, yy', event_start_display);
+    console.log(event_start_display);
+    event_end_display   = '';
+  } else if (sameYear && sameMonth && !sameDay) {
+    console.log("same12");
+    event_start_display = $.datepicker.formatDate('M d', event_start_display);
+    event_end_display   = $.datepicker.formatDate('d, yy', event_end_display);
+  } else if (sameYear && !sameMonth) {
+    console.log("same1");
+    event_start_display = $.datepicker.formatDate('M d', event_start_display);
+    event_end_display   = $.datepicker.formatDate('M d, yy', event_end_display);
+  } else if (!sameYear) {
+    console.log("same0");
+    event_start_display = $.datepicker.formatDate('M d, yy', event_start_display);
+    event_end_display   = $.datepicker.formatDate('M d, yy', event_end_display);
+  }
+  if (sameTime) {
+    event_start_time = startHour + ":" + startMin + startAMPM;
+    event_end_time   = '';
+  } else {
+    event_start_time = startHour + ":" + startMin + startAMPM;
+    event_end_time   = endHour + ":" + endMin + endAMPM;
+  }
+  if (!sameTime || !sameYear || !sameMonth || !sameDay) {
+    duration = true;
+    durationDash = " - ";
   }
 
-  eventDiv =  "<div class='event' id='eventNum"                                           +eventId                      +"'>" +
-                "<div class='event-name event-visible'>"                                  +$event_name.val()            +"</div>" +
-                "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()            +"</div>" +
-                "<div class='event-host event-visible'>Host: "                            +$event_host.val()            +"</div>" +
-                "<div class='event-start event-visible'>"                                 +$event_start.val()+multiDash +"</div>" +
-                "<div class='event-end event-invisible' style='display: none;'>"          +$event_end.val()             +"</div>" +
-                "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()        +"</div>" +
-                "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val()         +"</div>" +
-                "<div class='event-guests-count event-invisible' style='display: none;'>" +guest_array.length           +" Guests</div>" +
-                "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()          +"</div>" +
+  // event_end_display = ($.datepicker.formatDate('M d, yy', new Date($event_end.val())))
+
+  console.log("event_start: " + event_start_display + "\n" +
+              "event_start_time: " + event_start_time + "\n" +
+              "event_end: " + event_end_display + "\n" +
+              "event_end_time: " + event_end_time + "\n"
+  );
+
+  if ($event_start.val() != $event_end.val()) {
+    multiday = true;
+    multiDash = " - ";
+  }
+
+  eventDiv =  "<div class='event' id='eventNum"                                         +eventId                                        +"'>" +
+              "<div class='event-name event-visible'>"                                  +$event_name.val()                              +"</div>" +
+              "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()                              +"</div>" +
+              "<div class='event-host event-visible'>Host: "                            +$event_host.val()                              +"</div>" +
+              "<div class='event-start event-visible'>"                                 +event_start_display+multiDash+event_end_display+"</div>" +
+              "<div class='event-start-time event-invisible' style='display: none;'>"   +event_start_time+durationDash+event_end_time   +"</div>" +
+              // "<div class='event-end event-invisible' style='display: none;'>"          +event_end_display                              +"</div>" +
+              // "<div class='event-end-time event-invisible' style='display: none;'>"     +event_end_time                                 +"</div>" +
+              "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()                          +"</div>" +
+              "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val()                           +"</div>" +
+
+              "<div class='event-guests-count event-invisible' style='display: none;'>" +guest_array.length                             +" Guests</div>" +
+              "<div class='event-guests-names event-invisible' style='display: none;'>" +$event_guests.val()                            +"</div>" +
               "</div>";
 
   multiDash = "";
@@ -496,6 +578,13 @@ $('#start_time, #end_time, #start_hour_select-button, #start_minute_select-butto
   }
 });
 
+var startHour = 0,
+    startMin  = 0,
+    startAMPM = 'am',
+    endHour   = 0,
+    endMin    = 0,
+    endAMPM   = 'am';
+
 // Check that start time input is earlier or the same as the end time input
 function compareTime(time1, time2) {
   $('#start_time .success-msg').remove();
@@ -503,17 +592,18 @@ function compareTime(time1, time2) {
       date2     = new Date(time2),
       bool      = date1 > date2,
       equal     = date1 <= date2, // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
-      allGood   = date1 < date2,  // whereas the values are converts to numbers, then compared, when using <=
-      startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
-      startHour = parseInt(startHour),
-      startMin  = $('#start_minute_select-button .ui-selectmenu-text').text(),
-      startMin  = parseInt(startMin),
-      startAMPM = $('#start_ampm_select-button .ui-selectmenu-text').text(),
-      endHour   = $('#end_hour_select-button .ui-selectmenu-text').text().replace(':', ''),
-      endHour   = parseInt(endHour),
-      endMin    = $('#end_minute_select-button .ui-selectmenu-text').text(),
-      endMin    = parseInt(endMin),
-      endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
+      allGood   = date1 < date2;  // whereas the values are converts to numbers, then compared, when using <=
+
+  startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
+  startHour = parseInt(startHour);
+  startMin  = $('#start_minute_select-button .ui-selectmenu-text').text();
+  startMin  = parseInt(startMin);
+  startAMPM = $('#start_ampm_select-button .ui-selectmenu-text').text();
+  endHour   = $('#end_hour_select-button .ui-selectmenu-text').text().replace(':', '');
+  endHour   = parseInt(endHour);
+  endMin    = $('#end_minute_select-button .ui-selectmenu-text').text();
+  endMin    = parseInt(endMin);
+  endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
   if (allGood === true) {
     return true;
@@ -1005,8 +1095,8 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 
