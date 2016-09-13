@@ -298,21 +298,22 @@ function eventContainerContent() {
     }
   }
 
-  eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                        +"'>" +
-                "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"        +
-                "<div class='event-name event-visible'>"                                          +$event_name.val()                              +"</div>" +
-                "<div class='event-type event-invisible' style='display: none;'>"                 +$event_type.val()                              +"</div>" +
-                "<div class='event-host event-visible'>Host: "                                    +$event_host.val()                              +"</div>" +
-                "<div class='event-start event-visible'>"                                         +event_start_display+multiDash+event_end_display+"</div>" +
-                "<div class='event-start-time event-invisible' style='display: none;'>"           +event_start_time+durationDash+event_end_time   +"</div>" +
-                // "<div class='event-end event-invisible' style='display: none;'>"                 +event_end_display                              +"</div>" +
-                // "<div class='event-end-time event-invisible' style='display: none;'>"            +event_end_time                                 +"</div>" +
-                "<div class='event-location event-invisible' style='display: none;'>"             +$event_location.val()                          +"</div>" +
-                "<div class='event-message-header event-invisible' style='display: none;'>"       +guest_message                                  +"</div>" +
+  eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                                            +"'>" +
+                "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"                  +
+                "<div class='event-name event-visible'>"                                          +$event_name.val()                                                  +"</div>" +
+                "<div class='event-type event-invisible' style='display: none;'>"                 +$event_type.val()                                                  +"</div>" +
+                "<div class='event-host event-visible'>Host: "                                    +$event_host.val()                                                  +"</div>" +
+                "<div class='event-time-header event-invisible' style='display: none;'>"          +"When:"                                                            +"</div>" +
+                "<div class='event-start event-visible'>"                                         +event_start_display+multiDash+event_end_display                    +"</div>" +
+                "<div class='event-start-time event-invisible' style='display: none;'>"           +event_start_time+durationDash+event_end_time                       +"</div>" +
+                "<div class='event-location-header event-invisible' style='display: none;'>"      +"Where:"                                                           +"</div>" +
+                "<div class='event-location event-invisible' style='display: none;'>"             +$event_location.val()                                              +"</div>" +
+                "<div class='event-message-header event-invisible' style='display: none;'>"       +guest_message                                                      +"</div>" +
                 "<div class='event-guests-div event-invisible' style='display: none;'>"           +
-                  "<div class='event-message event-visible'>"                                     +$event_message.val()                           +"</div>" +
-                  "<div class='event-guestlist-header' id='guestlistHeader"+eventId+"'>"          +"Guest List"                                   +"</div>" +
-                  "<div class='event-guestlist' id='guestlist"+eventId+"' style='display: none;'>" +guestList                                      +"</div>" +
+                  "<div class='event-message event-visible'>"                                     +$event_message.val()                                               +"</div>" +
+                  "<div class='event-guestlist-header' id='guestlistHeader"+eventId+"'>"          +"Guest List "                                                      +
+                    "<img src='img/event-expand-icon.png' alt='Click to expand your guestlist' class='guestlist-expand-icon' id='guestlist_expand_icon"+eventId+"'>"  +"</div>" +
+                  "<div class='event-guestlist' id='guestlist"+eventId+"' style='display: none;'>"+guestList                                                          +"</div>" +
                 "</div>"                                                                          +
               "</div>";
 
@@ -371,19 +372,55 @@ function eventValidation() {
 }
 
 function guestlistListener() {
-  var guestlistHeaderId = "guestlistHeader"+eventId;
-  var guestlistId       = "guestlist"+eventId;
+  var guestlistHeaderId = "#guestlistHeader"+eventId,
+      guestlistId       = "#guestlist"+eventId,
+      guestHeadList     = guestlistHeaderId+", "+guestlistId,
+      guestlistIconId   = "#guestlist_expand_icon"+eventId,
+      localBool         = true;
 
-  $("#"+guestlistHeaderId).click(function(e) {
+  $(guestHeadList).click(function(e) {
     e.stopPropagation();
-    $("#"+guestlistId).slideToggle();
+    $(guestlistId).slideToggle();
+    if (localBool) {
+      $(guestlistIconId).css('animation', 'event-button-rotate 0.4s linear');
+      $(guestlistIconId).css('transform', 'rotate(90deg)');
+    } else {
+      $(guestlistIconId).css('animation', 'event-button-rotate-back 0.4s linear');
+      $(guestlistIconId).css('transform', 'rotate(0deg)');
+    }
+    localBool = !localBool;
   });
 }
 
-// fake event guestlist listener
-$('#guestlistHeader').click(function(e) {
-    e.stopPropagation();
-    $('#guestlist').slideToggle();
+function newEventClickListener(currentID) {
+  var localBool = true;
+  $('#eventNum'+currentID).click(function() {
+    $(this).children('.event-invisible').slideToggle();
+    if (localBool) {
+      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate 0.4s linear');
+      $('#event_expand_icon'+currentID).css('transform', 'rotate(90deg)');
+    } else {
+      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate-back 0.4s linear');
+      $('#event_expand_icon'+currentID).css('transform', 'rotate(0deg)');
+    }
+    localBool = !localBool;
+  });
+}
+
+var fakeBool2 = true;
+// fake event guestlist_icon listener
+$('#guestlistHeader, #guestlist').click(function(e) {
+  e.stopPropagation();
+  $('#guestlist').slideToggle();
+  if (fakeBool2) {
+    $('#guestlist_expand_icon').css('animation', 'event-button-rotate 0.4s linear');
+    $('#guestlist_expand_icon').css('transform', 'rotate(90deg)');
+    fakeBool2 = !fakeBool2;
+  } else {
+    $('#guestlist_expand_icon').css('animation', 'event-button-rotate-back 0.4s linear');
+    $('#guestlist_expand_icon').css('transform', 'rotate(0deg)');
+    fakeBool2 = !fakeBool2;
+  }
 });
 
 var fakeBool = true;
@@ -400,21 +437,6 @@ $('.fake-event').click(function() {
     fakeBool = !fakeBool;
   }
 });
-
-function newEventClickListener(currentID) {
-  var localBool = true;
-  $('#eventNum'+currentID).click(function() {
-    $(this).children('.event-invisible').slideToggle();
-    if (localBool) {
-      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate 0.4s linear');
-      $('#event_expand_icon'+currentID).css('transform', 'rotate(90deg)');
-    } else {
-      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate-back 0.4s linear');
-      $('#event_expand_icon'+currentID).css('transform', 'rotate(0deg)');
-    }
-    localBool = !localBool;
-  });
-}
 
 function postEventPrep() {
   if (multiday) {

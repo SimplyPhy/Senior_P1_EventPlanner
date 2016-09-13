@@ -13,33 +13,33 @@
         width: 100%;
         position: relative;
     }
+}
 
-    .event {
-        position: relative;
-        background: hsl(147, 47%, 60%);
-        width: calc(100%-2rem);
+.event {
+    position: relative;
+    background: hsl(147, 47%, 60%);
+    width: calc(100%-2rem);
+    color: hsl(146, 23%, 40%);
 
-        border-radius: 1.5rem;
-        box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
-        inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.6),
-        0px 0px 10px 5px hsla(147, 47%, 74%, 0.6);
+    border-radius: 1.5rem;
+    box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
+    inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.6),
+    0px 0px 10px 5px hsla(147, 47%, 74%, 0.6);
 
-        padding: 0.5rem 1rem 0.8rem 1rem;
-        margin-bottom: 0.5rem;
-        /*flex-flow: row wrap;*/  /* This is the same as direction+wrap */
+    padding: 0.5rem 1rem 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    /*flex-flow: row wrap;*/  /* This is the same as direction+wrap */
 
-
-        .event-name {
-            font-size: 1.4rem;
-            font-weight: 900;
-            padding-bottom: 0.5rem;
-            flex-basis: 100%;
-        }
-
-        * {
-            margin-bottom: 0.2rem;
-        }
+    * {
+        margin-bottom: 0.2rem;
     }
+}
+
+.event-name {
+    font-size: 1.4rem;
+    font-weight: 900;
+    padding-bottom: 0.5rem;
+    color: hsl(146, 23%, 30%);
 }
 
 .events-container {
@@ -55,6 +55,7 @@
 .event-type {
     font-size: 1.2rem;
     font-weight: 900;
+    color: hsl(146, 23%, 35%);
 }
 
 .event-host {
@@ -71,9 +72,10 @@
 }
 
 .event-message-header {
-    margin-top: 0.2rem;
+    margin-top: 0.8rem;
     font-size: 1.1rem;
     font-weight: 900;
+    color: hsl(146, 23%, 35%);
 }
 
 .event-message {
@@ -82,9 +84,24 @@
 }
 
 .event-guestlist-header {
-    margin-top: 0.4rem;
+    margin: 0.8rem 0 0 0.7rem;
     font-size: 1.2rem;
     font-weight: 900;
+    color: hsl(146, 23%, 35%);
+}
+
+.event-time-header {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: hsl(146, 23%, 35%);
+}
+
+.event-location-header {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: hsl(146, 23%, 35%);
 }
 
 .event-expand-icon {
@@ -94,10 +111,6 @@
     width: 3rem;
     margin: 0.9rem 1.4rem 0 0;
     opacity: 0.75;
-    /*animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;*/
 
     @media screen and (max-height: 499px) and (orientation: portrait) {
         margin: 1.3rem 0.8rem 0 0;
@@ -129,6 +142,14 @@
     @media #{$large-port} {
         margin: 1rem 1.5rem 0 0;
     }
+}
+
+.guestlist-expand-icon {
+    height: 1.2rem;
+    width: 1.2rem;
+    opacity: 0.75;
+    margin: 0;
+    vertical-align: bottom;
 }
 
 @keyframes event-button-rotate-back {

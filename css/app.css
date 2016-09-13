@@ -19,23 +19,26 @@
   .view-events form {
     width: 100%;
     position: relative; }
-  .view-events .event {
-    position: relative;
-    background: #69c994;
-    width: calc(100%-2rem);
-    border-radius: 1.5rem;
-    box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);
-    padding: 0.5rem 1rem 0.8rem 1rem;
-    margin-bottom: 0.5rem;
-    /*flex-flow: row wrap;*/
-    /* This is the same as direction+wrap */ }
-    .view-events .event .event-name {
-      font-size: 1.4rem;
-      font-weight: 900;
-      padding-bottom: 0.5rem;
-      flex-basis: 100%; }
-    .view-events .event * {
-      margin-bottom: 0.2rem; }
+
+.event {
+  position: relative;
+  background: #69c994;
+  width: calc(100%-2rem);
+  color: #4f7d63;
+  border-radius: 1.5rem;
+  box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);
+  padding: 0.5rem 1rem 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  /*flex-flow: row wrap;*/
+  /* This is the same as direction+wrap */ }
+  .event * {
+    margin-bottom: 0.2rem; }
+
+.event-name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  padding-bottom: 0.5rem;
+  color: #3b5e4a; }
 
 .events-container {
   width: 100%; }
@@ -47,7 +50,8 @@
 
 .event-type {
   font-size: 1.2rem;
-  font-weight: 900; }
+  font-weight: 900;
+  color: #456e57; }
 
 .event-host {
   font-size: 1.1rem; }
@@ -60,18 +64,32 @@
   margin-top: 0.2rem; }
 
 .event-message-header {
-  margin-top: 0.2rem;
+  margin-top: 0.8rem;
   font-size: 1.1rem;
-  font-weight: 900; }
+  font-weight: 900;
+  color: #456e57; }
 
 .event-message {
   max-height: 2.8rem;
   overflow-y: auto; }
 
 .event-guestlist-header {
-  margin-top: 0.4rem;
+  margin: 0.8rem 0 0 0.7rem;
   font-size: 1.2rem;
-  font-weight: 900; }
+  font-weight: 900;
+  color: #456e57; }
+
+.event-time-header {
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #456e57; }
+
+.event-location-header {
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #456e57; }
 
 .event-expand-icon {
   position: absolute;
@@ -79,11 +97,7 @@
   height: 3rem;
   width: 3rem;
   margin: 0.9rem 1.4rem 0 0;
-  opacity: 0.75;
-  /*animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;*/ }
+  opacity: 0.75; }
   @media screen and (max-height: 499px) and (orientation: portrait) {
     .event-expand-icon {
       margin: 1.3rem 0.8rem 0 0; } }
@@ -114,6 +128,13 @@
   @media screen and (min-width: 801px) and (orientation: portrait) {
     .event-expand-icon {
       margin: 1rem 1.5rem 0 0; } }
+
+.guestlist-expand-icon {
+  height: 1.2rem;
+  width: 1.2rem;
+  opacity: 0.75;
+  margin: 0;
+  vertical-align: bottom; }
 
 @keyframes event-button-rotate-back {
   from {
