@@ -1224,8 +1224,8 @@ function closeEvent() {
 // call on page load
 hidePages();
 // $profile.show();
-$view_events.show();
-// $login.show();
+// $view_events.show();
+$login.show();
 // $create_event.show();
 setAutofocus();
 
