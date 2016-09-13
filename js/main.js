@@ -1156,8 +1156,8 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-$view_events.show();
-// $login.show();
+// $view_events.show();
+$login.show();
 // $create_event.show();
 setAutofocus();
 
