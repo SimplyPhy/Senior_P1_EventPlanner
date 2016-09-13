@@ -218,8 +218,10 @@ function eventContainerContent() {
       sameTime  = false,
       sameDate  = true;
 
-  var guestList     = "",
-      guest_message = "Message to "+guest_array.length+" guests: ";
+  var guestList           = "",
+      guestMessageHeader  = "",
+      guestMessageDiv     = "",
+      guest_message       = "Message to "+guest_array.length+" guests: ";
 
   if (event_start_year == event_end_year) {
     console.log(event_start_year)
@@ -298,6 +300,11 @@ function eventContainerContent() {
     }
   }
 
+  if ($event_message.val().length > 0) {
+    guestMessageHeader  = "<div class='event-message-header event-invisible' style='display: none;'>" +guest_message       +"</div>";
+    guestMessageDiv     = "<div class='event-message event-visible'>"                                 +$event_message.val()+"</div>";
+  }
+
   eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                                            +"'>" +
                 "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"                  +
                 "<div class='event-name event-visible'>"                                          +$event_name.val()                                                  +"</div>" +
@@ -308,9 +315,9 @@ function eventContainerContent() {
                 "<div class='event-start-time event-invisible' style='display: none;'>"           +event_start_time+durationDash+event_end_time                       +"</div>" +
                 "<div class='event-location-header event-invisible' style='display: none;'>"      +"Where:"                                                           +"</div>" +
                 "<div class='event-location event-invisible' style='display: none;'>"             +$event_location.val()                                              +"</div>" +
-                "<div class='event-message-header event-invisible' style='display: none;'>"       +guest_message                                                      +"</div>" +
+                guestMessageHeader                                                                +
                 "<div class='event-guests-div event-invisible' style='display: none;'>"           +
-                  "<div class='event-message event-visible'>"                                     +$event_message.val()                                               +"</div>" +
+                  guestMessageDiv                                                                 +
                   "<div class='event-guestlist-header' id='guestlistHeader"+eventId+"'>"          +"Guest List "                                                      +
                     "<img src='img/event-expand-icon.png' alt='Click to expand your guestlist' class='guestlist-expand-icon' id='guestlist_expand_icon"+eventId+"'>"  +"</div>" +
                   "<div class='event-guestlist' id='guestlist"+eventId+"' style='display: none;'>"+guestList                                                          +"</div>" +
@@ -1178,8 +1185,8 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 
