@@ -36,9 +36,7 @@
       .view-events-layout .view-events h1 {
         margin-bottom: 0.5rem; } }
     .view-events-layout .view-events form {
-      position: relative;
-      /*overflow-y: auto;
-            height: 100%;*/ }
+      position: relative; }
 
 .event {
   position: relative;
@@ -58,7 +56,11 @@
   font-size: 1.4rem;
   font-weight: 900;
   padding-bottom: 0.5rem;
-  color: #3b5e4a; }
+  color: #3b5e4a;
+  margin: 0 3rem 0 2rem; }
+  @media screen and (max-width: 399px) and (orientation: portrait) {
+    .event-name {
+      margin: 0 2.7rem 0 1.7rem; } }
 
 .events-container {
   width: 100%; }
@@ -82,7 +84,8 @@
   color: #456e57; }
 
 .event-host {
-  font-size: 1.1rem; }
+  font-size: 1.1rem;
+  margin: 0 2.8rem; }
 
 .event-start {
   margin-top: 0.2rem;
@@ -163,6 +166,13 @@
   opacity: 0.75;
   margin: 0;
   vertical-align: bottom; }
+
+.event-close-icon {
+  opacity: 0.75;
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  left: 0.5rem; }
 
 @keyframes event-button-rotate-back {
   from {
@@ -342,6 +352,14 @@
 
 textarea {
   font-family: 'Varela Round', sans-serif; }
+
+.create-event-close-icon {
+  position: absolute;
+  opacity: 0.9;
+  left: 0.8rem;
+  top: 0.8rem;
+  height: 2.5rem;
+  width: 2.5rem; }
 
 /*$body-height: html*/
 html {

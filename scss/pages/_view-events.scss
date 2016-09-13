@@ -28,8 +28,6 @@
 
         form {
             position: relative;
-            /*overflow-y: auto;
-            height: 100%;*/
         }
     }
 }
@@ -59,6 +57,11 @@
     font-weight: 900;
     padding-bottom: 0.5rem;
     color: hsl(146, 23%, 30%);
+    margin: 0 3rem 0 2rem;
+
+    @media #{$small-port} {
+        margin: 0 2.7rem 0 1.7rem;
+    }
 }
 
 .events-container {
@@ -88,6 +91,7 @@
 
 .event-host {
     font-size: 1.1rem;
+    margin: 0 2.8rem;
 }
 
 .event-start {
@@ -178,6 +182,14 @@
     opacity: 0.75;
     margin: 0;
     vertical-align: bottom;
+}
+
+.event-close-icon {
+    opacity: 0.75;
+    height: 2rem;
+    width: 2rem;
+    position: absolute;
+    left: 0.5rem;
 }
 
 @keyframes event-button-rotate-back {

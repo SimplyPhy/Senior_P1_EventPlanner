@@ -321,6 +321,7 @@ function eventContainerContent() {
   }
 
   eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                                            +"'>" +
+                "<img src='img/event-close-icon.png' alt='Click to close your event' class='event-close-icon' id='event_close_icon"+eventId+"'>"                      +
                 "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"                  +
                 "<div class='event-name event-visible'>"                                          +$event_name.val()                                                  +"</div>" +
                 "<div class='event-type event-invisible' style='display: none;'>"                 +$event_type.val()                                                  +"</div>" +
@@ -387,10 +388,28 @@ function eventValidation() {
     $events_container.append(currentEventDiv);
     newEventClickListener(eventId);
     guestlistListener();
+    eventCloseListener();
 
     postEventPrep();
     $create_event.hide();
   }
+}
+
+// fake event x-icon listener
+$('.event-close-icon').click(function(e) {
+  e.stopPropagation();
+  $('#eventFake1').remove();
+});
+
+// Remove event when x-icon is clicked
+function eventCloseListener() {
+  var thisClose     = "#event_close_icon"+eventId,
+      thisEventNum  = "#eventNum"+eventId;
+
+  $(thisClose).click(function(e) {
+    e.stopPropagation();
+    $(thisEventNum).remove();
+  });
 }
 
 function guestlistListener() {
@@ -1196,13 +1215,22 @@ function alertSuccess(element) {
   }
 }
 
+$('#create_event_form').scroll( function () {
+    var currentTop = $('#create_event_form').scrollTop();
+    if (currentTop <= 10) {
+        $('.create-event-close-icon').show();
+    } else {
+        $('.create-event-close-icon').hide();
+    }
+});
+
 
 
 // call on page load
 hidePages();
 // $profile.show();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 
