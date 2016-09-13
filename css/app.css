@@ -185,6 +185,7 @@
   height: calc(80vh - 3.3rem);
   overflow: hidden;
   margin-top: 10vh;
+  width: 40%;
   border-radius: 1.5rem;
   box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
   padding: 0.5rem 1rem 0.8rem 1rem; }
@@ -202,27 +203,24 @@
       left: calc(10% - 1rem); } }
   @media screen and (min-width: 700px) and (max-width: 1049px) and (orientation: landscape) {
     .create-event {
-      width: 80%;
-      left: calc(10% - 1rem); } }
+      width: 60%;
+      left: calc(20% - 1rem); } }
   @media screen and (min-width: 801px) and (orientation: portrait) {
     .create-event {
-      width: 80%;
-      left: calc(10% - 1rem); } }
+      width: 60%;
+      left: calc(20% - 1rem); } }
   .create-event h2 {
     color: rgba(87, 117, 102, 0.8);
-    /*color: hsl(147, 47%, 67%);*/
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
     background: #83d2a7;
     width: 57%;
     margin: auto;
     margin-bottom: 1rem;
-    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
-    /*@media screen and (min-width: 1050px) and (orientation: landscape) {*/
-    border-radius: 2rem;
-    box-shadow: inset -5px -5px 10px -5px rgba(27, 75, 49, 0.6), inset 0px 0px 5px 0px rgba(27, 75, 49, 0.6), 0px 0px 7px 1px rgba(68, 187, 122, 0.4), 0px 0px 10px 5px rgba(94, 197, 140, 0.4);
     padding: 1rem;
-    /*};*/ }
+    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
+    border-radius: 2rem;
+    box-shadow: inset -5px -5px 10px -5px rgba(27, 75, 49, 0.6), inset 0px 0px 5px 0px rgba(27, 75, 49, 0.6), 0px 0px 7px 1px rgba(68, 187, 122, 0.4), 0px 0px 10px 5px rgba(94, 197, 140, 0.4); }
     @media screen and (max-width: 399px) and (orientation: portrait) {
       .create-event h2 {
         font-size: 1.5rem;
@@ -240,7 +238,7 @@
         width: 65%; } }
     @media screen and (min-width: 370px) and (max-width: 399px) and (orientation: portrait) {
       .create-event h2 {
-        font-size: 1.8rem; } }
+        font-size: 1.7rem; } }
     @media screen and (max-height: 499px) and (orientation: portrait) {
       .create-event h2 {
         margin-bottom: 0.2rem; } }
