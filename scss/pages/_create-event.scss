@@ -2,7 +2,6 @@
     position: absolute;
     top: 0; left: calc(30% - 1rem); right: 0;
     background: hsl(147, 47%, 42%);
-    width: 40%;
     height: calc(80vh - 3.3rem);
     overflow: hidden;
     margin-top: 10vh;
@@ -104,6 +103,7 @@
         height: 120vh;
         padding-right: 17%;
         padding-left: 17%;
+        width: 90%;
 
         @media #{$small-land} {
             margin-top: 1%;
@@ -194,13 +194,21 @@
     font-size: 1.2rem;
     border-radius: 0.5rem;
 
-    /*@media #{$medium-port} {
-        width: 94%;
+    @media #{$small-port} {
+        width: 85%;
     }
+}
 
-    @media #{$medium-land} {
-        width: 94%;
-    }*/
+.ui-selectmenu-button {
+    @media #{$small-port} {
+        padding: 0.4rem 0.9rem;
+    }
+}
+
+.create-event-form {
+    @media #{$small-port} {
+        width: 90%;
+    }
 }
 
 textarea {

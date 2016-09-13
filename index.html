@@ -38,7 +38,7 @@
       </ul>
       <div class="login-buttons">
         <button type="button" id="goto_profile_button" class="goto-profile-button">Create Profile</button>
-        <button type="button" id="login_button">Continue</button>
+        <button type="button" id="login_button" class="login-button">Continue</button>
       </div>
     </form>
   </div>
@@ -69,67 +69,69 @@
     </form>
   </div>
 
-  <div class="view-events">
-    <form>
-      <h1>My Events</h1>
-      <div id="events_container" class="events-container">
+  <div class="view-events-layout">
+    <h1>My Events</h1>
+    <div class="view-events">
+      <form>
+        <div id="events_container" class="events-container">
 
-        <!-- placeholder div -->
-        <div class="event fake-event" id="eventFake1">
-          <img src="img/event-expand-icon.png" alt="Click to expand your event" class="event-expand-icon">
-          <div class="event-name event-visible">Example Event</div>
-          <div class="event-type event-invisible" style="display: none;">Birthday</div>
-          <div class="event-host event-visible">Host: Lily</div>
-          <div class="event-time-header event-invisible" style="display: none;">When:</div>
-          <div class="event-start event-visible">Jul 3, 2016</div>
-          <div class="event-start-time event-invisible" style="display: none;">12:30pm - 5:00pm</div>
-          <div class="event-location-header event-invisible" style="display: none;">Where:</div>
-          <div class="event-location event-invisible" style="display: none;">123 Main St.<br>Philadelphia, PA 19001</div>
-          <div class="event-message-header event-invisible" style="display: none;">Message to 3 guests: </div>
-          <div class="event-guests-div event-invisible" style="display: none;">
-            <div class="event-message event-visible">This is an example event guest message!  It says two things to make it long enough for scroll!</div>
-            <div class="event-guestlist-header" id="guestlistHeader">Guest List <img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon"></div>
-            <div class="event-guestlist" id="guestlist" style="display: none;">Guest1, Guest2, Guest3</div>
+          <!-- placeholder div -->
+          <div class="event fake-event" id="eventFake1">
+            <img src="img/event-expand-icon.png" alt="Click to expand your event" class="event-expand-icon">
+            <div class="event-name event-visible">Example Event</div>
+            <div class="event-type event-invisible" style="display: none;">Birthday</div>
+            <div class="event-host event-visible">Host: Lily</div>
+            <div class="event-time-header event-invisible" style="display: none;">When:</div>
+            <div class="event-start event-visible">Jul 3, 2016</div>
+            <div class="event-start-time event-invisible" style="display: none;">12:30pm - 5:00pm</div>
+            <div class="event-location-header event-invisible" style="display: none;">Where:</div>
+            <div class="event-location event-invisible" style="display: none;">123 Main St.<br>Philadelphia, PA 19001</div>
+            <div class="event-message-header event-invisible" style="display: none;">Message to 3 guests: </div>
+            <div class="event-guests-div event-invisible" style="display: none;">
+              <div class="event-message event-visible">This is an example event guest message!  It says two things to make it long enough for scroll!</div>
+              <div class="event-guestlist-header" id="guestlistHeader">Guest List <img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon"></div>
+              <div class="event-guestlist" id="guestlist" style="display: none;">Guest1, Guest2, Guest3</div>
+            </div>
           </div>
-        </div>
-        <!-- end placeholder div -->
+          <!-- end placeholder div -->
 
-        <!-- placeholder div -->
-        <div class="event fake-event" id="eventFake2">
-          <div class="event-name event-visible">Example Name</div>
-          <div class="event-type event-invisible">Example Event Type</div>
-          <div class="event-host event-visible">Host: Lily</div>
-          <div class="event-start event-visible">Example Event Start</div>
-          <div class="event-end event-visible">Example Event End</div>
-          <div class="event-location event-invisible">Example Location</div>
-          <div class="event-message event-invisible">This is an example event guest message!</div>
-          <div class="event-guests-count event-invisible">3 Guests</div>
-          <div class="event-guests-names event-invisible">Guest1, Guest2, Guest3</div>
-        </div>
-        <!-- end placeholder div -->
+          <!-- placeholder div -->
+          <div class="event fake-event" id="eventFake2">
+            <div class="event-name event-visible">Example Name</div>
+            <div class="event-type event-invisible">Example Event Type</div>
+            <div class="event-host event-visible">Host: Lily</div>
+            <div class="event-start event-visible">Example Event Start</div>
+            <div class="event-end event-visible">Example Event End</div>
+            <div class="event-location event-invisible">Example Location</div>
+            <div class="event-message event-invisible">This is an example event guest message!</div>
+            <div class="event-guests-count event-invisible">3 Guests</div>
+            <div class="event-guests-names event-invisible">Guest1, Guest2, Guest3</div>
+          </div>
+          <!-- end placeholder div -->
 
-        <!-- placeholder div -->
-        <div class="event fake-event" id="eventFake3">
-          <div class="event-name event-visible">Example Name</div>
-          <div class="event-type event-invisible">Example Event Type</div>
-          <div class="event-host event-visible">Host: Lily</div>
-          <div class="event-start event-visible">Example Event Start</div>
-          <div class="event-end event-visible">Example Event End</div>
-          <div class="event-location event-invisible">Example Location</div>
-          <div class="event-message event-invisible">This is an example event guest message!</div>
-          <div class="event-guests-count event-invisible">3 Guests</div>
-          <div class="event-guests-names event-invisible">Guest1, Guest2, Guest3</div>
-        </div>
-        <!-- end placeholder div -->
+          <!-- placeholder div -->
+          <div class="event fake-event" id="eventFake3">
+            <div class="event-name event-visible">Example Name</div>
+            <div class="event-type event-invisible">Example Event Type</div>
+            <div class="event-host event-visible">Host: Lily</div>
+            <div class="event-start event-visible">Example Event Start</div>
+            <div class="event-end event-visible">Example Event End</div>
+            <div class="event-location event-invisible">Example Location</div>
+            <div class="event-message event-invisible">This is an example event guest message!</div>
+            <div class="event-guests-count event-invisible">3 Guests</div>
+            <div class="event-guests-names event-invisible">Guest1, Guest2, Guest3</div>
+          </div>
+          <!-- end placeholder div -->
 
-      </div>
-      <input type="image" id="add_event_button" class="add-event-button" src="img/add-event-button.png">
-    </form>
+        </div>
+      </form>
+    </div>
+    <input type="image" id="add_event_button" class="add-event-button" src="img/add-event-button.png">
   </div>
 
   <div class="create-event">
     <!-- <div id="form_scroll_div" class="form-scroll-div"> -->
-      <form id="create_event_form">
+      <form id="create_event_form" class="create-event-form">
         <h2>My New Event</h2>
         <label for="event_name">
           <span>What's your event's name?* </span>

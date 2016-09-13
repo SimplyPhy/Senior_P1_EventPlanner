@@ -39,23 +39,22 @@ html {
 body {
   display: flex;
   justify-content: space-around;
-  height: 80%;
+  max-height: 80vh;
   width: 60%;
   margin: auto;
   background: hsl(147, 47%, 67%);
 
   @media #{$small-land} {
-      margin-top: 1%;
+      margin-top: 5%;
+      max-height: 80vh;
+      width: 90%;
   }
 
   @media #{$small-port} {
       width: 80%;
       margin-top: 5%;
-  }
-
-  @media #{$small-land} {
-      width: 80%;
-      margin-top: 5%;
+      max-height: 88vh;
+      width: 100%;
   }
 
   @media #{$medium-port} {
@@ -72,7 +71,7 @@ body {
       width: 80%;
 
       border: 1px solid hsla(147, 47%, 67%, 0.2);
-      padding: 3.5rem 0 2.5rem 0;
+      padding: 2.5rem 0 2.5rem 0;
       border-radius: 2rem 5rem;
       box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
       0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -80,7 +79,7 @@ body {
 
   @media #{$large-land} {
       border: 1px solid hsla(147, 47%, 67%, 0.2);
-      padding: 3.5rem 0 2.5rem 0;
+      padding: 2.5rem 0 2.5rem 0;
       border-radius: 2rem 5rem;
       box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
       0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -88,7 +87,7 @@ body {
 
   @media #{$large-port} {
       border: 1px solid hsla(147, 47%, 67%, 0.2);
-      padding: 3.5rem 0 2.5rem 0;
+      padding: 2.5rem 0 2.5rem 0;
       border-radius: 2rem 5rem;
       box-shadow: inset 0px 0px 39px -10px rgba(0,0,0,0.75),
       0px 0px 15px 0px rgba(0,0,0,0.5);
@@ -99,6 +98,11 @@ body {
 }
 
 .login,
+.profile {
+  overflow-y: scroll;
+}
+
+.login,
 .profile,
 .view-events,
 .create-event {
@@ -106,15 +110,20 @@ body {
     align-items: center;
     flex-direction: column;
     padding-bottom: 1.5rem;
-    /*overflow-y: scroll;*/
+    max-height: 100%;
 
     form {
         text-align: center;
         flex-direction: column;
         width: 70%;
+        max-height: 100%;
 
         @media #{$small-port} {
-          width: 100%;
+          width: 80%;
+        }
+
+        @media #{$small-land} {
+          width: 80%;
         }
 
         @media #{$medium-port} {
@@ -153,7 +162,13 @@ h1 {
                   .2px .2px 1px hsla(100, 50%, 90%, 0.8),
                   0 0 1px hsla(147, 50%, 90%, 0.8);
 
+    border-radius: 2rem;
+    box-shadow: inset -5px -5px 10px -5px hsla(147, 47%, 27%, 0.6),
+    inset 0px 0px 5px 0px hsla(147, 47%, 27%, 0.6), 0px 0px 7px 1px hsla(147, 47%, 67%, 0.6),
+    0px 0px 10px 5px hsla(147, 47%, 74%, 0.6);
+
     margin-bottom: 1rem;
+    padding: 0.6rem 1rem;
 
     @media #{$large-land} {
       border-radius: 2rem;
@@ -165,15 +180,15 @@ h1 {
     };
 
     @media #{$small-port} {
-      font-size: 2rem;
+      font-size: 1.8rem;
     };
 
     @media screen and (min-width: 370px) and (max-width: 399px) and (orientation: portrait) {
-      font-size: 2.4rem;
+      font-size: 2.1rem;
     };
 
     @media screen and (max-height: 499px) and (orientation: portrait) {
-      margin-bottom: 0.2rem;
+      // font-size:
     };
 }
 
@@ -219,6 +234,16 @@ button {
 .login-buttons {
     display: flex;
     justify-content: space-between;
+
+    @media #{$small-port} {
+        margin-bottom: 0.5rem;
+    }
+    @media #{$small-land} {
+        margin-bottom: 0.5rem;
+    }
+    @media #{$medium-land} {
+        margin-bottom: 0.5rem;
+    }
 }
 
 // Chrome autofill fix

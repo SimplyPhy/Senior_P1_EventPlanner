@@ -15,7 +15,7 @@
 
 var $login        = $('.login'),
     $profile      = $('.profile'),
-    $view_events  = $('.view-events'),
+    $view_events  = $('.view-events-layout'),
     $create_event = $('.create-event');
 
 var $pages = [
@@ -1185,8 +1185,9 @@ function alertSuccess(element) {
 
 // call on page load
 hidePages();
-$view_events.show();
-// $login.show();
+// $profile.show();
+// $view_events.show();
+$login.show();
 // $create_event.show();
 setAutofocus();
 
