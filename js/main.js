@@ -1209,6 +1209,16 @@ $('#create_event_form').scroll( function () {
     }
 });
 
+$('.create-event-close-icon').click(function() {
+  closeEvent();
+})
+
+function closeEvent() {
+  clearAlerts();
+  postEventPrep();
+  $create_event.hide();
+}
+
 
 
 // call on page load

@@ -36,9 +36,7 @@
       .view-events-layout .view-events h1 {
         margin-bottom: 0.5rem; } }
     .view-events-layout .view-events form {
-      position: relative;
-      /*overflow-y: auto;
-            height: 100%;*/ }
+      position: relative; }
 
 .event {
   position: relative;
@@ -58,7 +56,11 @@
   font-size: 1.4rem;
   font-weight: 900;
   padding-bottom: 0.5rem;
-  color: #3b5e4a; }
+  color: #3b5e4a;
+  margin: 0 3rem 0 2rem; }
+  @media screen and (max-width: 399px) and (orientation: portrait) {
+    .event-name {
+      margin: 0 2.7rem 0 1.7rem; } }
 
 .events-container {
   width: 100%; }
@@ -82,7 +84,8 @@
   color: #456e57; }
 
 .event-host {
-  font-size: 1.1rem; }
+  font-size: 1.1rem;
+  margin: 0 2.8rem; }
 
 .event-start {
   margin-top: 0.2rem;
@@ -164,6 +167,13 @@
   margin: 0;
   vertical-align: bottom; }
 
+.event-close-icon {
+  opacity: 0.75;
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  left: 0.5rem; }
+
 @keyframes event-button-rotate-back {
   from {
     transform: rotate(90deg); }
@@ -185,6 +195,7 @@
   height: calc(80vh - 3.3rem);
   overflow: hidden;
   margin-top: 10vh;
+  width: 40%;
   border-radius: 1.5rem;
   box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.8), 0px 0px 10px 5px rgba(158, 220, 186, 0.8);
   padding: 0.5rem 1rem 0.8rem 1rem; }
@@ -202,27 +213,24 @@
       left: calc(10% - 1rem); } }
   @media screen and (min-width: 700px) and (max-width: 1049px) and (orientation: landscape) {
     .create-event {
-      width: 80%;
-      left: calc(10% - 1rem); } }
+      width: 60%;
+      left: calc(20% - 1rem); } }
   @media screen and (min-width: 801px) and (orientation: portrait) {
     .create-event {
-      width: 80%;
-      left: calc(10% - 1rem); } }
+      width: 60%;
+      left: calc(20% - 1rem); } }
   .create-event h2 {
     color: rgba(87, 117, 102, 0.8);
-    /*color: hsl(147, 47%, 67%);*/
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 2rem;
     background: #83d2a7;
     width: 57%;
     margin: auto;
     margin-bottom: 1rem;
-    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
-    /*@media screen and (min-width: 1050px) and (orientation: landscape) {*/
-    border-radius: 2rem;
-    box-shadow: inset -5px -5px 10px -5px rgba(27, 75, 49, 0.6), inset 0px 0px 5px 0px rgba(27, 75, 49, 0.6), 0px 0px 7px 1px rgba(68, 187, 122, 0.4), 0px 0px 10px 5px rgba(94, 197, 140, 0.4);
     padding: 1rem;
-    /*};*/ }
+    text-shadow: -0.2px -0.2px 0.1px rgba(38, 115, 73, 0.9), 0.2px 0.2px 1px rgba(225, 242, 217, 0.8), 0 0 1px rgba(217, 242, 228, 0.8);
+    border-radius: 2rem;
+    box-shadow: inset -5px -5px 10px -5px rgba(27, 75, 49, 0.6), inset 0px 0px 5px 0px rgba(27, 75, 49, 0.6), 0px 0px 7px 1px rgba(68, 187, 122, 0.4), 0px 0px 10px 5px rgba(94, 197, 140, 0.4); }
     @media screen and (max-width: 399px) and (orientation: portrait) {
       .create-event h2 {
         font-size: 1.5rem;
@@ -240,7 +248,7 @@
         width: 65%; } }
     @media screen and (min-width: 370px) and (max-width: 399px) and (orientation: portrait) {
       .create-event h2 {
-        font-size: 1.8rem; } }
+        font-size: 1.7rem; } }
     @media screen and (max-height: 499px) and (orientation: portrait) {
       .create-event h2 {
         margin-bottom: 0.2rem; } }
@@ -344,6 +352,14 @@
 
 textarea {
   font-family: 'Varela Round', sans-serif; }
+
+.create-event-close-icon {
+  position: absolute;
+  opacity: 0.9;
+  left: 0.8rem;
+  top: 0.8rem;
+  height: 2.5rem;
+  width: 2.5rem; }
 
 /*$body-height: html*/
 html {
