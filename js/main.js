@@ -218,7 +218,8 @@ function eventContainerContent() {
       sameTime  = false,
       sameDate  = true;
 
-  var guestList = "";
+  var guestList     = "",
+      guest_message = "Message to "+guest_array.length+" guests: ";
 
   if (event_start_year == event_end_year) {
     console.log(event_start_year)
@@ -297,18 +298,22 @@ function eventContainerContent() {
     }
   }
 
-  eventDiv =  "<div class='event' id='eventNum"                                         +eventId                                        +"'>" +
-              "<div class='event-name event-visible'>"                                  +$event_name.val()                              +"</div>" +
-              "<div class='event-type event-invisible' style='display: none;'>"         +$event_type.val()                              +"</div>" +
-              "<div class='event-host event-visible'>Host: "                            +$event_host.val()                              +"</div>" +
-              "<div class='event-start event-visible'>"                                 +event_start_display+multiDash+event_end_display+"</div>" +
-              "<div class='event-start-time event-invisible' style='display: none;'>"   +event_start_time+durationDash+event_end_time   +"</div>" +
-              // "<div class='event-end event-invisible' style='display: none;'>"          +event_end_display                              +"</div>" +
-              // "<div class='event-end-time event-invisible' style='display: none;'>"     +event_end_time                                 +"</div>" +
-              "<div class='event-location event-invisible' style='display: none;'>"     +$event_location.val()                          +"</div>" +
-              "<div class='event-message event-invisible' style='display: none;'>"      +$event_message.val()                           +"</div>" +
-              "<div class='event-guests-count event-invisible' style='display: none;'>" +guest_array.length                             +" Guests</div>" +
-              "<div class='event-guests-names event-invisible' style='display: none;'>" +guestList                                      +"</div>" +
+  eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                        +"'>" +
+                "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"        +
+                "<div class='event-name event-visible'>"                                          +$event_name.val()                              +"</div>" +
+                "<div class='event-type event-invisible' style='display: none;'>"                 +$event_type.val()                              +"</div>" +
+                "<div class='event-host event-visible'>Host: "                                    +$event_host.val()                              +"</div>" +
+                "<div class='event-start event-visible'>"                                         +event_start_display+multiDash+event_end_display+"</div>" +
+                "<div class='event-start-time event-invisible' style='display: none;'>"           +event_start_time+durationDash+event_end_time   +"</div>" +
+                // "<div class='event-end event-invisible' style='display: none;'>"                 +event_end_display                              +"</div>" +
+                // "<div class='event-end-time event-invisible' style='display: none;'>"            +event_end_time                                 +"</div>" +
+                "<div class='event-location event-invisible' style='display: none;'>"             +$event_location.val()                          +"</div>" +
+                "<div class='event-message-header event-invisible' style='display: none;'>"       +guest_message                                  +"</div>" +
+                "<div class='event-guests-div event-invisible' style='display: none;'>"           +
+                  "<div class='event-message event-visible'>"                                     +$event_message.val()                           +"</div>" +
+                  "<div class='event-guestlist-header' id='guestlistHeader"+eventId+"'>"          +"Guest List"                                   +"</div>" +
+                  "<div class='event-guestlist' id='guestlist"+eventId+"' style='display: none;'>" +guestList                                      +"</div>" +
+                "</div>"                                                                          +
               "</div>";
 
   multiDash = "";
@@ -358,20 +363,56 @@ function eventValidation() {
     currentEventDiv = eventContainerContent();
     $events_container.append(currentEventDiv);
     newEventClickListener(eventId);
+    guestlistListener();
 
     postEventPrep();
     $create_event.hide();
   }
 }
 
+function guestlistListener() {
+  var guestlistHeaderId = "guestlistHeader"+eventId;
+  var guestlistId       = "guestlist"+eventId;
+
+  $("#"+guestlistHeaderId).click(function(e) {
+    e.stopPropagation();
+    $("#"+guestlistId).slideToggle();
+  });
+}
+
+// fake event guestlist listener
+$('#guestlistHeader').click(function(e) {
+    e.stopPropagation();
+    $('#guestlist').slideToggle();
+});
+
+var fakeBool = true;
 // click listener for fake (example/placeholder) events
 $('.fake-event').click(function() {
   $(this).children('.event-invisible').slideToggle();
+  if (fakeBool) {
+    $('.event-expand-icon').css('animation', 'event-button-rotate 0.4s linear');
+    $('.event-expand-icon').css('transform', 'rotate(90deg)');
+    fakeBool = !fakeBool;
+  } else {
+    $('.event-expand-icon').css('animation', 'event-button-rotate-back 0.4s linear');
+    $('.event-expand-icon').css('transform', 'rotate(0deg)');
+    fakeBool = !fakeBool;
+  }
 });
 
 function newEventClickListener(currentID) {
-  $('.event#eventNum'+ currentID).click(function() {
+  var localBool = true;
+  $('#eventNum'+currentID).click(function() {
     $(this).children('.event-invisible').slideToggle();
+    if (localBool) {
+      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate 0.4s linear');
+      $('#event_expand_icon'+currentID).css('transform', 'rotate(90deg)');
+    } else {
+      $('#event_expand_icon'+currentID).css('animation', 'event-button-rotate-back 0.4s linear');
+      $('#event_expand_icon'+currentID).css('transform', 'rotate(0deg)');
+    }
+    localBool = !localBool;
   });
 }
 

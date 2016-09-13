@@ -9,19 +9,13 @@
         }
     }
 
-
     form {
         width: 100%;
-        display: flex;
-        align-items: center;
+        position: relative;
     }
 
     .event {
-        display: flex;
-        flex-direction: column;
-        /*text-align: left;*/
-        /*flex-wrap: wrap;*/
-        justify-content: space-around;
+        position: relative;
         background: hsl(147, 47%, 60%);
         width: calc(100%-2rem);
 
@@ -36,27 +30,14 @@
 
 
         .event-name {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 900;
             padding-bottom: 0.5rem;
             flex-basis: 100%;
         }
 
-        /*.event-host {
-            flex-basis: 40%;
-            text-align: left;
-            padding-left: 8%;
-        }
-
-        .event-start {
-            flex-basis: 40%;
-            text-align: right;
-            padding-right: 8%;
-        }*/
-
-        .event-guests-names,
-        .event-guests-count {
-
+        * {
+            margin-bottom: 0.2rem;
         }
     }
 }
@@ -66,6 +47,106 @@
 }
 
 .add-event-button {
-    padding: 0;
-    margin: 1rem 0 0 auto;
+    padding: 0 0 1rem 0;
+    position: absolute;
+    right:0;
 }
+
+.event-type {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.event-host {
+    font-size: 1.1rem;
+}
+
+.event-start {
+    margin-top: 0.2rem;
+    margin-bottom: 0 !important;
+}
+
+.event-location {
+    margin-top: 0.2rem;
+}
+
+.event-message-header {
+    margin-top: 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.event-message {
+    max-height: 2.8rem;
+    overflow-y: auto;
+}
+
+.event-guestlist-header {
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.event-expand-icon {
+    position: absolute;
+    right: 0;
+    height: 3rem;
+    width: 3rem;
+    margin: 0.9rem 1.4rem 0 0;
+    opacity: 0.75;
+    /*animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;*/
+
+    @media screen and (max-height: 499px) and (orientation: portrait) {
+        margin: 1.3rem 0.8rem 0 0;
+    }
+    @media screen and (max-width: 499px) and (orientation: landscape) {
+        margin: 1.2rem 0.9rem 0 0;
+    }
+    @media screen and (min-height: 500px) and (max-height: 599px) and (orientation: portrait) {
+        margin: 1.3rem 0.7rem 0 0;
+    }
+    @media screen and (min-height: 600px) and (max-height: 699px) and (orientation: portrait) {
+        margin: 1rem 1rem 0 0;
+    }
+    @media screen and (min-width: 500px) and (max-width: 699px) and (orientation: landscape) {
+        margin: 1rem 1.2rem 0 0;
+    }
+    @media screen and (min-width: 400px) and (max-width: 699px) and (orientation: portrait) {
+        margin: 1.1rem 0.7rem 0 0;
+    }
+    @media screen and (min-width: 700px) and (max-width: 999px) and (orientation: landscape) {
+        margin: 1rem 1.4rem 0 0;
+    }
+    @media screen and (min-width: 700px) and (max-width: 800px) and (orientation: portrait) {
+        margin: 1rem 1.4rem 0 0;
+    }
+    @media screen and (min-width: 1000px) and (max-width: 1100px) and (orientation: landscape) {
+        margin: 0.9rem 1.5rem 0 0;
+    }
+    @media #{$large-port} {
+        margin: 1rem 1.5rem 0 0;
+    }
+}
+
+@keyframes event-button-rotate-back {
+    from {
+        transform: rotate(90deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+};
+@keyframes event-button-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(90deg);
+    }
+};
+
+
+
