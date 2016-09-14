@@ -120,7 +120,6 @@ function setAutofocus() {
   } else {
     firstInput = $('form').find(':input').filter(':visible:first');
   }
-
   firstInput.focus();
 }
 
@@ -130,12 +129,11 @@ function setAutofocus() {
 
 // Event Object Constructor
 function Event(name, type, host, startDate, startHour, startMin, endDate, endHour, endMin, guests, location, message) {
-  // Not necessary, but will be added if I choose to incorporate a backend
-  // Hour would use option values as found in HTML doc (military time)
-  // Guests is an array
+  // not necessary, but will be added if I choose to provide saved data options in the future
+  // guest_array is used for now
 }
 
-// Event Inputs and Buttons
+// event inputs and buttons
 var $event_name         = $('#event_name'),
     $event_type         = $('#event_type'),
     $event_host         = $('#host'),
@@ -154,15 +152,15 @@ var $event_name         = $('#event_name'),
     $event_location     = $('#location'),
     $event_message      = $('#guest_message');
 
-// Add guest functionality
+// add guest functionality
 var new_guest,
     guest_div,
     first_guest = true,
     guest_array = [],
     guest_id = 0;
 
+// html block containing each new guest in the guestlist container
 function createGuestDiv(guestName) {
-
   guest_div = "<div id='guest"+guest_id+"' class='new-guests'>" +
                 "<span class='guest-span'>"+guestName+"</span>" +
                 "<button type='button' class='guest-remove'> x</button>" +
@@ -170,6 +168,7 @@ function createGuestDiv(guestName) {
   return guest_div;
 }
 
+// guests button functionality; also triggered when enter is clicked inside guest input
 $guests_button.click(function() {
   if ($event_guests.val().length > 0) {
     if (first_guest) {
@@ -187,7 +186,7 @@ $guests_button.click(function() {
   }
 });
 
-// when x button clicked, delete that guest from guest list
+// when x button clicked in a guest div, delete that guest from guest list and remove guest from guestlist container
 function removeGuestListener(guest) {
   guest.click(function(){
     var thisElem = $(this).parent();
@@ -202,9 +201,10 @@ function removeGuestListener(guest) {
   });
 }
 
-// Create Date and Time inputs
+// create date and time inputs for birthday input.  If you're older than 116, I'm impressed :P
 $('#birthday').datepicker({ changeYear: true, yearRange: "1900:2016" });
 
+// style date and time selections for start date
 $event_start.datepicker({
   dateFormat: 'M d, yy'
 });
@@ -212,6 +212,7 @@ $event_start_hour.selectmenu();
 $event_start_minute.selectmenu();
 $event_start_ampm.selectmenu();
 
+// style date and time selections for end date
 $event_end.datepicker({
   dateFormat: 'M d, yy'
 });
@@ -219,11 +220,12 @@ $event_end_hour.selectmenu();
 $event_end_minute.selectmenu();
 $event_end_ampm.selectmenu();
 
+// style hour selection
 $event_hour_select
   .selectmenu('menuWidget')
   .addClass('overflow');
 
-// New Event Variables
+// new event variables
 var $events_container = $('#events_container'),
     eventId = 0,
     eventData = [],
@@ -235,6 +237,7 @@ var $events_container = $('#events_container'),
     eventDiv,
     currentEventDiv;
 
+// most of functionality and div creation for creating new events
 function eventContainerContent() {
   eventData.push([$event_name.val(),
                   $event_type.val(),
@@ -246,6 +249,7 @@ function eventContainerContent() {
                   $event_location.val()
   ]);
 
+  // set and format datepicker values
   var event_start_display = $.datepicker.parseDate('M d, yy', $event_start.val()),
       event_start_year    = $.datepicker.formatDate('yy', event_start_display),
       event_start_month   = $.datepicker.formatDate('M', event_start_display),
@@ -257,20 +261,22 @@ function eventContainerContent() {
       event_end_day       = $.datepicker.formatDate('d', event_end_display),
       event_end_time      = '12:00am';
 
+  // bool vars for equal start/end dates
   var sameYear  = false,
       sameMonth = false,
       sameDay   = false,
       sameTime  = false,
       sameDate  = true;
 
+  // guest vars for current event
   var guestList           = "",
       guestMessageHeader  = "",
       guestMessageDiv     = "",
       guest_message       = "Message to "+guest_array.length+" guests: ";
 
+  // date/time validation with logs for debugging
   if (event_start_year == event_end_year) {
-    console.log(event_start_year)
-    console.log(" ^^ sameYear");
+    console.log("sameYear");
     sameYear = true;
   }
   if (event_start_month == event_end_month) {
@@ -345,11 +351,13 @@ function eventContainerContent() {
     }
   }
 
+  // create event message divs only if user creates a guest message
   if ($event_message.val().length > 0) {
     guestMessageHeader  = "<div class='event-message-header event-invisible' style='display: none;'>" +guest_message       +"</div>";
     guestMessageDiv     = "<div class='event-message event-visible'>"                                 +$event_message.val()+"</div>";
   }
 
+  // the big kahuna.  The full event div, built from user input and eventId used to increment event...ids :P
   eventDiv =  "<div class='event' id='eventNum"                                                   +eventId                                                            +"'>" +
                 "<img src='img/event-close-icon.png' alt='Click to close your event' class='event-close-icon' id='event_close_icon"+eventId+"'>"                      +
                 "<img src='img/event-expand-icon.png' alt='Click to expand your event' class='event-expand-icon' id='event_expand_icon"+eventId+"'>"                  +
@@ -374,14 +382,15 @@ function eventContainerContent() {
   return eventDiv;
 }
 
+// create_event click functionality
 $create_event_button.click(function() {
   clearAlerts();
   eventValidation();
 });
 
-  // this is where final validation will occur
-  // check guest_array length for guest validation
-  // also check that dates are sequential
+// this is where final validation will occurs for events, and alerts are set for incomplete/invalid inputs
+// check guest_array length for guest validation
+// also check that dates are sequential
 function eventValidation() {
   if (event_name_status === false) {
     $event_name.alertMsg("Please name your event.");
@@ -413,6 +422,7 @@ function eventValidation() {
     event_time_status = true;
   }
 
+  // if everything looks good, create the event, add it to view-events page, set listeners, clear form data, and hide create_event page
   if (event_name_status && event_type_status && event_host_status && event_start_status && event_end_status && event_time_status && guest_array.length > 0 && event_location_status) {
     currentEventDiv = eventContainerContent();
     $events_container.append(currentEventDiv);
@@ -446,6 +456,7 @@ function eventCloseListener() {
   });
 }
 
+// guestlist open/close functionality and animations
 function guestlistListener() {
   var guestlistHeaderId = "#guestlistHeader"+eventId,
       guestlistId       = "#guestlist"+eventId,
@@ -467,6 +478,7 @@ function guestlistListener() {
   });
 }
 
+// event open/close functionality and animations
 function newEventClickListener(currentID) {
   var localBool = true;
   $('#eventNum'+currentID).click(function() {
@@ -482,8 +494,8 @@ function newEventClickListener(currentID) {
   });
 }
 
-var fakeBool2 = true;
 // fake event guestlist_icon listener
+var fakeBool2 = true; // probably didn't 'have' to be global, but easier this way for fake event
 $('#guestlistHeader, #guestlist').click(function(e) {
   e.stopPropagation();
   $('#guestlist').slideToggle();
@@ -498,8 +510,8 @@ $('#guestlistHeader, #guestlist').click(function(e) {
   }
 });
 
-var fakeBool = true;
 // click listener for fake (example/placeholder) events
+var fakeBool = true;
 $('.fake-event').click(function() {
   $(this).children('.event-invisible').slideToggle();
   if (fakeBool) {
@@ -513,6 +525,7 @@ $('.fake-event').click(function() {
   }
 });
 
+// after event is created or closed, clean house
 function postEventPrep() {
   if (multiday) {
     var id = 'eventNum' + eventId;
@@ -533,7 +546,7 @@ function postEventPrep() {
   $('#my_events_header').css('visibility', 'visible');
 
   // Not very DRY, but it does the job.  A less DRY way would be if I used OOP for events,
-  // and looped through all instances.  :sad-face:
+  // and looped through all instances.  An array doesn't seem any DRYer to me.  :sad-face:
   event_name_status     =   false;
   event_type_status     =   false;
   event_host_status     =   false;
@@ -543,7 +556,6 @@ function postEventPrep() {
   event_message_status  =   false;
   event_guests_status   =   false;
   event_location_status =   false;
-  event_status          =   false;
   duration              =   false;
   $event_name.css     ('background', 'hsl(0, 0%, 100%)');
   $event_type.css     ('background', 'hsl(0, 0%, 100%)');
@@ -556,6 +568,7 @@ function postEventPrep() {
   $guests_button.css  ('background', 'hsl(0, 0%, 100%)');
 };
 
+// clear all alerts, whether good or bad
 function clearAlerts() {
    $('.alert-msg, .success-msg').remove();
 }
@@ -564,6 +577,7 @@ function clearAlerts() {
 // Event Validation
 // ==========================================================================
 
+// set event status per input
 var event_name_status     = false,
     event_type_status     = false,
     event_host_status     = false,
@@ -572,19 +586,18 @@ var event_name_status     = false,
     event_time_status     = false,
     event_message_status  = false,
     event_guests_status   = false,    // This value is used to check current input status, not guestlist status.
-    event_location_status = false,    // Use guest_array.length to affirm guestlist status.
-    event_status          = false,
-    status_array          = false;    // Currently Unused
+    event_location_status = false;    // Use guest_array.length to affirm guestlist status.
 
+// error/alert message per input
 var event_name_error        = "Please name your event",
     event_type_error        = "Please specify the type of your event"+"<br>"+"for example: \"birthday\"",
     event_host_error        = "Please name the host of your event",
     event_time_type_error   = "Please select a date from the calendar or"+"<br>"+"use mm/dd/yyyy format",
     event_time_switch_error = "Oops!  Your event can't end before it begins!",
     event_guests_error      = "Please add at least one guest to your event"+"<br>"+"even if it's just you",
-    event_location_error    = "Please add a location for your event",
-    event_status_error      = "";
+    event_location_error    = "Please add a location for your event";
 
+// event name validation listeners
 $event_name.on('input change', function() {
   if (!event_name_status) {
     if ($event_name.val().length > 0) {
@@ -600,13 +613,13 @@ $event_name.on('input change', function() {
     }
   }
 });
-
 $event_name.on('blur', function() {
   if(event_name_status === true) {
     alertSuccess($(this));
   }
 });
 
+// event type validation listeners
 $event_type.on('input change', function() {
   if (!event_type_status) {
     if ($event_type.val().length > 0) {
@@ -622,13 +635,13 @@ $event_type.on('input change', function() {
     }
   }
 });
-
 $event_type.on('blur', function() {
   if(event_type_status === true) {
     alertSuccess($(this));
   }
 });
 
+// event host validation listeners
 $event_host.on('input change', function() {
   if (!event_host_status) {
     if ($event_host.val().length > 0) {
@@ -644,7 +657,6 @@ $event_host.on('input change', function() {
     }
   }
 });
-
 $event_host.on('blur', function() {
   if(event_host_status === true) {
     alertSuccess($(this));
@@ -676,7 +688,8 @@ $event_start.on('change', function() {
   }
 
   if ($event_start.val()) {
-    $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val()))) // normalizes any accepted date format to 'M d, yy'
+    // normalizes any accepted date format to 'M d, yy'
+    $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val())))
     try {
       validDate = $.datepicker.parseDate('M d, yy', $event_start.val());
       if (!event_start_status) {
@@ -717,7 +730,8 @@ $event_end.on('change', function() {
   }
 
   if ($event_end.val()) {
-    $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val()))) // normalizes any accepted date format to 'M d, yy'
+    // normalizes any accepted date format to 'M d, yy'
+    $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val())))
     try {
       validDate = $.datepicker.parseDate('M d, yy', $event_end.val());
       if (!event_end_status) {
@@ -733,6 +747,7 @@ $event_end.on('change', function() {
   }
 });
 
+// full blur validation for dates/times
 $('#start_time, #end_time, #start_hour_select-button, #start_minute_select-button, #start_ampm_select-button, #end_hour_select-button, #end_minute_select-button, #end_ampm_select-button').on('blur', function() {
   if(compareTime($event_start.val(), $event_end.val())) {
     alertSuccess($event_start);
@@ -740,6 +755,7 @@ $('#start_time, #end_time, #start_hour_select-button, #start_minute_select-butto
   }
 });
 
+// global compareTimes vars (so they aren't repeatedly reset)
 var startHour = 0,
     startMin  = 0,
     startAMPM = 'am',
@@ -756,6 +772,7 @@ function compareTime(time1, time2) {
       equal     = date1 <= date2, // <= is used because otherwise the objects are compared ( '===' and '==' are always false),
       allGood   = date1 < date2;  // whereas the values are converts to numbers, then compared, when using <=
 
+  // checks time values, and turns string numbers into ints for validation checks
   startHour = $('#start_hour_select-button .ui-selectmenu-text').text().replace(':', '');
   startHour = parseInt(startHour);
   startMin  = $('#start_minute_select-button .ui-selectmenu-text').text();
@@ -767,6 +784,7 @@ function compareTime(time1, time2) {
   endMin    = parseInt(endMin);
   endAMPM   = $('#end_ampm_select-button .ui-selectmenu-text').text();
 
+  // time/date validation BEGINS!
   if (allGood === true) {
     return true;
   }
@@ -804,8 +822,8 @@ function compareTime(time1, time2) {
   }
 }
 
-// Given the diversity of names/nicknames/aliases, the only requirement for guests are a single character
-// Reminder: event_guests_status is not used for guestlist validation; it's only used for current input before submission
+// given the diversity of names/nicknames/aliases, the only requirement for guests are a single character
+// reminder: event_guests_status is not used for guestlist validation; it's only used for current input before submission
 $event_guests.on('input change', function() {
   if ($event_guests.val().length > 0) {
     if (!event_guests_status) {
@@ -820,12 +838,12 @@ $event_guests.on('input change', function() {
   }
 });
 
-// Necessary to reset style detection after submit
+// necessary to reset style detection after submit
 $event_guests.on('focus', function() {
   event_guests_status = false;
 });
 
-// On blur, wait 125ms, then check if the input field is empty.  If not, make input field pink.
+// on blur, wait 125ms, then check if the input field is empty.  If not, make input field pink.
 $event_guests.on('blur', function() {
   setTimeout(function() {
     if($event_guests.val().length == 0) {
@@ -839,7 +857,7 @@ $event_guests.on('blur', function() {
   }, 125);
 });
 
-// Duplicates button click functionality by user clicking 'enter' key
+// duplicates button click functionality by user clicking 'enter' key
 $event_guests.on('keypress', function(e) {
   if (e.which == 13){
     $guests_button.trigger('click');
@@ -847,6 +865,7 @@ $event_guests.on('keypress', function(e) {
   }
 });
 
+// event location validation listeners
 $event_location.on('input change', function() {
   if (!event_location_status) {
     if ($event_location.val().length > 0) {
@@ -862,7 +881,6 @@ $event_location.on('input change', function() {
     }
   }
 });
-
 $event_location.on('blur', function() {
   if(event_location_status === true) {
     alertSuccess($(this));
@@ -876,24 +894,24 @@ $event_location.on('blur', function() {
 /* Variable Assignments
 =====================================*/
 
-// Input Fields
+// input fields
 var $name     = $('#name'),
     $email    = $('#email'),
     $password = $('#password');
 
-// Bools
+// bools
 var first_focus_name  = true,
     first_focus_email = true,
     first_focus_pass  = true,
     firstHourInput    = true;
 
-// RegEx
+// regEx
 var reqNum    = new RegExp('[0-9]'),
     reqLow    = new RegExp('[a-z]'),
     reqUpp    = new RegExp('[A-Z]'),
     reqEmail  = new RegExp('^\\S+@\\S+[\\.][0-9a-z]+$');
 
-// Password Requirements
+// password requirements
 var $validation_length      = $('#validation_length'),
     $validation_case        = $('#validation_case'),
     $validation_uppercase   = $('#validation_uppercase'),
@@ -903,7 +921,7 @@ var $validation_length      = $('#validation_length'),
     $incomplete_span,
     $complete_span;
 
-// Requirements State
+// requirements state
 var state_name      = false,
     state_email     = false,
     state_length    = false,
@@ -913,7 +931,7 @@ var state_name      = false,
     state_number    = false,
     state_password  = false;
 
-// HTML injection
+// HTML injection for password validation symbols
 function $incomplete_symbol(portion) {
   return "<span id='incomplete_symbol_" + portion + "' class='incomplete-symbol' style='color:hsl(0, 0%, 0%)'>" +
   "&#10044   </span>";
@@ -927,7 +945,7 @@ function $complete_symbol(portion) {
 /* Defaults
 =====================================*/
 
-// Establish incomplete symbols and class selection
+// establish incomplete symbols and class selection
 function incompleteValidationPassword (portion) {
   if (!portion) {
     $validation_length.prepend($incomplete_symbol('length'));
@@ -936,7 +954,7 @@ function incompleteValidationPassword (portion) {
     $incomplete_span = $('.incomplete-symbol');
   } else {
 
-    // Set individual params for incomplete symbol showing
+    // set individual params for incomplete symbol showing
     if (portion === 'length') {
       $('#complete_symbol_length').hide();
       $('#incomplete_symbol_length').show();
@@ -953,7 +971,7 @@ function incompleteValidationPassword (portion) {
   }
 };
 
-// Establish complete symbols and class selection
+// establish complete symbols and class selection
 function completeValidationPassword (portion) {
   if (!portion) {
     $validation_length.prepend($complete_symbol('length'));
@@ -963,7 +981,7 @@ function completeValidationPassword (portion) {
     $complete_span.hide();
   } else{
 
-    // Set individual params for complete symbol showing
+    // set individual params for complete symbol showing
     if (portion === 'length') {
       $('#incomplete_symbol_length').hide();
       $('#complete_symbol_length').show();
@@ -980,18 +998,19 @@ function completeValidationPassword (portion) {
   }
 };
 
-// Instantiate validation settings
+// instantiate validation settings
 incompleteValidationPassword();
 completeValidationPassword();
 
 /* Interactions
 =====================================*/
 
+// login name validation listeners
 $name.on('blur', function() {
   if(state_name === true) {
     alertSuccess($(this));
   }
-  // Length value is checked first incase auto-fill has been used
+  // length value is checked first incase auto-fill has been used
   if ($name.val().length === 0) {
     if (first_focus_name) {
       $name.css('background', 'hsl(359, 96%, 90%)');
@@ -1001,7 +1020,6 @@ $name.on('blur', function() {
     first_focus_name = false;
   }
 });
-
 $name.on('input change', function() {
   if (!state_name) {
     if ($name.val().length > 0) {
@@ -1016,11 +1034,12 @@ $name.on('input change', function() {
   }
 });
 
+// login email validation listeners
 $email.on('blur', function() {
   if(state_email === true) {
     alertSuccess($(this));
   }
-  // Length value is checked first incase auto-fill has been used
+  // length value is checked first incase auto-fill has been used
   if ($email.val().length === 0 || !reqEmail.test($email.val())) {
     if (first_focus_email) {
       $email.css('background', 'hsl(359, 96%, 90%)');
@@ -1030,7 +1049,6 @@ $email.on('blur', function() {
     first_focus_email = false;
   }
 });
-
 $email.on('input', function() {
   if (!state_email) {
     if (reqEmail.test($email.val())) {
@@ -1045,6 +1063,7 @@ $email.on('input', function() {
   }
 });
 
+// login password validation listeners
 $password.on('focus', function(evt) {
   if (first_focus_pass) {
     $incomplete_span.attr('style', 'color:hsl(359, 96%, 70%)');
@@ -1053,15 +1072,13 @@ $password.on('focus', function(evt) {
     $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
     first_focus_pass = false;
   }
-  // if i notify when something is wrong on blur, then deactivate that here
 });
-
 $password.on('blur', function(evt) {
   if(state_password === true) {
     alertSuccess($(this));
   }
 });
-
+// password length/case/number validation listeners and functionality
 $password.on('input', function(evt) {
   if (!state_length) {
     if ($password.val().length >= 6 && $password.val().length <= 30) {
@@ -1087,7 +1104,6 @@ $password.on('input', function(evt) {
         $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
       }
     }
-
     if (!state_upperCase) {
       if (reqUpp.test($password.val())) {
         state_upperCase = true;
@@ -1099,14 +1115,11 @@ $password.on('input', function(evt) {
         $validation_uppercase.css('color', 'hsl(359, 96%, 70%)');
       }
     }
-
     if (state_upperCase && state_lowerCase) {
       state_case = true;
       completeValidationPassword('case');
     }
-
   } else {
-
     if (!reqLow.test($password.val())) {
         state_lowerCase = false;
         $validation_lowercase.css('color', 'hsl(359, 96%, 70%)');
@@ -1120,7 +1133,6 @@ $password.on('input', function(evt) {
       incompleteValidationPassword('case');
     }
   }
-
   if (!state_number) {
     if (reqNum.test($password.val())) {
       state_number = true;
@@ -1132,7 +1144,6 @@ $password.on('input', function(evt) {
       incompleteValidationPassword('number');
     }
   }
-
   if (!state_password) {
     if (state_length && state_case && state_number) {
       state_password = true;
@@ -1146,6 +1157,7 @@ $password.on('input', function(evt) {
   }
 });
 
+// login continue button click functionality
 $login_button.click(function() {
   clearAlerts();
   if (loginValidation()) {
@@ -1153,10 +1165,11 @@ $login_button.click(function() {
     $login.hide();
     $view_events.show();
   } else {
-
+    // no need for else, since loginValidation runs regardless
   }
 });
 
+// goto-profile button click functionality
 $goto_profile_button.click(function() {
   clearAlerts();
   if (loginValidation()) {
@@ -1165,10 +1178,11 @@ $goto_profile_button.click(function() {
     $profile.show();
     setAutofocus();
   } else {
-
+    // no need for else, since loginValidation runs regardless
   }
 });
 
+// check login input states, creates alert messages when invalid/missing input, and returns true when all is well
 function loginValidation() {
   if (state_name === false) {
     $name.alertMsg("Please type in your name or an alias.");
@@ -1188,12 +1202,14 @@ function loginValidation() {
 // Places Search
 // ==========================================================================
 
+// location input var
 var location_input = document.getElementById('location');
 
+// use google maps places API for location_input
 var location_searchBox = new google.maps.places.Autocomplete(location_input);
 
-// jquery UI alert msg styling function
-// Idea taken from giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
+// jquery UI alert msg styling function.
+// idea taken from giampo23 @https://forum.jquery.com/topic/how-to-apply-highlight-error-style
 // *parameter functionality, customMsg, and `after` functionality added by me
 (function($) {
   $.fn.alertMsg = function(customMsg) {
@@ -1208,7 +1224,6 @@ var location_searchBox = new google.maps.places.Autocomplete(location_input);
     this.after(styledAlert);
     // focus the first occurence of .alert-msg on the page
     var $firstAlert =$('.alert-msg:first');
-    // console.log($firstAlert);
     $firstAlert.parent().focus();
   };
 })(jQuery);
@@ -1227,7 +1242,7 @@ var location_searchBox = new google.maps.places.Autocomplete(location_input);
   };
 })(jQuery);
 
-
+// when user inputs a start-hour for the first time, automatically set end-hour to start-hour+1
 $('#start_hour_select-button').on('blur', function() {
   if (firstHourInput === true) {
     firstHourInput = false;
@@ -1248,7 +1263,7 @@ $('#start_hour_select-button').on('blur', function() {
 // .mask is from maskedInput.js
 $phone_number.mask("(999) 999-9999");
 
-// (Called on blur) If alert message is active, and warnings are fixed, replace alertMsg with successMsg
+// (called on blur) if alert message is active, and warnings are fixed, replace alertMsg with successMsg
 function alertSuccess(element) {
   if (element.next().hasClass('alert-msg')) {
     element.siblings('.alert-msg').successMsg();
@@ -1256,6 +1271,7 @@ function alertSuccess(element) {
   }
 }
 
+// show create-event-close-icon when user scrolls to top of page, hide otherwise.  10px's provided for UX, especially on touch
 $('#create_event_form').scroll( function () {
     var currentTop = $('#create_event_form').scrollTop();
     if (currentTop <= 10) {
@@ -1265,10 +1281,12 @@ $('#create_event_form').scroll( function () {
     }
 });
 
+// close create-event button functionality (called on click of close-create-event-icon)
 $('.create-event-close-icon').click(function() {
   closeEvent();
 })
 
+// close event button functionality
 function closeEvent() {
   clearAlerts();
   postEventPrep();
@@ -1277,11 +1295,11 @@ function closeEvent() {
 
 
 
-// call on page load
+// hide all pages, and show selected page on load.
 hidePages();
-// $login.show();
+$login.show();
 // $profile.show();
-$view_events.show();
+// $view_events.show();
 // $create_event.show();
 setAutofocus();
 
