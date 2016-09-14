@@ -5,11 +5,13 @@
 // Pages
 // ==========================================================================
 
+// page layouts
 var $login        = $('.login'),
     $profile      = $('.profile'),
     $view_events  = $('.view-events-layout'),
     $create_event = $('.create-event');
 
+// page array
 var $pages = [
     $login,
     $profile,
@@ -17,12 +19,14 @@ var $pages = [
     $create_event
 ];
 
+// pages are only ever hidden from the user
 function hidePages () {
   $.each($pages, function(i, value) {
     $(this).hide();
   });
 }
 
+// which page to show (only one at a time)
 function showPages () {
   $.each($pages, function(i, value) {
     $(this).show();
@@ -33,6 +37,7 @@ function showPages () {
 // Buttons and Navigation
 // ==========================================================================
 
+// buttons
 var $goto_profile_button      = $('#goto_profile_button'),
     $login_button             = $('#login_button'),
     $save_profile_button      = $('#save_profile_button'),
@@ -40,13 +45,17 @@ var $goto_profile_button      = $('#goto_profile_button'),
     $add_event_button         = $('#add_event_button'),
     $create_event_button      = $('#create_event_button');
 
+// profile page inputs
 var $employer     = $('#employer'),
     $position     = $('#position'),
     $phone_number = $('#phone_number'),
     $birthday     = $('#birthday');
 
+// set to first input on each page
 var firstInput;
 
+// profile page save button functionality
+// when save is clicked, change background to lightblue for filled in inputs, and white for blank inputs
 $save_profile_button.click(function() {
   if ($employer.val().length > 0) {
     $employer.css('background', 'hsl(180, 96%, 90%)');
@@ -70,20 +79,26 @@ $save_profile_button.click(function() {
   }
 });
 
+// continue button functionality in profile page (go to view-event page)
 $continue_profile_button.click(function() {
   $profile.hide();
   $view_events.show();
 });
 
+// add-event button functionality (show create-event page)
 $add_event_button.click(function(evt) {
-  // $view_events needs to be disabled here
   $create_event.show();
   $guests_container.hide();
   first_guest = true;
   setAutofocus();
   evt.preventDefault();
+  // hide background button and header
+  $add_event_button.css('visibility', 'hidden');
+  $('#my_events_header').css('visibility', 'hidden');
 });
 
+// set focus to first input for the currently visible page
+// when create-event page is visible, show-events page is also techniquely visible and active, so focus on create-event input
 function setAutofocus() {
   if ($create_event.is(':visible')) {
     firstInput = $create_event.find(':input').filter(':visible:first');
@@ -497,6 +512,10 @@ function postEventPrep() {
   guest_array = [];
   firstHourInput = true;
   durationDash = "";
+
+  // show header and add-event-button again
+  $add_event_button.css('visibility', 'visible');
+  $('#my_events_header').css('visibility', 'visible');
 
   // Not very DRY, but it does the job.  A less DRY way would be if I used OOP for events,
   // and looped through all instances.  :sad-face:
@@ -1245,9 +1264,9 @@ function closeEvent() {
 
 // call on page load
 hidePages();
-$login.show();
+// $login.show();
 // $profile.show();
-// $view_events.show();
+$view_events.show();
 // $create_event.show();
 setAutofocus();
 
