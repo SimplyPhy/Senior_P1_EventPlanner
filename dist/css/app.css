@@ -16,10 +16,6 @@
   .profile .login-buttons {
     margin-top: 1.5rem; }
 
-.events-container {
-  /*overflow-y: auto;*/
-  /*max-height: 50vh;*/ }
-
 .view-events-layout {
   display: flex;
   align-items: center;
@@ -28,20 +24,19 @@
   .view-events-layout h1 {
     display: inline; }
   .view-events-layout .view-events {
-    height: 100%;
+    /*height: 100%;  <--- not supported on Safari */
     width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: 0; }
+    .view-events-layout .view-events form {
+      position: relative; }
     @media screen and (max-height: 499px) and (orientation: portrait) {
       .view-events-layout .view-events h1 {
         margin-bottom: 0.5rem; } }
-    .view-events-layout .view-events form {
-      position: relative; }
 
 .event {
   position: relative;
   background: #69c994;
-  width: calc(100%-2rem);
   color: #4f7d63;
   border-radius: 1.5rem;
   box-shadow: inset -5px -5px 10px -5px rgba(36, 101, 66, 0.6), inset 0px 0px 5px 0px rgba(36, 101, 66, 0.6), 0px 0px 7px 1px rgba(131, 210, 167, 0.6), 0px 0px 10px 5px rgba(158, 220, 186, 0.6);

@@ -5,10 +5,6 @@
 // Pages
 // ==========================================================================
 
-// 1. There's a bug with the create_event div's size, especially on small mobile.
-//    It makes it so you can scroll through your events while you have the create_event
-//    window open.
-// 2. I need to style the events
 // 3. There's a bug with event open/close lag on my iPad pro, maybe all iOS
 
 
@@ -383,7 +379,9 @@ function eventValidation() {
 // fake event x-icon listener
 $('.event-close-icon').click(function(e) {
   e.stopPropagation();
-  $('#eventFake1').remove();
+  $('#eventFake1').animate({height: 'toggle'}, function() {
+    $('#eventFake1').remove();
+  });
 });
 
 // Remove event when x-icon is clicked
@@ -393,7 +391,9 @@ function eventCloseListener() {
 
   $(thisClose).click(function(e) {
     e.stopPropagation();
-    $(thisEventNum).remove();
+    $(thisEventNum).animate({height: 'toggle'}, function() {
+      $(thisEventNum).remove();
+    });
   });
 }
 
@@ -1224,8 +1224,8 @@ function closeEvent() {
 // call on page load
 hidePages();
 // $profile.show();
-// $view_events.show();
-$login.show();
+$view_events.show();
+// $login.show();
 // $create_event.show();
 setAutofocus();
 
