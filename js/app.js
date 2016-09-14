@@ -20,10 +20,6 @@ if(e&&1===a.nodeType)while(c=e[d++])a.removeAttribute(c)}}),hb={set:function(a,b
 // Pages
 // ==========================================================================
 
-// 3. There's a bug with event open/close lag on my iPad pro, maybe all iOS
-
-
-
 var $login        = $('.login'),
     $profile      = $('.profile'),
     $view_events  = $('.view-events-layout'),
@@ -1168,6 +1164,10 @@ var location_searchBox = new google.maps.places.Autocomplete(location_input);
       styledAlert += " " + customMsg;
       styledAlert += "</p></div>";
     this.after(styledAlert);
+    // focus the first occurence of .alert-msg on the page
+    var $firstAlert =$('.alert-msg:first');
+    // console.log($firstAlert);
+    $firstAlert.parent().focus();
   };
 })(jQuery);
 
@@ -1238,9 +1238,9 @@ function closeEvent() {
 
 // call on page load
 hidePages();
+$login.show();
 // $profile.show();
-$view_events.show();
-// $login.show();
+// $view_events.show();
 // $create_event.show();
 setAutofocus();
 
