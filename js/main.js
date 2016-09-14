@@ -40,11 +40,34 @@ var $goto_profile_button      = $('#goto_profile_button'),
     $add_event_button         = $('#add_event_button'),
     $create_event_button      = $('#create_event_button');
 
+var $employer     = $('#employer'),
+    $position     = $('#position'),
+    $phone_number = $('#phone_number'),
+    $birthday     = $('#birthday');
+
 var firstInput;
 
 $save_profile_button.click(function() {
-  // add action here for saving profile info, and notifying user
-  // also, disable button until user changes profile info
+  if ($employer.val().length > 0) {
+    $employer.css('background', 'hsl(180, 96%, 90%)');
+  } else {
+    $employer.css('background', 'hsl(0, 0%, 100%)');
+  }
+  if ($position.val().length > 0) {
+    $position.css('background', 'hsl(180, 96%, 90%)');
+  } else {
+    $position.css('background', 'hsl(0, 0%, 100%)');
+  }
+  if ($phone_number.val().length > 0) {
+    $phone_number.css('background', 'hsl(180, 96%, 90%)');
+  } else {
+    $phone_number.css('background', 'hsl(0, 0%, 100%)');
+  }
+  if ($birthday.val().length > 0) {
+    $birthday.css('background', 'hsl(180, 96%, 90%)');
+  } else {
+    $birthday.css('background', 'hsl(0, 0%, 100%)');
+  }
 });
 
 $continue_profile_button.click(function() {
@@ -1106,8 +1129,8 @@ $goto_profile_button.click(function() {
     document.getElementById('login_form').reset();
     $login.hide();
     $profile.show();
-    // setAutofocus();  --> Note to reviewer: I didn't set autofocus here because
-  } else {               // I found it to detriment the UX
+    setAutofocus();
+  } else {
 
   }
 });
@@ -1188,9 +1211,8 @@ $('#start_hour_select-button').on('blur', function() {
   }
 });
 
-var $phone_num = $('#phone_number');
 // .mask is from maskedInput.js
-$phone_num.mask("(999) 999-9999");
+$phone_number.mask("(999) 999-9999");
 
 // (Called on blur) If alert message is active, and warnings are fixed, replace alertMsg with successMsg
 function alertSuccess(element) {
