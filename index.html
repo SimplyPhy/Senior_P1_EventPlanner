@@ -75,66 +75,26 @@
       <form>
         <div id="events_container" class="events-container">
 
-          <!-- placeholder div -->
+          <!-- example event div -->
           <div class="event fake-event" id="eventFake1">
             <img src="img/event-close-icon.png" alt="Click to close your event" class="event-close-icon">
             <img src="img/event-expand-icon.png" alt="Click to expand your event" class="event-expand-icon">
-            <div class="event-name event-visible">Example Event</div>
-            <div class="event-type event-invisible" style="display: none;">Birthday</div>
-            <div class="event-host event-visible">Host: Lily</div>
+            <div class="event-name event-visible">Example Event (Click me!)</div>
+            <div class="event-type event-invisible" style="display: none;">Special Event</div>
+            <div class="event-host event-visible">Host: Github</div>
             <div class="event-time-header event-invisible" style="display: none;">When:</div>
-            <div class="event-start event-visible">Jul 3, 2016</div>
-            <div class="event-start-time event-invisible" style="display: none;">12:30pm - 5:00pm</div>
+            <div class="event-start event-visible">Sep 14, 2016</div>
+            <div class="event-start-time event-invisible" style="display: none;">10:00pm - 11:00pm</div>
             <div class="event-location-header event-invisible" style="display: none;">Where:</div>
             <div class="event-location event-invisible" style="display: none;">123 Main St.<br>Philadelphia, PA 19001</div>
-            <div class="event-message-header event-invisible" style="display: none;">Message to 3 guests: </div>
+            <div class="event-message-header event-invisible" style="display: none;">Message to 5 guests: </div>
             <div class="event-guests-div event-invisible" style="display: none;">
-              <div class="event-message event-visible">This is an example event guest message!  It says two things to make it long enough for scroll!</div>
-              <div class="event-guestlist-header" id="guestlistHeader">Guest List <img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon"></div>
-              <div class="event-guestlist" id="guestlist" style="display: none;">Guest1, Guest2, Guest3</div>
+              <div class="event-message event-visible">Welcome to my Event Planner App!  This is my first project for Udacity's Senior Web Developer Nanodegree.  There's no backend for this app, so nothing you do will be saved.  Enjoy!</div>
+              <div class="event-guestlist-header" id="guestlistHeader">Guest List (click me!)<img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon"></div>
+              <div class="event-guestlist" id="guestlist" style="display: none;">Elon Musk, Nikola Tesla, Salman Khan, Brandon Sanderson, Steve Jobs</div>
             </div>
           </div>
-          <!-- end placeholder div -->
-
-          <!-- placeholder div -->
-          <div class="event fake-event" id="eventFake2">
-            <img src="img/event-expand-icon.png" alt="Click to expand your event" class="event-expand-icon">
-            <div class="event-name event-visible">Example Event</div>
-            <div class="event-type event-invisible" style="display: none;">Birthday</div>
-            <div class="event-host event-visible">Host: Lily</div>
-            <div class="event-time-header event-invisible" style="display: none;">When:</div>
-            <div class="event-start event-visible">Jul 3, 2016</div>
-            <div class="event-start-time event-invisible" style="display: none;">12:30pm - 5:00pm</div>
-            <div class="event-location-header event-invisible" style="display: none;">Where:</div>
-            <div class="event-location event-invisible" style="display: none;">123 Main St.<br>Philadelphia, PA 19001</div>
-            <div class="event-message-header event-invisible" style="display: none;">Message to 3 guests: </div>
-            <div class="event-guests-div event-invisible" style="display: none;">
-              <div class="event-message event-visible">This is an example event guest message!  It says two things to make it long enough for scroll!</div>
-              <div class="event-guestlist-header" id="guestlistHeader00">Guest List <img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon00"></div>
-              <div class="event-guestlist" id="guestlist00" style="display: none;">Guest1, Guest2, Guest3</div>
-            </div>
-          </div>
-          <!-- end placeholder div -->
-
-          <!-- placeholder div -->
-          <div class="event fake-event" id="eventFake3">
-            <img src="img/event-expand-icon.png" alt="Click to expand your event" class="event-expand-icon">
-            <div class="event-name event-visible">Example Event</div>
-            <div class="event-type event-invisible" style="display: none;">Birthday</div>
-            <div class="event-host event-visible">Host: Lily</div>
-            <div class="event-time-header event-invisible" style="display: none;">When:</div>
-            <div class="event-start event-visible">Jul 3, 2016</div>
-            <div class="event-start-time event-invisible" style="display: none;">12:30pm - 5:00pm</div>
-            <div class="event-location-header event-invisible" style="display: none;">Where:</div>
-            <div class="event-location event-invisible" style="display: none;">123 Main St.<br>Philadelphia, PA 19001</div>
-            <div class="event-message-header event-invisible" style="display: none;">Message to 3 guests: </div>
-            <div class="event-guests-div event-invisible" style="display: none;">
-              <div class="event-message event-visible">This is an example event guest message!  It says two things to make it long enough for scroll!</div>
-              <div class="event-guestlist-header" id="guestlistHeader11">Guest List <img src="img/event-expand-icon.png" alt="Click to expand your guestlist" class="guestlist-expand-icon" id="guestlist_expand_icon11"></div>
-              <div class="event-guestlist" id="guestlist11" style="display: none;">Guest1, Guest2, Guest3</div>
-            </div>
-          </div>
-          <!-- end placeholder div -->
+          <!-- end example event div -->
 
         </div>
       </form>
@@ -144,86 +104,80 @@
 
   <div class="create-event">
     <img src="img/event-close-icon.png" alt="Click to close your event" class="create-event-close-icon">
-      <form id="create_event_form" class="create-event-form">
-        <h2>My New Event</h2>
-        <label for="event_name">
-          <span>What's your event's name?* </span>
-          <input type="text" name="event_name" id="event_name">
+    <form id="create_event_form" class="create-event-form">
+      <h2>My New Event</h2>
+      <label for="event_name">
+        <span>What's your event's name?* </span>
+        <input type="text" name="event_name" id="event_name">
+      </label>
+      <label for="event_type">
+        <span>What kind of event is it?* </span>
+        <input type="text" name="event_type" id="event_type">
+      </label>
+      <label for="host">
+        <span>Who's the host?* </span>
+        <input type="text" name="host" id="host">
+      </label>
+      <label for="start_time">
+        <span>When does your event start?* </span>
+        <input type="text" name="start_time" id="start_time">
+      </label>
+      <div id="start_selection" class="time-selection">
+        <select name="start_hour_select" id="start_hour_select" class="hour-select">
+          <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
+          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+        </select>
+        <select name="start_minute_select" id="start_minute_select" class="minute-select">
+          <option value="0" selected="selected">00</option><option value="15">15</option>
+          <option value="30">30</option><option value="45">45</option>
+        </select>
+        <select name="start_ampm_select" id="start_ampm_select" class="ampm-select">
+          <option value="am" selected="selected">am</option><option value="pm">pm</option>
+        </select>
+      </div>
+        <label for="end_time">
+          <span>When does it end?* </span>
+          <input type="text" name="end_time" id="end_time">
         </label>
-        <label for="event_type">
-          <span>What kind of event is it?* </span>
-          <input type="text" name="event_type" id="event_type">
-        </label>
-        <label for="host">
-          <span>Who's the host?* </span>
-          <input type="text" name="host" id="host">
-        </label>
-        <label for="start_time">
-          <span>When does your event start?* </span>
-          <input type="text" name="start_time" id="start_time">
-        </label>
-        <div id="start_selection" class="time-selection">
-          <select name="start_hour_select" id="start_hour_select" class="hour-select">
-            <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
-            <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
-            <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
-            <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
-          </select>
-          <select name="start_minute_select" id="start_minute_select" class="minute-select">
-            <option value="0" selected="selected">00</option><option value="15">15</option>
-            <option value="30">30</option><option value="45">45</option>
-          </select>
-          <select name="start_ampm_select" id="start_ampm_select" class="ampm-select">
-            <option value="am" selected="selected">am</option><option value="pm">pm</option>
-          </select>
+      <div id="end_selection" class="time-selection">
+        <select name="end_hour_select" id="end_hour_select" class="hour-select">
+          <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
+          <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
+          <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
+          <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
+        </select>
+        <select name="end_minute_select" id="end_minute_select" class="minute-select">
+          <option value="0" selected="selected">00</option><option value="15">15</option>
+          <option value="30">30</option><option value="45">45</option>
+        </select>
+        <select name="end_ampm_select" id="end_ampm_select" class="ampm-select">
+          <option value="am" selected="selected">am</option><option value="pm">pm</option>
+        </select>
+      </div>
+      <label for="guest_input">
+        <span>Who's invited?* </span>
+        <div id="guests_inputs_div" class="guests-inputs-div">
+          <input type="text" name="guests" id="guest_input" class="guest-input">
+          <button type="button" id="guests_button" class="guests-button">Add Guest</button>
         </div>
-          <label for="end_time">
-            <span>When does it end?* </span>
-            <input type="text" name="end_time" id="end_time">
-          </label>
-        <div id="end_selection" class="time-selection">
-          <select name="end_hour_select" id="end_hour_select" class="hour-select">
-            <option value="0" selected="selected">12:</option><option value="1">1:</option><option value="2">2:</option>
-            <option value="3">3:</option><option value="4">4:</option><option value="5">5:</option>
-            <option value="6">6:</option><option value="7">7:</option><option value="8">8:</option>
-            <option value="9">9:</option><option value="10">10:</option><option value="11">11:</option>
-          </select>
-          <select name="end_minute_select" id="end_minute_select" class="minute-select">
-            <option value="0" selected="selected">00</option><option value="15">15</option>
-            <option value="30">30</option><option value="45">45</option>
-          </select>
-          <select name="end_ampm_select" id="end_ampm_select" class="ampm-select">
-            <option value="am" selected="selected">am</option><option value="pm">pm</option>
-          </select>
-        </div>
-        <label for="guest_input">
-          <span>Who's invited?* </span>
-          <div id="guests_inputs_div" class="guests-inputs-div">
-            <input type="text" name="guests" id="guest_input" class="guest-input">
-            <button type="button" id="guests_button" class="guests-button">Add Guest</button>
-          </div>
-        </label>
-        <div id="guests_container" class="guests-container">
-        </div>
-        <label for="location">
-          <span>Where's it happening?* </span>
-          <input type="text" name="location" id="location">
-        </label>
-        <label for="guest_message">
-          <span>Want to send your guests a message? (optional) </span>
-          <!-- <input type="textarea" name="guest_message" id="guest_message" class="guest-message"> -->
-        </label>
-        <textarea id="guest_message" class="guest-message" form="create_event_form"></textarea>
-        <button type="button" id="create_event_button" class="create-event-button">Create Event</button>
-      </form>
-    <!-- </div> -->
+      </label>
+      <div id="guests_container" class="guests-container">
+      </div>
+      <label for="location">
+        <span>Where's it happening?* </span>
+        <input type="text" name="location" id="location">
+      </label>
+      <label for="guest_message">
+        <span>Want to send your guests a message? (optional) </span>
+      </label>
+      <textarea id="guest_message" class="guest-message" form="create_event_form"></textarea>
+      <button type="button" id="create_event_button" class="create-event-button">Create Event</button>
+    </form>
   </div>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="jquery_ui/jquery-ui.min.js"></script>
-  <script src="js/maskedInput.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB3TDBhlOLkHGkU6zqQ6PQjp2AL_AlLpd0"></script>
-  <script defer src="js/main.js"></script>
-  <!-- <script src="dist/js/app.min.js"></script> -->
+  <script src="dist/js/app.min.js"></script>
 </body>
 </html>

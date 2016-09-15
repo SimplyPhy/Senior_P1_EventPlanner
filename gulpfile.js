@@ -11,6 +11,7 @@ gulp.task('concatScripts', function() {
   return gulp.src([
       'js/jquery.min.js',
       'js/jquery-ui.min.js',
+      'js/maskedInput.js',
       'js/main.js'
     ])
     .pipe(maps.init())
@@ -62,7 +63,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('build', ['minifyScripts', 'compileSass'], function() {
-  return gulp.src(["css/app.css", "js/app.min.js", "js/jquery.min.js", "index.html",
+  return gulp.src(["css/app.css", "js/app.min.js", "index.html",
     "img/**", "fonts/**"], {base: './'})
     .pipe(gulp.dest('dist'));
 });

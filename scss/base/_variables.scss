@@ -1,8 +1,9 @@
 
-// Media queries
+// media queries
 $small-port:  "screen and (max-width: 399px) and (orientation: portrait)";
 $small-land:  "screen and (max-width: 699px) and (orientation: landscape)";
 $medium-port: "screen and (min-width: 400px) and (max-width: 800px) and (orientation: portrait)";
 $medium-land: "screen and (min-width: 700px) and (max-width: 1049px) and (orientation: landscape)";
 $large-port:  "screen and (min-width: 801px) and (orientation: portrait)";
 $large-land:  "screen and (min-width: 1050px) and (orientation: landscape)";
+

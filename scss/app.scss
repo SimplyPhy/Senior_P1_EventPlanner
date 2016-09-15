@@ -5,8 +5,6 @@
 @import 'base/index';
 @import 'pages/index';
 
-/*$body-height: html*/
-
 html {
   display: flex;
   overflow-x: hidden;
@@ -186,10 +184,6 @@ h1 {
     @media screen and (min-width: 370px) and (max-width: 399px) and (orientation: portrait) {
       font-size: 2.1rem;
     };
-
-    @media screen and (max-height: 499px) and (orientation: portrait) {
-      // font-size:
-    };
 }
 
 input {
@@ -246,7 +240,7 @@ button {
     }
 }
 
-// Chrome autofill fix
+// chrome autofill fix
 @-webkit-keyframes autofill {
     to {
         color: hsl(146, 23%, 35%);
@@ -262,7 +256,6 @@ input:-webkit-autofill {
 .ui-state-error {
   border: 1px solid hsl(146, 23%, 35%);
   opacity: 0.9;
-  /*width: ;*/
 }
 
 .alert-msg > p .ui-icon {
@@ -270,17 +263,3 @@ input:-webkit-autofill {
 }
 
 
-/*.ui-dialog-titlebar-close {
-  display: none;
-}
-
-.ui-dialog-titlebar {
-  display: flex;
-  height: 3rem;
-  text-align: center;
-  align-items: center;
-}
-
-.ui-dialog {
-  height: 4rem !important;
-}*/
