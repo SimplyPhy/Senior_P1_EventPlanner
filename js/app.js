@@ -723,6 +723,7 @@ function postEventPrep() {
   guest_array = [];
   firstHourInput = true;
   durationDash = "";
+  $event_start.datepicker("option", "showOn", "focus");
 
   // show header and add-event-button again
   $add_event_button.css('visibility', 'visible');
@@ -888,6 +889,11 @@ $event_start.on('change', function() {
   }
 });
 
+// When clicked, show datepicker and reset default showOn
+$event_start.on('click', function() {
+  $event_start.datepicker("show");
+});
+
 // Date end validation.  Regex fix resolves Date.prototype's inability to parse 'nth' date
 // inputs.  E.g. 'September 15th, 2017' returns an error, while 'September 15, 2017' is fine.
 $event_end.on('change', function() {
@@ -930,12 +936,9 @@ $event_end.on('change', function() {
   }
 });
 
-// full blur validation for dates/times
-$('#start_time, #end_time, #start_hour_select-button, #start_minute_select-button, #start_ampm_select-button, #end_hour_select-button, #end_minute_select-button, #end_ampm_select-button').on('blur', function() {
-  if(compareTime($event_start.val(), $event_end.val())) {
-    alertSuccess($event_start);
-    alertSuccess($event_end);
-  }
+// Compare time when last time input field is blurred
+$('#end_ampm_select').on('blur', function() {
+  compareTime($event_start.val(), $event_end.val());
 });
 
 // global compareTimes vars (so they aren't repeatedly reset)
@@ -944,10 +947,12 @@ var startHour = 0,
     startAMPM = 'am',
     endHour   = 0,
     endMin    = 0,
-    endAMPM   = 'am';
+    endAMPM   = 'am',
+    finishedTime = false;
 
 // Check that start time input is earlier or the same as the end time input
 function compareTime(time1, time2) {
+
   $('#start_time .success-msg').remove();
   var date1     = new Date(time1),
       date2     = new Date(time2),
@@ -969,12 +974,13 @@ function compareTime(time1, time2) {
 
   // time/date validation BEGINS!
   if (allGood === true) {
+    alertSuccess($event_start);
     return true;
   }
   console.log("!allGood");
   if (bool === true) {
     console.log("dates issue"+ "\n");
-    $event_start.siblings('.success-msg').remove();
+    alertClear($event_start);
     $event_start.alertMsg("Your event can't end before it begins<br>(check your dates) :P");
     return false;
   }
@@ -982,25 +988,26 @@ function compareTime(time1, time2) {
     console.log("equal === true"+ "\n");
     if (startAMPM === "pm" && endAMPM === "am") {
       console.log("ampm issue"+ "\n");
-      $event_start.siblings('.success-msg').remove();
+      alertClear($event_start);
       $event_start.alertMsg("Your event can't end before it begins<br>(check your am/pm) :P");
       return false;
     }
     if ((startHour-endHour) > 0 && startHour !== 12) {
       console.log("hour issue"+ "\n");
-      $event_start.siblings('.success-msg').remove();
+      alertClear($event_start);
       $event_start.alertMsg("Your event can't end before it begins<br>(check your hours) :P");
       return false;
     }
     if ((startHour-endHour) === 0) {
       if ((startMin-endMin) > 0 ) {
         console.log("min issue"+ "\n");
-        $event_start.siblings('.success-msg').remove();
+        alertClear($event_start);
         $event_start.alertMsg("Your event can't end before it begins<br>(check your mins) :P");
         return false;
       }
     }
     // dates are equal, and times are sequential or equal
+    alertSuccess($event_start);
     return true;
   }
 }
@@ -1024,6 +1031,8 @@ $event_guests.on('input change', function() {
 // necessary to reset style detection after submit
 $event_guests.on('focus', function() {
   event_guests_status = false;
+  finishedTime = true;
+  compareTime($event_start.val(), $event_end.val())
 });
 
 // on blur, wait 125ms, then check if the input field is empty.  If not, make input field pink.
@@ -1406,7 +1415,11 @@ var location_searchBox = new google.maps.places.Autocomplete(location_input);
       styledAlert += "</p></div>";
     this.after(styledAlert);
     // focus the first occurence of .alert-msg on the page
-    var $firstAlert =$('.alert-msg:first');
+    var $firstAlert = $('.alert-msg:first');
+    if ($firstAlert.parent().hasClass('date-label')) {
+      $event_start.datepicker("option", "showOn", "off");
+      console.log('happy');
+    }
     $firstAlert.parent().focus();
   };
 })(jQuery);
@@ -1454,6 +1467,15 @@ function alertSuccess(element) {
   }
 }
 
+// clear any existing alerts on element when called
+function alertClear(element) {
+  if (element.next().hasClass('alert-msg')) {
+    element.siblings('.alert-msg').remove();
+  } else if (element.next().hasClass('success-msg')) {
+    element.siblings('.success-msg').remove();
+  }
+}
+
 // show create-event-close-icon when user scrolls to top of page, hide otherwise.  10px's provided for UX, especially on touch
 $('#create_event_form').scroll( function () {
     var currentTop = $('#create_event_form').scrollTop();
@@ -1480,11 +1502,13 @@ function closeEvent() {
 
 // hide all pages, and show selected page on load.
 hidePages();
-$login.show();
+// $login.show();
 // $profile.show();
-// $view_events.show();
+$view_events.show();
 // $create_event.show();
 setAutofocus();
+
+
 
 
 
