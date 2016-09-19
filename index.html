@@ -109,7 +109,14 @@
       </label>
       <label for="event_type">
         <span>What kind of event is it?* </span>
-        <input type="text" name="event_type" id="event_type">
+        <input list="event_type">
+        <datalist id="event_type">
+          <option value="Birthday"></option>
+          <option value="Holiday"></option>
+          <option value="Vacation"></option>
+          <option value="Anniversary"></option>
+          <option value="Wedding"></option>
+        </datalist>
       </label>
       <label for="host">
         <span>Who's the host?* </span>
