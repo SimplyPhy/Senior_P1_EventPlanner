@@ -1,11 +1,13 @@
-var gulp = require('gulp'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    rename = require('gulp-rename'),
-    sass = require('gulp-sass'),
-    maps = require('gulp-sourcemaps'),
-    del = require('del'),
-    browserSync = require('browser-sync').create();
+var gulp        = require('gulp'),
+    concat      = require('gulp-concat'),
+    uglify      = require('gulp-uglify'),
+    rename      = require('gulp-rename'),
+    sass        = require('gulp-sass'),
+    maps        = require('gulp-sourcemaps'),
+    del         = require('del'),
+    browserSync = require('browser-sync').create(),
+    cleanCSS    = require('gulp-clean-css'),
+    autoPrefix  = require('gulp-autoprefixer');
 
 gulp.task('concatScripts', function() {
   return gulp.src([
@@ -31,14 +33,32 @@ gulp.task('compileSass', function() {
   return gulp.src('scss/app.scss')
     .pipe(maps.init())
     .pipe(sass())
+    .pipe(autoPrefix({browsers: ['last 2 versions']}))
     .pipe(maps.write('./'))
+    .pipe(gulp.dest('css'));
+});
+
+gulp.task('concatCSS', ['compileSass'], function() {
+  return gulp.src([
+      'css/reset.css',
+      'css/jquery-ui.min.css',
+      'css/app.css'
+    ])
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest('css'));
+});
+
+gulp.task('cleanCSS', ['concatCSS'], function() {
+  return gulp.src('css/app.css')
+    .pipe(cleanCSS())
     .pipe(gulp.dest('css'));
 });
 
 gulp.task('watchFiles', ['browser-sync'], function() {
 
-  gulp.watch('scss/**/*', ['compileSass']).on('change', browserSync.reload);
+  gulp.watch('scss/**/*', ['cleanCSS']).on('change', browserSync.reload);
   gulp.watch('js/*', ['concatScripts']).on('change', browserSync.reload);
+  gulp.watch('index.html').on('change', browserSync.reload);
 });
 
 gulp.task('clean', function() {
@@ -47,7 +67,7 @@ gulp.task('clean', function() {
 
 gulp.task('browser-sync', function() {
   var files = [
-    '*.html',
+    'index.html',
     'css/**/*.css',
     'js/**/*.js',
     'sass/**/*.scss'
@@ -62,7 +82,7 @@ gulp.task('browser-sync', function() {
   });
 });
 
-gulp.task('build', ['minifyScripts', 'compileSass'], function() {
+gulp.task('build', ['minifyScripts', 'cleanCSS'], function() {
   return gulp.src(["css/app.css", "js/app.min.js", "index.html",
     "img/**", "fonts/**"], {base: './'})
     .pipe(gulp.dest('dist'));
