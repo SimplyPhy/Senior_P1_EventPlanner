@@ -20,6 +20,8 @@
     "eslint": "^3.3.1",
     "eslint-config-google": "^0.6.0",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-rename": "^1.2.2",
