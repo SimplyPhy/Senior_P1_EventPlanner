@@ -192,6 +192,7 @@ $('#birthday').datepicker({ changeYear: true, yearRange: "1900:2016" });
 
 // style date and time selections for start date
 $event_start.datepicker({
+  // dateFormat: 'yy-mm-dd' --> to be used if I have to use input type=date
   dateFormat: 'M d, yy'
 });
 $event_start_hour.selectmenu();
@@ -200,6 +201,7 @@ $event_start_ampm.selectmenu();
 
 // style date and time selections for end date
 $event_end.datepicker({
+  // dateFormat: 'yy-mm-dd' --> to be used if I have to use input type=date
   dateFormat: 'M d, yy'
 });
 $event_end_hour.selectmenu();
@@ -677,7 +679,9 @@ $event_start.on('change', function() {
   if ($event_start.val()) {
     // normalizes any accepted date format to 'M d, yy'
     $event_start.val($.datepicker.formatDate('M d, yy', new Date($event_start.val())))
+    // $event_start.val($.datepicker.formatDate('yy-mm-dd', new Date($event_start.val()))) --> to be used if I have to use input type=date
     try {
+      // validDate = $.datepicker.parseDate('yy-mm-dd', $event_start.val()); --> to be used if I have to use input type=date
       validDate = $.datepicker.parseDate('M d, yy', $event_start.val());
       if (!event_start_status) {
         event_start_status = true;
@@ -693,7 +697,7 @@ $event_start.on('change', function() {
 });
 
 // When clicked, show datepicker and reset default showOn
-$event_start.on('click', function() {
+$event_start.on('click', function(e) {
   $event_start.datepicker("show");
 });
 
@@ -724,8 +728,10 @@ $event_end.on('change', function() {
   if ($event_end.val()) {
     // normalizes any accepted date format to 'M d, yy'
     $event_end.val($.datepicker.formatDate('M d, yy', new Date($event_end.val())))
+    // $event_end.val($.datepicker.formatDate('yy-mm-dd', new Date($event_end.val()))) --> to be used if I have to use input type=date
     try {
       validDate = $.datepicker.parseDate('M d, yy', $event_end.val());
+      // validDate = $.datepicker.parseDate('yy-mm-dd', $event_end.val()); --> to be used if I have to use input type=date
       if (!event_end_status) {
         event_end_status = true;
         $event_end.css('background', 'hsl(180, 96%, 90%)');
