@@ -1311,9 +1311,9 @@ function closeEvent() {
 
 // hide all pages, and show selected page on load.
 hidePages();
-// $login.show();
+$login.show();
 // $profile.show();
-$view_events.show();
+// $view_events.show();
 // $create_event.show();
 setAutofocus();
 
