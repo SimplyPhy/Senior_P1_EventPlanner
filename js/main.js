@@ -149,7 +149,7 @@ var new_guest,
 function createGuestDiv(guestName) {
   guest_div = "<div id='guest"+guest_id+"' class='new-guests'>" +
                 "<span class='guest-span'>"+guestName+"</span>" +
-                "<button type='button' class='guest-remove'> x</button>" +
+                "<button type='button' class='guest-remove' tabindex='-1'> x</button>" +
               "</div>";
   return guest_div;
 }
